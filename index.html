@@ -5,82 +5,125 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Briefing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0c0d0f;--surface:#141519;--surface2:#1c1e24;--surface3:#22252d;
-  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);
-  --text:#ededeb;--muted:#7a7a80;--muted2:#55555c;
-  --accent:#e6b84a;--green:#4ade80;
-  --serif:'DM Serif Display',Georgia,serif;
-  --sans:'DM Sans',system-ui,sans-serif;
-  --mono:'DM Mono',monospace;
+:root{
+  --bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8df;--surface3:#e4ddd2;
+  --border:#d8d0c4;--border2:#c8bfb0;
+  --ink:#1a1714;--ink2:#4a4540;--ink3:#8a8078;
+  --accent:#b5440c;--accent2:#1a5c8a;--gold:#c8902a;
+  --green:#2d7a4a;--tag-bg:#e8e0d4;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:14px}
-header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+html,body{height:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);overflow-x:hidden;font-size:14px}
+
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .header-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex;align-items:center;gap:1.25rem;height:52px}
-.logo{font-family:var(--serif);font-size:1.45rem;color:var(--text);white-space:nowrap;letter-spacing:-0.01em}
+.logo{font-family:var(--serif);font-size:1.5rem;color:var(--ink);white-space:nowrap;letter-spacing:-0.01em;font-weight:600}
 .logo span{color:var(--accent)}
-.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:0.6rem;color:var(--green);letter-spacing:0.08em;white-space:nowrap}
+.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:0.58rem;color:var(--green);letter-spacing:0.1em;white-space:nowrap}
 .dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.header-date{font-family:var(--mono);font-size:0.62rem;color:var(--muted);white-space:nowrap}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
+.header-date{font-family:var(--mono);font-size:0.62rem;color:var(--ink3);white-space:nowrap}
 .search-box{flex:1;max-width:300px;margin-left:auto;position:relative}
-.search-box input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.42rem 0.75rem 0.42rem 2rem;font-family:var(--sans);font-size:0.8rem;color:var(--text);outline:none;transition:border-color 0.2s}
-.search-box input:focus{border-color:var(--border2)}
-.search-box input::placeholder{color:var(--muted2)}
-.search-ico{position:absolute;left:0.55rem;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none}
-.refresh-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:0.38rem 0.85rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.05em;color:var(--muted);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.search-box input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:0.4rem 0.75rem 0.4rem 2rem;font-family:var(--sans);font-size:0.8rem;color:var(--ink);outline:none;transition:border-color 0.2s}
+.search-box input:focus{border-color:var(--border2);background:var(--surface)}
+.search-box input::placeholder{color:var(--ink3)}
+.search-ico{position:absolute;left:0.55rem;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--ink3);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none}
+.refresh-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:0.36rem 0.85rem;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.05em;color:var(--ink3);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .refresh-btn:hover{border-color:var(--accent);color:var(--accent)}
 .refresh-btn.loading svg{animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── THEME NAV ── */
 .theme-nav{background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
 .theme-nav::-webkit-scrollbar{display:none}
 .theme-nav-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex}
-.tbtn{flex-shrink:0;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:0.8rem 1rem;cursor:pointer;transition:all 0.18s;white-space:nowrap}
-.tbtn:hover{color:var(--text)}
+.tbtn{flex-shrink:0;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink3);background:none;border:none;border-bottom:2px solid transparent;padding:0.8rem 1rem;cursor:pointer;transition:all 0.18s;white-space:nowrap}
+.tbtn:hover{color:var(--ink)}
 .tbtn.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+/* ── STATS ── */
 .statsbar{max-width:1480px;margin:0 auto;padding:1.1rem 1.75rem 0;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;opacity:0;transition:opacity 0.4s}
 .statsbar.visible{opacity:1}
-.stat{display:flex;align-items:baseline;gap:5px;font-family:var(--mono);font-size:0.62rem}
-.stat-n{font-size:1.05rem;font-weight:500;color:var(--accent)}
-.stat-l{color:var(--muted)}
-.sdivider{width:1px;height:16px;background:var(--border2)}
-.loader{max-width:1480px;margin:1rem 1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--muted)}
+.stat{display:flex;align-items:baseline;gap:5px;font-family:var(--mono);font-size:0.6rem}
+.stat-n{font-size:1rem;font-weight:500;color:var(--accent)}
+.stat-l{color:var(--ink3)}
+.sdivider{width:1px;height:14px;background:var(--border)}
+
+/* ── LOADER ── */
+.loader{max-width:1480px;margin:1rem 1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1rem;display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.66rem;color:var(--ink3)}
 .loader.hidden{display:none}
 .spin-sm{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
-.progress{font-family:var(--mono);font-size:0.62rem;color:var(--accent);margin-left:auto}
+.progress{font-family:var(--mono);font-size:0.6rem;color:var(--gold);margin-left:auto}
+
+/* ── GRID ── */
 .grid-wrap{max-width:1480px;margin:0 auto;padding:1.25rem 1.75rem 5rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s,transform 0.2s;animation:fadeUp 0.35s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;animation:fadeUp 0.3s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card:hover{border-color:var(--border2);box-shadow:0 2px 12px rgba(0,0,0,0.07);transform:translateY(-1px)}
 .card.wide{grid-column:span 2}
 @media(max-width:680px){.card.wide{grid-column:span 1}}
-.card-head{padding:0.85rem 1.1rem 0.7rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.5rem}
-.src-label{font-family:var(--mono);font-size:0.6rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
-.src-count{font-family:var(--mono);font-size:0.58rem;color:var(--muted2);background:var(--surface2);padding:0.18rem 0.45rem;border-radius:4px}
-.card-body{padding:0.15rem 0}
-.art{padding:0.7rem 1.1rem;border-bottom:1px solid var(--border);transition:background 0.15s}
+.card-head{padding:0.8rem 1.1rem 0.65rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:var(--surface2)}
+.src-label{font-family:var(--mono);font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
+.src-count{font-family:var(--mono);font-size:0.56rem;color:var(--ink3);background:var(--surface3);padding:0.15rem 0.4rem;border-radius:3px}
+.card-body{padding:0.1rem 0}
+
+/* ── ARTICLE ── */
+.art{padding:0.65rem 1.1rem;border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer}
 .art:last-child{border-bottom:none}
 .art:hover{background:var(--surface2)}
-.art-title{font-family:var(--serif);font-size:0.9rem;line-height:1.38;color:var(--text);text-decoration:none;display:block;margin-bottom:0.28rem}
+.art-title{font-family:var(--serif);font-size:0.88rem;line-height:1.38;color:var(--ink);text-decoration:none;display:block;margin-bottom:0.25rem}
 .art-title:hover{color:var(--accent)}
-.art-desc{font-size:0.73rem;color:var(--muted);line-height:1.5;margin-bottom:0.3rem;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.art-desc{font-size:0.72rem;color:var(--ink2);line-height:1.5;margin-bottom:0.28rem;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .art-meta{display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap}
-.art-time{font-family:var(--mono);font-size:0.58rem;color:var(--muted2)}
-.art-tag{font-family:var(--mono);font-size:0.56rem;padding:0.12rem 0.4rem;border-radius:3px;background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
-.empty{grid-column:1/-1;padding:5rem 2rem;text-align:center;font-family:var(--mono);font-size:0.75rem;color:var(--muted)}
-@media(max-width:580px){
+.art-time{font-family:var(--mono);font-size:0.57rem;color:var(--ink3)}
+.art-tag{font-family:var(--mono);font-size:0.54rem;padding:0.1rem 0.38rem;border-radius:3px;background:var(--tag-bg);color:var(--ink3);border:1px solid var(--border)}
+.art-summary-btn{font-family:var(--mono);font-size:0.54rem;padding:0.1rem 0.38rem;border-radius:3px;background:none;border:1px solid var(--border2);color:var(--accent2);cursor:pointer;transition:all 0.15s;margin-left:auto}
+.art-summary-btn:hover{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+
+/* ── DRAWER ── */
+.drawer-overlay{position:fixed;inset:0;background:rgba(26,23,20,0.35);z-index:400;opacity:0;pointer-events:none;transition:opacity 0.25s;backdrop-filter:blur(2px)}
+.drawer-overlay.open{opacity:1;pointer-events:all}
+.drawer{position:fixed;top:0;right:-480px;width:min(480px,100vw);height:100%;background:var(--surface);border-left:1px solid var(--border);z-index:500;display:flex;flex-direction:column;transition:right 0.3s cubic-bezier(0.4,0,0.2,1);overflow:hidden}
+.drawer.open{right:0}
+.drawer-head{padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;background:var(--surface2);flex-shrink:0}
+.drawer-source{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem}
+.drawer-title{font-family:var(--serif);font-size:1.05rem;line-height:1.4;color:var(--ink);font-weight:600}
+.drawer-close{background:none;border:1px solid var(--border);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--ink3);font-size:1rem;transition:all 0.15s;margin-top:2px}
+.drawer-close:hover{border-color:var(--border2);color:var(--ink);background:var(--surface3)}
+.drawer-body{flex:1;overflow-y:auto;padding:1.25rem}
+.drawer-meta{font-family:var(--mono);font-size:0.6rem;color:var(--ink3);margin-bottom:1rem;display:flex;gap:0.75rem;align-items:center}
+.drawer-section{margin-bottom:1.25rem}
+.drawer-section-title{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border)}
+.drawer-desc{font-size:0.82rem;color:var(--ink2);line-height:1.65;font-weight:300}
+.drawer-summary{font-size:0.84rem;color:var(--ink);line-height:1.7;font-style:italic}
+.drawer-summary-wrap{background:var(--surface2);border-left:3px solid var(--accent);padding:0.85rem 1rem;border-radius:0 6px 6px 0}
+.summary-loading{display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--ink3)}
+.drawer-footer{padding:1rem 1.25rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--surface2)}
+.read-btn{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;padding:0.65rem 1rem;border-radius:7px;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.15s}
+.read-btn:hover{background:#8a3008}
+
+/* ── EMPTY ── */
+.empty{grid-column:1/-1;padding:5rem 2rem;text-align:center;font-family:var(--mono);font-size:0.75rem;color:var(--ink3)}
+
+/* ── MOBILE ── */
+@media(max-width:600px){
   .header-inner{padding:0 1rem;gap:0.75rem}
   .search-box,.header-date{display:none}
-  .grid-wrap,.statsbar{padding-left:1rem;padding-right:1rem}
+  .grid-wrap,.statsbar,.loader{padding-left:1rem;padding-right:1rem}
   .loader{margin-left:1rem;margin-right:1rem}
 }
 </style>
 </head>
 <body>
+
 <header>
   <div class="header-inner">
     <div class="logo">Briefing<span>.</span></div>
@@ -96,6 +139,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop
     </button>
   </div>
 </header>
+
 <nav class="theme-nav">
   <div class="theme-nav-inner" id="tnav">
     <button class="tbtn active" data-t="all">Tudo</button>
@@ -107,113 +151,153 @@ header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop
     <button class="tbtn" data-t="ptpol">Política PT</button>
   </div>
 </nav>
+
 <div class="statsbar" id="stats">
   <div class="stat"><span class="stat-n" id="sart">0</span><span class="stat-l">artigos</span></div>
   <div class="sdivider"></div>
-  <div class="stat"><span class="stat-n" id="ssrc">0</span><span class="stat-l">fontes</span></div>
+  <div class="stat"><span class="stat-n" id="ssrc">0</span><span class="stat-l">fontes activas</span></div>
   <div class="sdivider"></div>
-  <div class="stat"><span class="stat-l">actualizado</span>&nbsp;<span class="stat-n" style="font-size:0.78rem" id="supd">—</span></div>
+  <div class="stat"><span class="stat-l">actualizado</span>&nbsp;<span class="stat-n" style="font-size:0.76rem" id="supd">—</span></div>
 </div>
+
 <div class="loader" id="loader">
   <div class="spin-sm"></div>
   <span id="ltxt">A carregar notícias…</span>
   <span class="progress" id="lprog"></span>
 </div>
+
 <div class="grid-wrap"><div class="grid" id="grid"></div></div>
 
+<!-- DRAWER -->
+<div class="drawer-overlay" id="overlay"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div style="flex:1;min-width:0">
+      <div class="drawer-source" id="d-source">—</div>
+      <div class="drawer-title" id="d-title">—</div>
+    </div>
+    <button class="drawer-close" id="drawer-close">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div class="drawer-meta">
+      <span id="d-time">—</span>
+    </div>
+    <div class="drawer-section" id="d-desc-section" style="display:none">
+      <div class="drawer-section-title">Descrição</div>
+      <div class="drawer-desc" id="d-desc"></div>
+    </div>
+    <div class="drawer-section">
+      <div class="drawer-section-title">Resumo IA</div>
+      <div class="drawer-summary-wrap">
+        <div id="d-summary"><div class="summary-loading"><div class="spin-sm"></div><span>A gerar resumo…</span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-footer">
+    <a class="read-btn" id="d-link" href="#" target="_blank" rel="noopener">Ler artigo completo →</a>
+  </div>
+</aside>
+
 <script>
-// ── PROXIES em cascata: tenta cada um até encontrar um que funcione ──
+// ── PROXIES em cascata ──
 const PROXIES = [
-  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
   url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
   url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
 ];
 
 async function fetchRaw(url) {
-  for (const makeUrl of PROXIES) {
+  for (const mkUrl of PROXIES) {
     try {
-      const res = await fetch(makeUrl(url), { signal: AbortSignal.timeout(8000) });
+      const res = await fetch(mkUrl(url), { signal: AbortSignal.timeout(9000) });
       if (!res.ok) continue;
-      const data = await res.json().catch(() => null);
-      // allorigins devolve { contents: "..." }
-      if (data && data.contents) return data.contents;
-      // codetabs e corsproxy devolvem texto directo
-      const text = await res.text().catch(() => null);
-      if (text && text.trim().startsWith('<')) return text;
+      const ct = res.headers.get('content-type') || '';
+      if (ct.includes('json')) {
+        const j = await res.json();
+        if (j && j.contents) return j.contents;
+        continue;
+      }
+      const text = await res.text();
+      if (text && (text.includes('<rss') || text.includes('<feed') || text.includes('<channel'))) return text;
     } catch(e) { continue; }
   }
-  // fallback: tenta fetch directo (funciona se o feed tiver CORS aberto)
+  // último recurso: directo
   try {
-    const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
-    if (res.ok) return await res.text();
+    const r = await fetch(url, { signal: AbortSignal.timeout(6000) });
+    if (r.ok) return await r.text();
   } catch(e) {}
   return null;
 }
 
-function parseRSS(xmlStr, sourceLabel, themes) {
+function parseRSS(xml, label, themes) {
   try {
-    const doc = new DOMParser().parseFromString(xmlStr, 'text/xml');
+    const doc = new DOMParser().parseFromString(xml, 'text/xml');
     const items = Array.from(doc.querySelectorAll('item')).slice(0, 10);
-    return items.map(item => {
-      const get = tag => item.querySelector(tag)?.textContent?.trim() || '';
-      const link = get('link') || item.querySelector('guid')?.textContent?.trim() || '#';
-      const rawDesc = get('description');
+    return items.map(el => {
+      const g = tag => el.querySelector(tag)?.textContent?.trim() || '';
+      const link = g('link') || el.querySelector('guid')?.textContent?.trim() || '#';
       const div = document.createElement('div');
-      div.innerHTML = rawDesc;
-      const desc = div.textContent.replace(/\s+/g,' ').trim().slice(0, 150);
-      return {
-        title: get('title').replace(/\s+/g,' '),
-        link,
-        desc,
-        date: get('pubDate') || get('dc\\:date') || '',
-        source: sourceLabel,
-        themes,
-      };
+      div.innerHTML = g('description');
+      const desc = div.textContent.replace(/\s+/g,' ').trim().slice(0, 200);
+      return { title: g('title').replace(/\s+/g,' '), link, desc, date: g('pubDate'), source: label, themes };
     }).filter(a => a.title && a.link !== '#');
   } catch(e) { return []; }
 }
 
-// ── FEEDS — URLs RSS que realmente existem e são públicos ──
+// ── FEEDS ──
 const FEEDS = [
   // MACRO & MERCADOS
-  { label:'Euronews Business',   url:'https://www.euronews.com/rss?level=theme&name=business',                themes:['macro','intl'] },
-  { label:'Euronews',            url:'https://feeds.feedburner.com/euronews/en/news/',                        themes:['macro','intl'] },
-  { label:'Reuters (Yahoo)',     url:'https://finance.yahoo.com/news/rssindex',                               themes:['macro','micro'] },
-  { label:'Yahoo Finance',       url:'https://finance.yahoo.com/rss/topstories',                              themes:['macro'] },
-  { label:'MarketWatch',         url:'https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines',     themes:['macro'] },
-  { label:'Seeking Alpha',       url:'https://seekingalpha.com/market_currents.xml',                         themes:['macro'] },
-  { label:'Project Syndicate',   url:'https://www.project-syndicate.org/rss',                                 themes:['macro','intl'] },
-  { label:'VoxEU',               url:'https://cepr.org/rss.xml',                                             themes:['macro','micro'] },
-  { label:'IMF Blog',            url:'https://www.imf.org/en/Blogs/rss',                                     themes:['macro'] },
-  { label:'World Bank',          url:'https://blogs.worldbank.org/en/rss.xml',                               themes:['macro','intl'] },
+  { label:'BBC Business',        url:'https://feeds.bbci.co.uk/news/business/rss.xml',                      themes:['macro','micro'] },
+  { label:'The Guardian Business',url:'https://www.theguardian.com/uk/business/rss',                       themes:['macro'] },
+  { label:'Euronews',            url:'https://feeds.feedburner.com/euronews/en/news/',                      themes:['macro','intl'] },
+  { label:'Al Jazeera Economy',  url:'https://www.aljazeera.com/xml/rss/all.xml',                          themes:['macro','intl'] },
+  { label:'DW Economy',          url:'https://rss.dw.com/rdf/rss-en-eco',                                  themes:['macro'] },
+  { label:'CNBC Economy',        url:'https://www.cnbc.com/id/20910258/device/rss/rss.html',               themes:['macro'] },
+  { label:'CNBC Finance',        url:'https://www.cnbc.com/id/10000664/device/rss/rss.html',               themes:['macro','micro'] },
+  { label:'Reuters (AP mirror)', url:'https://feeds.bbci.co.uk/news/business/rss.xml',                     themes:['macro'] },
+  { label:'VOA Business',        url:'https://www.voanews.com/rss?section=/economy-business',              themes:['macro'] },
+  { label:'Investopedia',        url:'https://www.investopedia.com/feedbuilder/feed/getfeed?feedName=rss_headline', themes:['macro','micro'] },
 
   // MICRO & FINANÇAS
-  { label:'HBR Management',      url:'https://hbr.org/feed',                                                  themes:['micro'] },
-  { label:'Bruegel',             url:'https://www.bruegel.org/rss.xml',                                      themes:['micro','macro'] },
-  { label:'NBER',                url:'https://www.nber.org/rss/new_working_papers.rss',                      themes:['micro','macro'] },
+  { label:'HBR Ideas',           url:'https://hbr.org/feed/topic/economics',                               themes:['micro'] },
+  { label:'HBR Management',      url:'https://hbr.org/feed/topic/strategy',                                themes:['micro'] },
+  { label:'McKinsey Insights',   url:'https://www.mckinsey.com/feeds/quarterly/rss',                       themes:['micro'] },
+  { label:'Forbes Finance',      url:'https://www.forbes.com/investing/feed2/',                            themes:['micro','macro'] },
+  { label:'Seeking Alpha',       url:'https://seekingalpha.com/market_currents.xml',                       themes:['micro','macro'] },
+  { label:'FT Alphaville',       url:'https://www.ft.com/rss/home/international',                          themes:['micro','macro'] },
+  { label:'The Economist Finance',url:'https://www.economist.com/finance-and-economics/rss.xml',           themes:['micro','macro'] },
 
   // POLÍTICA INTERNACIONAL
-  { label:'Foreign Affairs',     url:'https://www.foreignaffairs.com/rss.xml',                               themes:['intl'] },
-  { label:'Council on Foreign Relations', url:'https://www.cfr.org/rss/all',                                themes:['intl'] },
-  { label:'AP World',            url:'https://rss.ap.org/topnews',                                           themes:['intl','macro'] },
+  { label:'BBC World',           url:'https://feeds.bbci.co.uk/news/world/rss.xml',                        themes:['intl'] },
+  { label:'The Guardian World',  url:'https://www.theguardian.com/world/rss',                              themes:['intl'] },
+  { label:'Al Jazeera World',    url:'https://www.aljazeera.com/xml/rss/all.xml',                          themes:['intl'] },
+  { label:'DW World',            url:'https://rss.dw.com/rdf/rss-en-all',                                  themes:['intl'] },
+  { label:'VOA World',           url:'https://www.voanews.com/rss?section=/world-news',                    themes:['intl'] },
+  { label:'Foreign Policy',      url:'https://foreignpolicy.com/feed/',                                    themes:['intl'] },
+  { label:'The Economist World', url:'https://www.economist.com/international/rss.xml',                    themes:['intl'] },
 
   // INOVAÇÃO & EMPRESAS
-  { label:'TechCrunch',          url:'https://techcrunch.com/feed/',                                         themes:['inov'] },
-  { label:'MIT Tech Review',     url:'https://www.technologyreview.com/feed/',                               themes:['inov'] },
-  { label:'Ars Technica',        url:'https://feeds.arstechnica.com/arstechnica/index',                      themes:['inov'] },
-  { label:'Wired',               url:'https://www.wired.com/feed/rss',                                       themes:['inov'] },
+  { label:'TechCrunch',          url:'https://techcrunch.com/feed/',                                       themes:['inov'] },
+  { label:'Ars Technica',        url:'https://feeds.arstechnica.com/arstechnica/index',                    themes:['inov'] },
+  { label:'Wired',               url:'https://www.wired.com/feed/rss',                                     themes:['inov'] },
+  { label:'MIT Tech Review',     url:'https://www.technologyreview.com/feed/',                             themes:['inov'] },
+  { label:'The Verge',           url:'https://www.theverge.com/rss/index.xml',                             themes:['inov'] },
+  { label:'Hacker News',         url:'https://news.ycombinator.com/rss',                                   themes:['inov'] },
 
   // ECONOMIA PT
-  { label:'Jornal de Negócios',  url:'https://www.jornaldenegocios.pt/rss',                                  themes:['pteco'] },
-  { label:'ECO',                 url:'https://eco.pt/feed/',                                                 themes:['pteco'] },
-  { label:'Jornal Económico',    url:'https://jornaleconomico.pt/feed/',                                     themes:['pteco'] },
-  { label:'Banco de Portugal',   url:'https://www.bportugal.pt/rss.xml',                                    themes:['pteco'] },
+  { label:'Jornal de Negócios',  url:'https://www.jornaldenegocios.pt/rss',                               themes:['pteco'] },
+  { label:'ECO',                 url:'https://eco.pt/feed/',                                               themes:['pteco'] },
+  { label:'Jornal Económico',    url:'https://jornaleconomico.pt/feed/',                                   themes:['pteco'] },
+  { label:'Banco de Portugal',   url:'https://www.bportugal.pt/rss.xml',                                  themes:['pteco'] },
+  { label:'Dinheiro Vivo',       url:'https://www.dinheirovivo.pt/feed/',                                  themes:['pteco'] },
 
   // POLÍTICA PT
-  { label:'Público',             url:'https://feeds.feedburner.com/PublicoRSS',                             themes:['ptpol','pteco'] },
-  { label:'Expresso',            url:'https://expresso.pt/rss',                                             themes:['ptpol','pteco'] },
-  { label:'Observador',          url:'https://observador.pt/feed/',                                         themes:['ptpol','pteco'] },
-  { label:'SIC Notícias',        url:'https://sicnoticias.pt/rss',                                          themes:['ptpol'] },
+  { label:'Público',             url:'https://feeds.feedburner.com/PublicoRSS',                           themes:['ptpol','pteco'] },
+  { label:'Expresso',            url:'https://expresso.pt/rss',                                           themes:['ptpol','pteco'] },
+  { label:'Observador',          url:'https://observador.pt/feed/',                                       themes:['ptpol'] },
+  { label:'RTP Notícias',        url:'https://www.rtp.pt/noticias/rss',                                   themes:['ptpol'] },
+  { label:'SIC Notícias',        url:'https://sicnoticias.pt/rss',                                        themes:['ptpol'] },
+  { label:'Notícias ao Minuto',  url:'https://www.noticiasaominuto.com/rss/ultima-hora',                  themes:['ptpol','pteco'] },
 ];
 
 const THEME_LABELS = {
@@ -225,12 +309,96 @@ const THEME_LABELS = {
 let cache = {};
 let activeTheme = 'all';
 let searchQ = '';
-let loaded = 0;
+let loadedCount = 0;
+let summaryCache = {};
 
+// ── CLAUDE API para resumos ──
+async function generateSummary(title, desc, url) {
+  const cacheKey = url;
+  if (summaryCache[cacheKey]) return summaryCache[cacheKey];
+
+  const prompt = `És um analista económico e jornalístico conciso. Com base no título e descrição abaixo, escreve um resumo informativo em português de 3-4 frases que explique o contexto, os pontos principais e a relevância da notícia. Sê directo e analítico, não uses frases introdutórias como "Este artigo".
+
+Título: ${title}
+Descrição: ${desc || '(sem descrição disponível)'}
+Fonte: ${url}
+
+Resumo:`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const text = data?.content?.[0]?.text || 'Não foi possível gerar resumo.';
+    summaryCache[cacheKey] = text;
+    return text;
+  } catch(e) {
+    return 'Erro ao gerar resumo. Verifica a ligação à internet.';
+  }
+}
+
+// ── DRAWER ──
+let drawerOpen = false;
+
+function openDrawer(article) {
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+
+  document.getElementById('d-source').textContent = article.source;
+  document.getElementById('d-title').textContent = article.title;
+  document.getElementById('d-time').textContent = timeAgo(article.date) || '—';
+  document.getElementById('d-link').href = article.link;
+
+  const descSection = document.getElementById('d-desc-section');
+  const descEl = document.getElementById('d-desc');
+  if (article.desc) {
+    descEl.textContent = article.desc;
+    descSection.style.display = '';
+  } else {
+    descSection.style.display = 'none';
+  }
+
+  // Reset summary
+  document.getElementById('d-summary').innerHTML =
+    '<div class="summary-loading"><div class="spin-sm"></div><span>A gerar resumo…</span></div>';
+
+  drawer.classList.add('open');
+  overlay.classList.add('open');
+  drawerOpen = true;
+  document.body.style.overflow = 'hidden';
+
+  // Gera resumo
+  generateSummary(article.title, article.desc, article.link).then(summary => {
+    const el = document.getElementById('d-summary');
+    if (el) {
+      el.innerHTML = `<div class="drawer-summary">${summary.replace(/\n/g,'<br>')}</div>`;
+    }
+  });
+}
+
+function closeDrawer() {
+  document.getElementById('drawer').classList.remove('open');
+  document.getElementById('overlay').classList.remove('open');
+  drawerOpen = false;
+  document.body.style.overflow = '';
+}
+
+document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+document.getElementById('overlay').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawerOpen) closeDrawer(); });
+
+// ── CARREGAMENTO ──
 async function loadFeed(feed) {
   const xml = await fetchRaw(feed.url);
-  loaded++;
-  document.getElementById('lprog').textContent = `${loaded}/${FEEDS.length}`;
+  loadedCount++;
+  document.getElementById('lprog').textContent = `${loadedCount}/${FEEDS.length}`;
   if (!xml) return null;
   const articles = parseRSS(xml, feed.label, feed.themes);
   if (!articles.length) return null;
@@ -238,24 +406,18 @@ async function loadFeed(feed) {
 }
 
 async function loadAll() {
-  loaded = 0;
+  loadedCount = 0;
   cache = {};
   document.getElementById('lprog').textContent = `0/${FEEDS.length}`;
   setLoader(true, 'A carregar notícias…');
   document.getElementById('rbtn').classList.add('loading');
   document.getElementById('stats').classList.remove('visible');
 
-  // Carrega em lotes de 5 para não sobrecarregar os proxies
-  const results = [];
   for (let i = 0; i < FEEDS.length; i += 5) {
     const batch = FEEDS.slice(i, i + 5);
-    const batchResults = await Promise.allSettled(batch.map(loadFeed));
-    results.push(...batchResults);
-    // Render parcial à medida que chegam resultados
-    batchResults.forEach(r => {
-      if (r.status === 'fulfilled' && r.value) {
-        cache[r.value.label] = r.value;
-      }
+    const results = await Promise.allSettled(batch.map(loadFeed));
+    results.forEach(r => {
+      if (r.status === 'fulfilled' && r.value) cache[r.value.label] = r.value;
     });
     render();
   }
@@ -272,7 +434,6 @@ async function loadAll() {
 function getVisible() {
   let feeds = Object.values(cache);
   if (activeTheme !== 'all') feeds = feeds.filter(f => f.themes.includes(activeTheme));
-
   if (searchQ) {
     const q = searchQ.toLowerCase();
     feeds = feeds.map(f => ({
@@ -283,18 +444,13 @@ function getVisible() {
       )
     })).filter(f => f.articles.length > 0);
   }
-
-  return feeds.sort((a,b) => {
-    const ta = new Date(a.articles[0]?.date || 0);
-    const tb = new Date(b.articles[0]?.date || 0);
-    return tb - ta;
-  });
+  return feeds.sort((a,b) => new Date(b.articles[0]?.date||0) - new Date(a.articles[0]?.date||0));
 }
 
 function timeAgo(d) {
   if (!d) return '';
   const s = (Date.now() - new Date(d)) / 1000;
-  if (isNaN(s) || s < 0) return '';
+  if (isNaN(s)||s<0) return '';
   if (s < 60) return 'agora';
   if (s < 3600) return Math.floor(s/60) + 'min';
   if (s < 86400) return Math.floor(s/3600) + 'h';
@@ -306,9 +462,9 @@ function render() {
   const feeds = getVisible();
   grid.innerHTML = '';
 
-  let totalArts = 0;
-  feeds.forEach(f => totalArts += f.articles.length);
-  document.getElementById('sart').textContent = totalArts;
+  let total = 0;
+  feeds.forEach(f => total += f.articles.length);
+  document.getElementById('sart').textContent = total;
   document.getElementById('ssrc').textContent = feeds.length;
 
   if (feeds.length === 0) {
@@ -320,28 +476,34 @@ function render() {
   feeds.forEach((feed, i) => {
     const card = document.createElement('div');
     card.className = 'card' + (i === 0 ? ' wide' : '');
-    card.style.animationDelay = (i * 0.04) + 's';
+    card.style.animationDelay = (i * 0.035) + 's';
 
-    const head = document.createElement('div');
-    head.className = 'card-head';
-    head.innerHTML = `<span class="src-label">${feed.label}</span><span class="src-count">${feed.articles.length}</span>`;
-    card.appendChild(head);
+    card.innerHTML = `<div class="card-head">
+      <span class="src-label">${feed.label}</span>
+      <span class="src-count">${feed.articles.length}</span>
+    </div>`;
 
     const body = document.createElement('div');
     body.className = 'card-body';
 
-    const limit = i === 0 ? 6 : 4;
-    feed.articles.slice(0, limit).forEach(a => {
+    feed.articles.slice(0, i === 0 ? 6 : 4).forEach(article => {
       const el = document.createElement('div');
       el.className = 'art';
-      const tag = THEME_LABELS[a.themes[0]] || '';
+      const tag = THEME_LABELS[article.themes[0]] || '';
       el.innerHTML = `
-        <a class="art-title" href="${a.link}" target="_blank" rel="noopener">${a.title}</a>
-        ${a.desc ? `<div class="art-desc">${a.desc}</div>` : ''}
+        <a class="art-title" href="${article.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${article.title}</a>
+        ${article.desc ? `<div class="art-desc">${article.desc}</div>` : ''}
         <div class="art-meta">
-          <span class="art-time">${timeAgo(a.date)}</span>
+          <span class="art-time">${timeAgo(article.date)}</span>
           ${tag ? `<span class="art-tag">${tag}</span>` : ''}
+          <button class="art-summary-btn" title="Resumo IA">✦ Resumo</button>
         </div>`;
+
+      el.querySelector('.art-summary-btn').addEventListener('click', e => {
+        e.stopPropagation();
+        openDrawer(article);
+      });
+      el.addEventListener('click', () => openDrawer(article));
       body.appendChild(el);
     });
 
@@ -371,9 +533,7 @@ document.getElementById('tnav').addEventListener('click', e => {
   activeTheme = btn.dataset.t;
   render();
 });
-
 document.getElementById('rbtn').addEventListener('click', loadAll);
-
 document.getElementById('search').addEventListener('input', e => {
   searchQ = e.target.value.trim();
   render();
