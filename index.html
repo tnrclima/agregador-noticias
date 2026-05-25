@@ -11,8 +11,7 @@
   --bg:#f5f0e8;--surface:#faf7f2;--surface2:#ede8df;--surface3:#e4ddd2;
   --border:#d8d0c4;--border2:#c8bfb0;
   --ink:#1a1714;--ink2:#4a4540;--ink3:#8a8078;
-  --accent:#b5440c;--accent2:#1a5c8a;--gold:#c8902a;
-  --green:#2d7a4a;--tag-bg:#e8e0d4;
+  --accent:#b5440c;--gold:#c8902a;--green:#2d7a4a;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'Inter',system-ui,sans-serif;
   --mono:'JetBrains Mono',monospace;
@@ -21,7 +20,6 @@
 html,body{height:100%}
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);overflow-x:hidden;font-size:14px}
 
-/* ── HEADER ── */
 header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
 .header-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex;align-items:center;gap:1.25rem;height:52px}
 .logo{font-family:var(--serif);font-size:1.5rem;color:var(--ink);white-space:nowrap;letter-spacing:-0.01em;font-weight:600}
@@ -40,7 +38,6 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 .refresh-btn.loading svg{animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* ── THEME NAV ── */
 .theme-nav{background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
 .theme-nav::-webkit-scrollbar{display:none}
 .theme-nav-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex}
@@ -48,23 +45,22 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 .tbtn:hover{color:var(--ink)}
 .tbtn.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-/* ── STATS ── */
-.statsbar{max-width:1480px;margin:0 auto;padding:1.1rem 1.75rem 0;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;opacity:0;transition:opacity 0.4s}
+.statsbar{max-width:1480px;margin:0 auto;padding:1.1rem 1.75rem 0;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;opacity:0;transition:opacity 0.5s}
 .statsbar.visible{opacity:1}
 .stat{display:flex;align-items:baseline;gap:5px;font-family:var(--mono);font-size:0.6rem}
 .stat-n{font-size:1rem;font-weight:500;color:var(--accent)}
 .stat-l{color:var(--ink3)}
 .sdivider{width:1px;height:14px;background:var(--border)}
 
-/* ── LOADER ── */
 .loader{max-width:1480px;margin:1rem 1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1rem;display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.66rem;color:var(--ink3)}
 .loader.hidden{display:none}
 .spin-sm{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
-.progress{font-family:var(--mono);font-size:0.6rem;color:var(--gold);margin-left:auto}
+.progress-bar-wrap{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;margin-left:0.5rem}
+.progress-bar{height:100%;background:var(--accent);border-radius:2px;transition:width 0.3s ease;width:0%}
 
-/* ── GRID ── */
 .grid-wrap{max-width:1480px;margin:0 auto;padding:1.25rem 1.75rem 5rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem}
+
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;animation:fadeUp 0.3s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .card:hover{border-color:var(--border2);box-shadow:0 2px 12px rgba(0,0,0,0.07);transform:translateY(-1px)}
@@ -75,49 +71,46 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 .src-count{font-family:var(--mono);font-size:0.56rem;color:var(--ink3);background:var(--surface3);padding:0.15rem 0.4rem;border-radius:3px}
 .card-body{padding:0.1rem 0}
 
-/* ── ARTICLE ── */
-.art{padding:0.65rem 1.1rem;border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer}
+.art{padding:0.7rem 1.1rem 0.6rem;border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer}
 .art:last-child{border-bottom:none}
 .art:hover{background:var(--surface2)}
-.art-title{font-family:var(--serif);font-size:0.88rem;line-height:1.38;color:var(--ink);text-decoration:none;display:block;margin-bottom:0.25rem}
-.art-title:hover{color:var(--accent)}
-.art-desc{font-size:0.72rem;color:var(--ink2);line-height:1.5;margin-bottom:0.28rem;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.art-meta{display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap}
+.art-title{font-family:var(--serif);font-size:0.9rem;line-height:1.38;color:var(--ink);display:block;margin-bottom:0.3rem}
+.art-desc{font-size:0.72rem;color:var(--ink2);line-height:1.5;margin-bottom:0.35rem;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.art-footer{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
 .art-time{font-family:var(--mono);font-size:0.57rem;color:var(--ink3)}
-.art-tag{font-family:var(--mono);font-size:0.54rem;padding:0.1rem 0.38rem;border-radius:3px;background:var(--tag-bg);color:var(--ink3);border:1px solid var(--border)}
-.art-summary-btn{font-family:var(--mono);font-size:0.54rem;padding:0.1rem 0.38rem;border-radius:3px;background:none;border:1px solid var(--border2);color:var(--accent2);cursor:pointer;transition:all 0.15s;margin-left:auto}
-.art-summary-btn:hover{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.art-tag{font-family:var(--mono);font-size:0.54rem;padding:0.1rem 0.38rem;border-radius:3px;background:#e8e0d4;color:var(--ink3);border:1px solid var(--border)}
+.art-read-btn{margin-left:auto;font-family:var(--mono);font-size:0.62rem;font-weight:500;padding:0.25rem 0.65rem;border-radius:5px;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:background 0.15s;letter-spacing:0.02em;white-space:nowrap}
+.art-read-btn:hover{background:#8a3008}
 
-/* ── DRAWER ── */
-.drawer-overlay{position:fixed;inset:0;background:rgba(26,23,20,0.35);z-index:400;opacity:0;pointer-events:none;transition:opacity 0.25s;backdrop-filter:blur(2px)}
+/* DRAWER */
+.drawer-overlay{position:fixed;inset:0;background:rgba(26,23,20,0.4);z-index:400;opacity:0;pointer-events:none;transition:opacity 0.25s;backdrop-filter:blur(3px)}
 .drawer-overlay.open{opacity:1;pointer-events:all}
-.drawer{position:fixed;top:0;right:-480px;width:min(480px,100vw);height:100%;background:var(--surface);border-left:1px solid var(--border);z-index:500;display:flex;flex-direction:column;transition:right 0.3s cubic-bezier(0.4,0,0.2,1);overflow:hidden}
+.drawer{position:fixed;top:0;right:-520px;width:min(520px,100vw);height:100%;background:var(--surface);border-left:1px solid var(--border);z-index:500;display:flex;flex-direction:column;transition:right 0.3s cubic-bezier(0.4,0,0.2,1)}
 .drawer.open{right:0}
-.drawer-head{padding:1.1rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;background:var(--surface2);flex-shrink:0}
-.drawer-source{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.3rem}
-.drawer-title{font-family:var(--serif);font-size:1.05rem;line-height:1.4;color:var(--ink);font-weight:600}
-.drawer-close{background:none;border:1px solid var(--border);border-radius:6px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--ink3);font-size:1rem;transition:all 0.15s;margin-top:2px}
+.drawer-head{padding:1.1rem 1.25rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;background:var(--surface2);flex-shrink:0}
+.drawer-source{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.35rem}
+.drawer-title{font-family:var(--serif);font-size:1.1rem;line-height:1.4;color:var(--ink);font-weight:600}
+.drawer-close{background:none;border:1px solid var(--border);border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--ink3);font-size:1rem;transition:all 0.15s;margin-top:2px}
 .drawer-close:hover{border-color:var(--border2);color:var(--ink);background:var(--surface3)}
-.drawer-body{flex:1;overflow-y:auto;padding:1.25rem}
-.drawer-meta{font-family:var(--mono);font-size:0.6rem;color:var(--ink3);margin-bottom:1rem;display:flex;gap:0.75rem;align-items:center}
-.drawer-section{margin-bottom:1.25rem}
-.drawer-section-title{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.6rem;padding-bottom:0.4rem;border-bottom:1px solid var(--border)}
-.drawer-desc{font-size:0.82rem;color:var(--ink2);line-height:1.65;font-weight:300}
-.drawer-summary{font-size:0.84rem;color:var(--ink);line-height:1.7;font-style:italic}
-.drawer-summary-wrap{background:var(--surface2);border-left:3px solid var(--accent);padding:0.85rem 1rem;border-radius:0 6px 6px 0}
-.summary-loading{display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--ink3)}
-.drawer-footer{padding:1rem 1.25rem;border-top:1px solid var(--border);flex-shrink:0;background:var(--surface2)}
-.read-btn{display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;padding:0.65rem 1rem;border-radius:7px;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.15s}
-.read-btn:hover{background:#8a3008}
+.drawer-body{flex:1;overflow-y:auto;padding:1.35rem 1.25rem}
+.drawer-meta{font-family:var(--mono);font-size:0.6rem;color:var(--ink3);margin-bottom:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap}
+.drawer-meta-item{display:flex;align-items:center;gap:4px}
+.drawer-content{font-size:0.9rem;color:var(--ink2);line-height:1.75;font-weight:300}
+.drawer-content p{margin-bottom:0.85rem}
+.drawer-content p:last-child{margin-bottom:0}
+.drawer-divider{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
+.drawer-label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.6rem}
+.drawer-footer{padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:0.75rem;flex-shrink:0;background:var(--surface2)}
+.btn-primary{flex:1;display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;padding:0.7rem 1rem;border-radius:7px;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.15s;border:none;cursor:pointer}
+.btn-primary:hover{background:#8a3008}
+.btn-secondary{display:block;text-align:center;background:none;color:var(--ink3);text-decoration:none;padding:0.7rem 1rem;border-radius:7px;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;transition:all 0.15s;border:1px solid var(--border);white-space:nowrap}
+.btn-secondary:hover{border-color:var(--border2);color:var(--ink)}
 
-/* ── EMPTY ── */
 .empty{grid-column:1/-1;padding:5rem 2rem;text-align:center;font-family:var(--mono);font-size:0.75rem;color:var(--ink3)}
-
-/* ── MOBILE ── */
 @media(max-width:600px){
   .header-inner{padding:0 1rem;gap:0.75rem}
   .search-box,.header-date{display:none}
-  .grid-wrap,.statsbar,.loader{padding-left:1rem;padding-right:1rem}
+  .grid-wrap,.statsbar{padding-left:1rem;padding-right:1rem}
   .loader{margin-left:1rem;margin-right:1rem}
 }
 </style>
@@ -163,7 +156,7 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 <div class="loader" id="loader">
   <div class="spin-sm"></div>
   <span id="ltxt">A carregar notícias…</span>
-  <span class="progress" id="lprog"></span>
+  <div class="progress-bar-wrap"><div class="progress-bar" id="pbar"></div></div>
 </div>
 
 <div class="grid-wrap"><div class="grid" id="grid"></div></div>
@@ -176,128 +169,127 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
       <div class="drawer-source" id="d-source">—</div>
       <div class="drawer-title" id="d-title">—</div>
     </div>
-    <button class="drawer-close" id="drawer-close">✕</button>
+    <button class="drawer-close" id="drawer-close" aria-label="Fechar">✕</button>
   </div>
   <div class="drawer-body">
-    <div class="drawer-meta">
-      <span id="d-time">—</span>
-    </div>
-    <div class="drawer-section" id="d-desc-section" style="display:none">
-      <div class="drawer-section-title">Descrição</div>
-      <div class="drawer-desc" id="d-desc"></div>
-    </div>
-    <div class="drawer-section">
-      <div class="drawer-section-title">Resumo IA</div>
-      <div class="drawer-summary-wrap">
-        <div id="d-summary"><div class="summary-loading"><div class="spin-sm"></div><span>A gerar resumo…</span></div></div>
-      </div>
-    </div>
+    <div class="drawer-meta" id="d-meta"></div>
+    <div id="d-body"></div>
   </div>
   <div class="drawer-footer">
-    <a class="read-btn" id="d-link" href="#" target="_blank" rel="noopener">Ler artigo completo →</a>
+    <a class="btn-primary" id="d-link" href="#" target="_blank" rel="noopener">Ler artigo completo →</a>
+    <button class="btn-secondary" id="drawer-close2">Fechar</button>
   </div>
 </aside>
 
 <script>
 // ── PROXIES em cascata ──
 const PROXIES = [
-  url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
-  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
-  url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+  u => `https://corsproxy.io/?url=${encodeURIComponent(u)}`,
+  u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,
+  u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`,
 ];
 
 async function fetchRaw(url) {
-  for (const mkUrl of PROXIES) {
+  for (const mk of PROXIES) {
     try {
-      const res = await fetch(mkUrl(url), { signal: AbortSignal.timeout(9000) });
-      if (!res.ok) continue;
-      const ct = res.headers.get('content-type') || '';
+      const r = await fetch(mk(url), { signal: AbortSignal.timeout(7000) });
+      if (!r.ok) continue;
+      const ct = r.headers.get('content-type') || '';
       if (ct.includes('json')) {
-        const j = await res.json();
-        if (j && j.contents) return j.contents;
+        const j = await r.json();
+        if (j?.contents) return j.contents;
         continue;
       }
-      const text = await res.text();
-      if (text && (text.includes('<rss') || text.includes('<feed') || text.includes('<channel'))) return text;
-    } catch(e) { continue; }
+      const t = await r.text();
+      if (t && (t.includes('<rss') || t.includes('<feed') || t.includes('<channel'))) return t;
+    } catch { continue; }
   }
-  // último recurso: directo
   try {
-    const r = await fetch(url, { signal: AbortSignal.timeout(6000) });
+    const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
     if (r.ok) return await r.text();
-  } catch(e) {}
+  } catch {}
   return null;
 }
 
 function parseRSS(xml, label, themes) {
   try {
     const doc = new DOMParser().parseFromString(xml, 'text/xml');
-    const items = Array.from(doc.querySelectorAll('item')).slice(0, 10);
+    const items = Array.from(doc.querySelectorAll('item')).slice(0, 8);
     return items.map(el => {
-      const g = tag => el.querySelector(tag)?.textContent?.trim() || '';
+      const g = t => el.querySelector(t)?.textContent?.trim() || '';
       const link = g('link') || el.querySelector('guid')?.textContent?.trim() || '#';
+      // Extrai conteúdo completo disponível
+      const rawContent = g('content\\:encoded') || g('description') || '';
       const div = document.createElement('div');
-      div.innerHTML = g('description');
-      const desc = div.textContent.replace(/\s+/g,' ').trim().slice(0, 200);
-      return { title: g('title').replace(/\s+/g,' '), link, desc, date: g('pubDate'), source: label, themes };
+      div.innerHTML = rawContent;
+      // Parágrafos completos para o drawer
+      const paragraphs = Array.from(div.querySelectorAll('p'))
+        .map(p => p.textContent.trim()).filter(Boolean).slice(0, 5);
+      const fullText = paragraphs.length
+        ? paragraphs
+        : [div.textContent.replace(/\s+/g,' ').trim()].filter(Boolean);
+      const shortDesc = (fullText[0] || '').slice(0, 180);
+      return {
+        title: g('title').replace(/\s+/g,' '),
+        link,
+        shortDesc,
+        fullContent: fullText,
+        date: g('pubDate') || g('dc\\:date') || '',
+        author: g('author') || g('dc\\:creator') || '',
+        source: label,
+        themes,
+      };
     }).filter(a => a.title && a.link !== '#');
-  } catch(e) { return []; }
+  } catch { return []; }
 }
 
-// ── FEEDS ──
+// ── FEEDS — apenas os mais fiáveis, todos paralelos ──
 const FEEDS = [
   // MACRO & MERCADOS
-  { label:'BBC Business',        url:'https://feeds.bbci.co.uk/news/business/rss.xml',                      themes:['macro','micro'] },
-  { label:'The Guardian Business',url:'https://www.theguardian.com/uk/business/rss',                       themes:['macro'] },
-  { label:'Euronews',            url:'https://feeds.feedburner.com/euronews/en/news/',                      themes:['macro','intl'] },
-  { label:'Al Jazeera Economy',  url:'https://www.aljazeera.com/xml/rss/all.xml',                          themes:['macro','intl'] },
-  { label:'DW Economy',          url:'https://rss.dw.com/rdf/rss-en-eco',                                  themes:['macro'] },
-  { label:'CNBC Economy',        url:'https://www.cnbc.com/id/20910258/device/rss/rss.html',               themes:['macro'] },
-  { label:'CNBC Finance',        url:'https://www.cnbc.com/id/10000664/device/rss/rss.html',               themes:['macro','micro'] },
-  { label:'Reuters (AP mirror)', url:'https://feeds.bbci.co.uk/news/business/rss.xml',                     themes:['macro'] },
-  { label:'VOA Business',        url:'https://www.voanews.com/rss?section=/economy-business',              themes:['macro'] },
-  { label:'Investopedia',        url:'https://www.investopedia.com/feedbuilder/feed/getfeed?feedName=rss_headline', themes:['macro','micro'] },
+  { label:'BBC Business',          url:'https://feeds.bbci.co.uk/news/business/rss.xml',              themes:['macro','micro'] },
+  { label:'The Guardian Business', url:'https://www.theguardian.com/uk/business/rss',                 themes:['macro'] },
+  { label:'CNBC Economy',          url:'https://www.cnbc.com/id/20910258/device/rss/rss.html',        themes:['macro'] },
+  { label:'CNBC Finance',          url:'https://www.cnbc.com/id/10000664/device/rss/rss.html',        themes:['macro','micro'] },
+  { label:'DW Economy',            url:'https://rss.dw.com/rdf/rss-en-eco',                           themes:['macro'] },
+  { label:'VOA Business',          url:'https://www.voanews.com/rss?section=/economy-business',       themes:['macro'] },
+  { label:'Al Jazeera',            url:'https://www.aljazeera.com/xml/rss/all.xml',                   themes:['macro','intl'] },
+  { label:'The Economist Finance', url:'https://www.economist.com/finance-and-economics/rss.xml',     themes:['macro','micro'] },
 
   // MICRO & FINANÇAS
-  { label:'HBR Ideas',           url:'https://hbr.org/feed/topic/economics',                               themes:['micro'] },
-  { label:'HBR Management',      url:'https://hbr.org/feed/topic/strategy',                                themes:['micro'] },
-  { label:'McKinsey Insights',   url:'https://www.mckinsey.com/feeds/quarterly/rss',                       themes:['micro'] },
-  { label:'Forbes Finance',      url:'https://www.forbes.com/investing/feed2/',                            themes:['micro','macro'] },
-  { label:'Seeking Alpha',       url:'https://seekingalpha.com/market_currents.xml',                       themes:['micro','macro'] },
-  { label:'FT Alphaville',       url:'https://www.ft.com/rss/home/international',                          themes:['micro','macro'] },
-  { label:'The Economist Finance',url:'https://www.economist.com/finance-and-economics/rss.xml',           themes:['micro','macro'] },
+  { label:'HBR Economics',         url:'https://hbr.org/feed/topic/economics',                        themes:['micro'] },
+  { label:'HBR Strategy',          url:'https://hbr.org/feed/topic/strategy',                         themes:['micro'] },
+  { label:'Forbes Finance',        url:'https://www.forbes.com/investing/feed2/',                     themes:['micro','macro'] },
+  { label:'Investopedia',          url:'https://www.investopedia.com/feedbuilder/feed/getfeed?feedName=rss_headline', themes:['micro','macro'] },
+  { label:'The Economist Business',url:'https://www.economist.com/business/rss.xml',                  themes:['micro'] },
 
   // POLÍTICA INTERNACIONAL
-  { label:'BBC World',           url:'https://feeds.bbci.co.uk/news/world/rss.xml',                        themes:['intl'] },
-  { label:'The Guardian World',  url:'https://www.theguardian.com/world/rss',                              themes:['intl'] },
-  { label:'Al Jazeera World',    url:'https://www.aljazeera.com/xml/rss/all.xml',                          themes:['intl'] },
-  { label:'DW World',            url:'https://rss.dw.com/rdf/rss-en-all',                                  themes:['intl'] },
-  { label:'VOA World',           url:'https://www.voanews.com/rss?section=/world-news',                    themes:['intl'] },
-  { label:'Foreign Policy',      url:'https://foreignpolicy.com/feed/',                                    themes:['intl'] },
-  { label:'The Economist World', url:'https://www.economist.com/international/rss.xml',                    themes:['intl'] },
+  { label:'BBC World',             url:'https://feeds.bbci.co.uk/news/world/rss.xml',                 themes:['intl'] },
+  { label:'The Guardian World',    url:'https://www.theguardian.com/world/rss',                       themes:['intl'] },
+  { label:'DW World',              url:'https://rss.dw.com/rdf/rss-en-all',                           themes:['intl'] },
+  { label:'VOA World',             url:'https://www.voanews.com/rss?section=/world-news',             themes:['intl'] },
+  { label:'Foreign Policy',        url:'https://foreignpolicy.com/feed/',                             themes:['intl'] },
+  { label:'The Economist World',   url:'https://www.economist.com/international/rss.xml',             themes:['intl'] },
 
   // INOVAÇÃO & EMPRESAS
-  { label:'TechCrunch',          url:'https://techcrunch.com/feed/',                                       themes:['inov'] },
-  { label:'Ars Technica',        url:'https://feeds.arstechnica.com/arstechnica/index',                    themes:['inov'] },
-  { label:'Wired',               url:'https://www.wired.com/feed/rss',                                     themes:['inov'] },
-  { label:'MIT Tech Review',     url:'https://www.technologyreview.com/feed/',                             themes:['inov'] },
-  { label:'The Verge',           url:'https://www.theverge.com/rss/index.xml',                             themes:['inov'] },
-  { label:'Hacker News',         url:'https://news.ycombinator.com/rss',                                   themes:['inov'] },
+  { label:'TechCrunch',            url:'https://techcrunch.com/feed/',                                themes:['inov'] },
+  { label:'Ars Technica',          url:'https://feeds.arstechnica.com/arstechnica/index',             themes:['inov'] },
+  { label:'Wired',                 url:'https://www.wired.com/feed/rss',                              themes:['inov'] },
+  { label:'MIT Tech Review',       url:'https://www.technologyreview.com/feed/',                      themes:['inov'] },
+  { label:'The Verge',             url:'https://www.theverge.com/rss/index.xml',                      themes:['inov'] },
 
   // ECONOMIA PT
-  { label:'Jornal de Negócios',  url:'https://www.jornaldenegocios.pt/rss',                               themes:['pteco'] },
-  { label:'ECO',                 url:'https://eco.pt/feed/',                                               themes:['pteco'] },
-  { label:'Jornal Económico',    url:'https://jornaleconomico.pt/feed/',                                   themes:['pteco'] },
-  { label:'Banco de Portugal',   url:'https://www.bportugal.pt/rss.xml',                                  themes:['pteco'] },
-  { label:'Dinheiro Vivo',       url:'https://www.dinheirovivo.pt/feed/',                                  themes:['pteco'] },
+  { label:'Jornal de Negócios',    url:'https://www.jornaldenegocios.pt/rss',                        themes:['pteco'] },
+  { label:'ECO',                   url:'https://eco.pt/feed/',                                        themes:['pteco'] },
+  { label:'Jornal Económico',      url:'https://jornaleconomico.pt/feed/',                            themes:['pteco'] },
+  { label:'Dinheiro Vivo',         url:'https://www.dinheirovivo.pt/feed/',                           themes:['pteco'] },
+  { label:'Banco de Portugal',     url:'https://www.bportugal.pt/rss.xml',                           themes:['pteco'] },
 
   // POLÍTICA PT
-  { label:'Público',             url:'https://feeds.feedburner.com/PublicoRSS',                           themes:['ptpol','pteco'] },
-  { label:'Expresso',            url:'https://expresso.pt/rss',                                           themes:['ptpol','pteco'] },
-  { label:'Observador',          url:'https://observador.pt/feed/',                                       themes:['ptpol'] },
-  { label:'RTP Notícias',        url:'https://www.rtp.pt/noticias/rss',                                   themes:['ptpol'] },
-  { label:'SIC Notícias',        url:'https://sicnoticias.pt/rss',                                        themes:['ptpol'] },
-  { label:'Notícias ao Minuto',  url:'https://www.noticiasaominuto.com/rss/ultima-hora',                  themes:['ptpol','pteco'] },
+  { label:'Público',               url:'https://feeds.feedburner.com/PublicoRSS',                    themes:['ptpol','pteco'] },
+  { label:'Expresso',              url:'https://expresso.pt/rss',                                    themes:['ptpol','pteco'] },
+  { label:'Observador',            url:'https://observador.pt/feed/',                                themes:['ptpol'] },
+  { label:'RTP Notícias',          url:'https://www.rtp.pt/noticias/rss',                            themes:['ptpol'] },
+  { label:'Notícias ao Minuto',    url:'https://www.noticiasaominuto.com/rss/ultima-hora',           themes:['ptpol','pteco'] },
 ];
 
 const THEME_LABELS = {
@@ -310,121 +302,79 @@ let cache = {};
 let activeTheme = 'all';
 let searchQ = '';
 let loadedCount = 0;
-let summaryCache = {};
-
-// ── CLAUDE API para resumos ──
-async function generateSummary(title, desc, url) {
-  const cacheKey = url;
-  if (summaryCache[cacheKey]) return summaryCache[cacheKey];
-
-  const prompt = `És um analista económico e jornalístico conciso. Com base no título e descrição abaixo, escreve um resumo informativo em português de 3-4 frases que explique o contexto, os pontos principais e a relevância da notícia. Sê directo e analítico, não uses frases introdutórias como "Este artigo".
-
-Título: ${title}
-Descrição: ${desc || '(sem descrição disponível)'}
-Fonte: ${url}
-
-Resumo:`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
-    const data = await res.json();
-    const text = data?.content?.[0]?.text || 'Não foi possível gerar resumo.';
-    summaryCache[cacheKey] = text;
-    return text;
-  } catch(e) {
-    return 'Erro ao gerar resumo. Verifica a ligação à internet.';
-  }
-}
 
 // ── DRAWER ──
-let drawerOpen = false;
+function openDrawer(a) {
+  document.getElementById('d-source').textContent = a.source;
+  document.getElementById('d-title').textContent = a.title;
+  document.getElementById('d-link').href = a.link;
 
-function openDrawer(article) {
-  const drawer = document.getElementById('drawer');
-  const overlay = document.getElementById('overlay');
+  // Meta
+  const meta = [];
+  if (a.date) meta.push(`<span class="drawer-meta-item">🕒 ${formatDate(a.date)}</span>`);
+  if (a.author) meta.push(`<span class="drawer-meta-item">✍ ${a.author}</span>`);
+  meta.push(`<span class="drawer-meta-item">📰 ${a.source}</span>`);
+  document.getElementById('d-meta').innerHTML = meta.join('');
 
-  document.getElementById('d-source').textContent = article.source;
-  document.getElementById('d-title').textContent = article.title;
-  document.getElementById('d-time').textContent = timeAgo(article.date) || '—';
-  document.getElementById('d-link').href = article.link;
-
-  const descSection = document.getElementById('d-desc-section');
-  const descEl = document.getElementById('d-desc');
-  if (article.desc) {
-    descEl.textContent = article.desc;
-    descSection.style.display = '';
-  } else {
-    descSection.style.display = 'none';
+  // Corpo — conteúdo completo do feed
+  let bodyHtml = '';
+  if (a.fullContent && a.fullContent.length) {
+    bodyHtml += `<div class="drawer-label">Conteúdo disponível</div>`;
+    bodyHtml += `<div class="drawer-content">`;
+    a.fullContent.forEach(p => {
+      if (p.trim()) bodyHtml += `<p>${p}</p>`;
+    });
+    bodyHtml += `</div>`;
+    bodyHtml += `<hr class="drawer-divider">`;
   }
+  bodyHtml += `<div class="drawer-label">Fonte</div>`;
+  bodyHtml += `<div style="font-family:var(--mono);font-size:0.68rem;color:var(--ink3);word-break:break-all">${a.link}</div>`;
+  document.getElementById('d-body').innerHTML = bodyHtml;
 
-  // Reset summary
-  document.getElementById('d-summary').innerHTML =
-    '<div class="summary-loading"><div class="spin-sm"></div><span>A gerar resumo…</span></div>';
-
-  drawer.classList.add('open');
-  overlay.classList.add('open');
-  drawerOpen = true;
+  document.getElementById('drawer').classList.add('open');
+  document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
-
-  // Gera resumo
-  generateSummary(article.title, article.desc, article.link).then(summary => {
-    const el = document.getElementById('d-summary');
-    if (el) {
-      el.innerHTML = `<div class="drawer-summary">${summary.replace(/\n/g,'<br>')}</div>`;
-    }
-  });
 }
 
 function closeDrawer() {
   document.getElementById('drawer').classList.remove('open');
   document.getElementById('overlay').classList.remove('open');
-  drawerOpen = false;
   document.body.style.overflow = '';
 }
 
 document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+document.getElementById('drawer-close2').addEventListener('click', closeDrawer);
 document.getElementById('overlay').addEventListener('click', closeDrawer);
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawerOpen) closeDrawer(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
 
-// ── CARREGAMENTO ──
+// ── CARREGAMENTO — todos em paralelo ──
 async function loadFeed(feed) {
   const xml = await fetchRaw(feed.url);
   loadedCount++;
-  document.getElementById('lprog').textContent = `${loadedCount}/${FEEDS.length}`;
+  const pct = Math.round((loadedCount / FEEDS.length) * 100);
+  document.getElementById('pbar').style.width = pct + '%';
   if (!xml) return null;
   const articles = parseRSS(xml, feed.label, feed.themes);
-  if (!articles.length) return null;
-  return { label: feed.label, themes: feed.themes, articles };
+  return articles.length ? { label: feed.label, themes: feed.themes, articles } : null;
 }
 
 async function loadAll() {
   loadedCount = 0;
   cache = {};
-  document.getElementById('lprog').textContent = `0/${FEEDS.length}`;
+  document.getElementById('pbar').style.width = '0%';
   setLoader(true, 'A carregar notícias…');
   document.getElementById('rbtn').classList.add('loading');
   document.getElementById('stats').classList.remove('visible');
+  document.getElementById('grid').innerHTML = '';
 
-  for (let i = 0; i < FEEDS.length; i += 5) {
-    const batch = FEEDS.slice(i, i + 5);
-    const results = await Promise.allSettled(batch.map(loadFeed));
-    results.forEach(r => {
-      if (r.status === 'fulfilled' && r.value) cache[r.value.label] = r.value;
-    });
-    render();
-  }
+  // Todos em paralelo — muito mais rápido
+  const results = await Promise.allSettled(FEEDS.map(loadFeed));
+  results.forEach(r => {
+    if (r.status === 'fulfilled' && r.value) cache[r.value.label] = r.value;
+  });
 
   document.getElementById('supd').textContent =
     new Date().toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
-
   setLoader(false);
   document.getElementById('rbtn').classList.remove('loading');
   document.getElementById('stats').classList.add('visible');
@@ -439,10 +389,9 @@ function getVisible() {
     feeds = feeds.map(f => ({
       ...f,
       articles: f.articles.filter(a =>
-        (a.title||'').toLowerCase().includes(q) ||
-        (a.desc||'').toLowerCase().includes(q)
+        a.title.toLowerCase().includes(q) || a.shortDesc.toLowerCase().includes(q)
       )
-    })).filter(f => f.articles.length > 0);
+    })).filter(f => f.articles.length);
   }
   return feeds.sort((a,b) => new Date(b.articles[0]?.date||0) - new Date(a.articles[0]?.date||0));
 }
@@ -457,6 +406,13 @@ function timeAgo(d) {
   return Math.floor(s/86400) + 'd';
 }
 
+function formatDate(d) {
+  if (!d) return '';
+  const dt = new Date(d);
+  if (isNaN(dt)) return d;
+  return dt.toLocaleString('pt-PT', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+}
+
 function render() {
   const grid = document.getElementById('grid');
   const feeds = getVisible();
@@ -467,8 +423,7 @@ function render() {
   document.getElementById('sart').textContent = total;
   document.getElementById('ssrc').textContent = feeds.length;
 
-  if (feeds.length === 0) {
-    if (!document.getElementById('loader').classList.contains('hidden')) return;
+  if (!feeds.length) {
     grid.innerHTML = '<div class="empty">Sem resultados para este filtro.</div>';
     return;
   }
@@ -476,34 +431,29 @@ function render() {
   feeds.forEach((feed, i) => {
     const card = document.createElement('div');
     card.className = 'card' + (i === 0 ? ' wide' : '');
-    card.style.animationDelay = (i * 0.035) + 's';
-
-    card.innerHTML = `<div class="card-head">
-      <span class="src-label">${feed.label}</span>
-      <span class="src-count">${feed.articles.length}</span>
-    </div>`;
+    card.style.animationDelay = (i * 0.03) + 's';
+    card.innerHTML = `<div class="card-head"><span class="src-label">${feed.label}</span><span class="src-count">${feed.articles.length}</span></div>`;
 
     const body = document.createElement('div');
     body.className = 'card-body';
 
-    feed.articles.slice(0, i === 0 ? 6 : 4).forEach(article => {
+    feed.articles.slice(0, i === 0 ? 5 : 4).forEach(a => {
       const el = document.createElement('div');
       el.className = 'art';
-      const tag = THEME_LABELS[article.themes[0]] || '';
       el.innerHTML = `
-        <a class="art-title" href="${article.link}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${article.title}</a>
-        ${article.desc ? `<div class="art-desc">${article.desc}</div>` : ''}
-        <div class="art-meta">
-          <span class="art-time">${timeAgo(article.date)}</span>
-          ${tag ? `<span class="art-tag">${tag}</span>` : ''}
-          <button class="art-summary-btn" title="Resumo IA">✦ Resumo</button>
+        <div class="art-title">${a.title}</div>
+        ${a.shortDesc ? `<div class="art-desc">${a.shortDesc}</div>` : ''}
+        <div class="art-footer">
+          <span class="art-time">${timeAgo(a.date)}</span>
+          ${THEME_LABELS[a.themes[0]] ? `<span class="art-tag">${THEME_LABELS[a.themes[0]]}</span>` : ''}
+          <button class="art-read-btn">Ver detalhes →</button>
         </div>`;
 
-      el.querySelector('.art-summary-btn').addEventListener('click', e => {
+      el.querySelector('.art-read-btn').addEventListener('click', e => {
         e.stopPropagation();
-        openDrawer(article);
+        openDrawer(a);
       });
-      el.addEventListener('click', () => openDrawer(article));
+      el.addEventListener('click', () => openDrawer(a));
       body.appendChild(el);
     });
 
@@ -526,11 +476,11 @@ tick();
 setInterval(tick, 30000);
 
 document.getElementById('tnav').addEventListener('click', e => {
-  const btn = e.target.closest('.tbtn');
-  if (!btn) return;
-  document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  activeTheme = btn.dataset.t;
+  const b = e.target.closest('.tbtn');
+  if (!b) return;
+  document.querySelectorAll('.tbtn').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  activeTheme = b.dataset.t;
   render();
 });
 document.getElementById('rbtn').addEventListener('click', loadAll);
