@@ -1,499 +1,380 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>O Meu Agregador</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --ink: #0d0d0d;
-      --ink-mid: #3a3a3a;
-      --ink-light: #767676;
-      --paper: #f7f4ef;
-      --paper-mid: #edeae3;
-      --accent: #c8102e;
-      --accent-warm: #e8a020;
-      --rule: #d0ccc4;
-      --col-width: 320px;
-    }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Briefing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e0f11;
+  --surface: #16181c;
+  --surface2: #1e2026;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0ede8;
+  --muted: #8a8a8e;
+  --accent: #e8b84b;
+  --accent2: #4b9ce8;
+  --red: #e85a4b;
+  --green: #4be8a0;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'DM Mono', monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* HEADER */
+header{position:sticky;top:0;z-index:200;background:rgba(14,15,17,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1440px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;gap:2rem;height:56px}
+.logo{font-family:var(--serif);font-size:1.5rem;letter-spacing:-0.01em;color:var(--text);white-space:nowrap}
+.logo em{color:var(--accent);font-style:normal}
+.header-meta{font-family:var(--mono);font-size:0.62rem;color:var(--muted);white-space:nowrap}
+.live-dot{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;margin-right:6px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.search-wrap{flex:1;max-width:360px;position:relative}
+.search-wrap input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.75rem 0.45rem 2.2rem;font-family:var(--sans);font-size:0.8rem;color:var(--text);outline:none;transition:border-color 0.2s}
+.search-wrap input::placeholder{color:var(--muted)}
+.search-wrap input:focus{border-color:var(--border2)}
+.search-icon{position:absolute;left:0.6rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:0.85rem;pointer-events:none}
+.refresh-btn{margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.9rem;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;color:var(--muted);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.refresh-btn:hover{border-color:var(--accent);color:var(--accent)}
+.refresh-btn.spinning svg{animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-    body {
-      font-family: 'Source Serif 4', Georgia, serif;
-      background: var(--paper);
-      color: var(--ink);
-      min-height: 100vh;
-    }
+/* THEME NAV */
+.theme-nav{background:var(--surface);border-bottom:1px solid var(--border)}
+.theme-nav-inner{max-width:1440px;margin:0 auto;padding:0 2rem;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.theme-nav-inner::-webkit-scrollbar{display:none}
+.theme-btn{flex-shrink:0;font-family:var(--mono);font-size:0.65rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:0.85rem 1.1rem;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.theme-btn:hover{color:var(--text)}
+.theme-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-    /* ── MASTHEAD ── */
-    .masthead {
-      border-bottom: 3px double var(--ink);
-      padding: 0 2rem;
-      position: sticky;
-      top: 0;
-      background: var(--paper);
-      z-index: 100;
-    }
-    .masthead-top {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      padding: 1rem 0 0.4rem;
-      border-bottom: 1px solid var(--rule);
-    }
-    .masthead-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 4vw, 2.8rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1;
-    }
-    .masthead-title span {
-      color: var(--accent);
-    }
-    .masthead-meta {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      color: var(--ink-light);
-      text-align: right;
-      line-height: 1.6;
-    }
-    #last-updated {
-      color: var(--accent);
-    }
+/* STATS BAR */
+.stats-bar{max-width:1440px;margin:0 auto;padding:1.25rem 2rem 0;display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+.stat-chip{display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.65rem}
+.stat-num{font-size:1.1rem;font-weight:500;color:var(--accent)}
+.stat-label{color:var(--muted)}
+.stat-divider{width:1px;height:20px;background:var(--border)}
 
-    /* ── NAV TABS ── */
-    .nav-tabs {
-      display: flex;
-      gap: 0;
-      overflow-x: auto;
-      scrollbar-width: none;
-      padding: 0.4rem 0;
-    }
-    .nav-tabs::-webkit-scrollbar { display: none; }
-    .tab-btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--ink-mid);
-      background: none;
-      border: none;
-      padding: 0.35rem 1rem 0.35rem 0;
-      cursor: pointer;
-      white-space: nowrap;
-      border-bottom: 2px solid transparent;
-      transition: color 0.15s, border-color 0.15s;
-    }
-    .tab-btn:hover { color: var(--ink); }
-    .tab-btn.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
+/* STATUS */
+.status-msg{max-width:1440px;margin:1rem 2rem;display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-family:var(--mono);font-size:0.7rem;color:var(--muted)}
+.status-msg.hidden{display:none}
+.spinner-sm{width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
 
-    /* ── LAYOUT ── */
-    .page-wrap {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 1.5rem 2rem 4rem;
-    }
+/* GRID */
+.main{max-width:1440px;margin:0 auto;padding:1.5rem 2rem 6rem}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
 
-    /* ── LOADING / ERROR ── */
-    .status-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.75rem 1rem;
-      margin-bottom: 1.5rem;
-      background: var(--paper-mid);
-      border-left: 3px solid var(--accent-warm);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: var(--ink-mid);
-    }
-    .spinner {
-      width: 14px; height: 14px;
-      border: 2px solid var(--rule);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      flex-shrink: 0;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .status-bar.hidden { display: none; }
+/* SOURCE CARD */
+.source-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s}
+.source-card:hover{border-color:var(--border2)}
+.card-header{padding:1rem 1.25rem 0.75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.source-name{font-family:var(--mono);font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
+.source-badge{font-family:var(--mono);font-size:0.6rem;color:var(--muted);background:var(--surface2);padding:0.2rem 0.5rem;border-radius:4px}
+.card-articles{padding:0.25rem 0}
+.article-item{padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer}
+.article-item:last-child{border-bottom:none}
+.article-item:hover{background:var(--surface2)}
+.article-title{font-family:var(--serif);font-size:0.92rem;line-height:1.4;color:var(--text);text-decoration:none;display:block;margin-bottom:0.3rem}
+.article-title:hover{color:var(--accent)}
+.article-desc{font-size:0.74rem;color:var(--muted);line-height:1.5;margin-bottom:0.4rem;font-weight:300}
+.article-footer{display:flex;align-items:center;gap:0.5rem}
+.article-time{font-family:var(--mono);font-size:0.6rem;color:var(--muted)}
+.theme-pill{font-family:var(--mono);font-size:0.58rem;padding:0.15rem 0.45rem;border-radius:4px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
 
-    /* ── GRID ── */
-    .news-grid {
-      columns: var(--col-width) 4;
-      column-gap: 2rem;
-    }
-    .section-block {
-      break-inside: avoid;
-      margin-bottom: 2rem;
-    }
-    .section-header {
-      border-top: 2px solid var(--ink);
-      padding-top: 0.4rem;
-      margin-bottom: 1rem;
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-    }
-    .section-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-    .section-count {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.62rem;
-      color: var(--ink-light);
-    }
+/* FEATURED (first card) */
+.source-card.featured{grid-column:span 2}
+@media(max-width:700px){.source-card.featured{grid-column:span 1}}
+.featured .article-title{font-size:1.1rem}
 
-    /* ── ARTICLE CARD ── */
-    .article-card {
-      padding: 0.85rem 0;
-      border-bottom: 1px solid var(--rule);
-      animation: fadeIn 0.4s ease both;
-    }
-    .article-card:last-child { border-bottom: none; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+/* EMPTY */
+.empty{grid-column:1/-1;text-align:center;padding:5rem 2rem;color:var(--muted);font-family:var(--mono);font-size:0.8rem}
 
-    .article-source {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
-    }
-    .article-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      line-height: 1.35;
-      margin-bottom: 0.35rem;
-    }
-    .article-title a {
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 0.15s;
-    }
-    .article-title a:hover { color: var(--accent); }
+/* ERROR CARD */
+.error-item{padding:0.75rem 1.25rem;font-family:var(--mono);font-size:0.68rem;color:var(--red)}
 
-    .article-summary {
-      font-size: 0.8rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--ink-mid);
-      line-height: 1.5;
-      margin-bottom: 0.35rem;
-    }
-    .article-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      color: var(--ink-light);
-    }
-
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      text-align: center;
-      padding: 4rem 2rem;
-      color: var(--ink-light);
-    }
-    .empty-state p {
-      font-style: italic;
-      font-size: 0.9rem;
-    }
-
-    /* ── REFRESH BUTTON ── */
-    .refresh-btn {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--ink);
-      color: var(--paper);
-      border: none;
-      padding: 0.7rem 1.2rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.15s;
-      z-index: 200;
-    }
-    .refresh-btn:hover { background: var(--accent); }
-
-    /* ── MOBILE ── */
-    @media (max-width: 640px) {
-      .masthead { padding: 0 1rem; }
-      .page-wrap { padding: 1rem 1rem 4rem; }
-      .news-grid { columns: 1; }
-    }
-  </style>
+/* MOBILE */
+@media(max-width:600px){
+  .header-inner{padding:0 1rem;gap:1rem}
+  .search-wrap{display:none}
+  .main{padding:1rem 1rem 5rem}
+  .stats-bar{padding:1rem 1rem 0}
+}
+</style>
 </head>
 <body>
 
-<header class="masthead">
-  <div class="masthead-top">
-    <div class="masthead-title">Briefing<span>.</span></div>
-    <div class="masthead-meta">
-      <div id="date-display"></div>
-      <div>Atualizado: <span id="last-updated">—</span></div>
+<header>
+  <div class="header-inner">
+    <div class="logo">Briefing<em>.</em></div>
+    <div class="header-meta">
+      <span class="live-dot"></span>
+      <span id="time-display">—</span>
     </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Pesquisar notícias…">
+    </div>
+    <button class="refresh-btn" id="refresh-btn">
+      <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-1px;margin-right:4px"><path d="M1 8a7 7 0 1 0 7-7"/><path d="M1 3v5h5"/></svg>
+      Atualizar
+    </button>
   </div>
-  <nav class="nav-tabs" id="nav-tabs">
-    <button class="tab-btn active" data-theme="all">Tudo</button>
-    <button class="tab-btn" data-theme="macro">Macro &amp; Mercados</button>
-    <button class="tab-btn" data-theme="micro">Micro &amp; Finanças</button>
-    <button class="tab-btn" data-theme="intl">Política Internacional</button>
-    <button class="tab-btn" data-theme="inovacao">Inovação &amp; Empresas</button>
-    <button class="tab-btn" data-theme="pt-economia">Economia PT</button>
-    <button class="tab-btn" data-theme="pt-politica">Política PT</button>
-  </nav>
 </header>
 
-<main class="page-wrap">
-  <div class="status-bar" id="status-bar">
-    <div class="spinner"></div>
-    <span id="status-text">A carregar notícias…</span>
+<nav class="theme-nav">
+  <div class="theme-nav-inner" id="theme-nav">
+    <button class="theme-btn active" data-theme="all">Tudo</button>
+    <button class="theme-btn" data-theme="macro">Macro &amp; Mercados</button>
+    <button class="theme-btn" data-theme="micro">Micro &amp; Finanças</button>
+    <button class="theme-btn" data-theme="intl">Política Internacional</button>
+    <button class="theme-btn" data-theme="inovacao">Inovação &amp; Empresas</button>
+    <button class="theme-btn" data-theme="pt-economia">Economia PT</button>
+    <button class="theme-btn" data-theme="pt-politica">Política PT</button>
   </div>
+</nav>
+
+<div class="stats-bar" id="stats-bar" style="display:none">
+  <div class="stat-chip"><span class="stat-num" id="stat-articles">0</span><span class="stat-label">artigos</span></div>
+  <div class="stat-divider"></div>
+  <div class="stat-chip"><span class="stat-num" id="stat-sources">0</span><span class="stat-label">fontes activas</span></div>
+  <div class="stat-divider"></div>
+  <div class="stat-chip"><span class="stat-label">Actualizado</span><span class="stat-num" style="font-size:0.8rem;margin-left:4px" id="stat-updated">—</span></div>
+</div>
+
+<div class="status-msg" id="status-msg">
+  <div class="spinner-sm"></div>
+  <span id="status-text">A carregar notícias…</span>
+</div>
+
+<main class="main">
   <div class="news-grid" id="news-grid"></div>
-  <div class="empty-state hidden" id="empty-state">
-    <p>Nenhuma notícia encontrada para este tema.</p>
-  </div>
 </main>
 
-<button class="refresh-btn" id="refresh-btn">↻ Atualizar</button>
-
 <script>
-// ══════════════════════════════════════════════
-// CONFIGURAÇÃO DE FONTES E TEMAS
-// ══════════════════════════════════════════════
-const SOURCES = [
-  // Internacional – Macro & Mercados
-  { name: 'Bloomberg', rss: 'https://feeds.bloomberg.com/markets/news.rss', themes: ['macro'] },
-  { name: 'Reuters', rss: 'https://feeds.reuters.com/reuters/businessNews', themes: ['macro', 'intl'] },
-  { name: 'MarketWatch', rss: 'https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines', themes: ['macro'] },
-  { name: 'Financial Times', rss: 'https://www.ft.com/rss/home', themes: ['macro', 'micro'] },
-  { name: 'Wall Street Journal', rss: 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml', themes: ['macro'] },
-  { name: 'The Economist', rss: 'https://www.economist.com/finance-and-economics/rss.xml', themes: ['macro', 'intl'] },
-  { name: 'Les Échos', rss: 'https://www.lesechos.fr/rss/rss_une.xml', themes: ['macro'] },
-  { name: 'Handelsblatt', rss: 'https://www.handelsblatt.com/contentexport/feed/top-themen', themes: ['macro'] },
-  { name: 'Il Sole 24 Ore', rss: 'https://www.ilsole24ore.com/rss/economia--finanza.xml', themes: ['macro'] },
+const API_KEY = 'afac210204fc405e8107dc5c4d620523';
+const BASE = 'https://newsapi.org/v2/';
 
-  // Internacional – Micro & Finanças
-  { name: 'Harvard Business Review', rss: 'https://hbr.org/feed/topic/economics', themes: ['micro'] },
-  { name: 'Project Syndicate', rss: 'https://www.project-syndicate.org/rss', themes: ['macro', 'intl'] },
-  { name: 'Bruegel', rss: 'https://www.bruegel.org/rss.xml', themes: ['macro', 'micro'] },
-
-  // Internacional – Política
-  { name: 'Foreign Affairs', rss: 'https://www.foreignaffairs.com/rss.xml', themes: ['intl'] },
-  { name: 'Euronews', rss: 'https://feeds.feedburner.com/euronews/en/news/', themes: ['intl'] },
-
-  // Internacional – Inovação
-  { name: 'TechCrunch', rss: 'https://techcrunch.com/feed/', themes: ['inovacao'] },
-  { name: 'MIT Technology Review', rss: 'https://www.technologyreview.com/feed/', themes: ['inovacao'] },
-
-  // Portugal – Economia
-  { name: 'Jornal de Negócios', rss: 'https://www.jornaldenegocios.pt/rss', themes: ['pt-economia', 'macro'] },
-  { name: 'ECO', rss: 'https://eco.pt/feed/', themes: ['pt-economia'] },
-  { name: 'O Jornal Económico', rss: 'https://jornaleconomico.sapo.pt/feed', themes: ['pt-economia'] },
-  { name: 'Banco de Portugal', rss: 'https://www.bportugal.pt/rss.xml', themes: ['pt-economia'] },
-
-  // Portugal – Geral / Política
-  { name: 'Público', rss: 'https://feeds.feedburner.com/PublicoRSS', themes: ['pt-politica', 'intl'] },
-  { name: 'Expresso', rss: 'https://expresso.pt/rss', themes: ['pt-politica', 'pt-economia'] },
-  { name: 'FFMS', rss: 'https://www.ffms.pt/feed', themes: ['pt-economia', 'pt-politica'] },
+const QUERIES = [
+  { id:'macro',     label:'Macro & Mercados',        q:'economy OR markets OR inflation OR GDP OR "interest rates" OR "central bank"',                         domains:'reuters.com,bloomberg.com,ft.com,wsj.com,economist.com,marketwatch.com,lesechos.fr,handelsblatt.com,ilsole24ore.com,project-syndicate.org' },
+  { id:'micro',     label:'Micro & Finanças',         q:'corporate earnings OR mergers OR IPO OR "private equity" OR banking OR fintech',                       domains:'reuters.com,ft.com,bloomberg.com,hbr.org,bruegel.org,wsj.com,marketwatch.com' },
+  { id:'intl',      label:'Política Internacional',   q:'geopolitics OR diplomacy OR "foreign policy" OR NATO OR sanctions OR "international relations"',       domains:'reuters.com,foreignaffairs.com,euronews.com,economist.com,ft.com,project-syndicate.org' },
+  { id:'inovacao',  label:'Inovação & Empresas',      q:'artificial intelligence OR technology OR startup OR innovation OR semiconductor OR "machine learning"', domains:'techcrunch.com,technologyreview.com,reuters.com,ft.com' },
+  { id:'pt-economia',label:'Economia Portuguesa',    q:'Portugal economy OR "economia portuguesa" OR "banco de portugal" OR "orçamento portugal"',              domains:'jornaldenegocios.pt,eco.pt,expresso.pt,publico.pt' },
+  { id:'pt-politica',label:'Política Portuguesa',    q:'Portugal politics OR "política portuguesa" OR "governo portugal" OR "assembleia da república"',         domains:'publico.pt,expresso.pt,jornaldenegocios.pt' },
 ];
 
-const THEMES = {
-  all: 'Tudo',
-  macro: 'Macro & Mercados',
-  micro: 'Micro & Finanças',
-  intl: 'Política Internacional',
-  inovacao: 'Inovação & Empresas',
-  'pt-economia': 'Economia Portuguesa',
-  'pt-politica': 'Política Portuguesa',
-};
+const THEME_LABELS = {all:'Tudo',macro:'Macro & Mercados',micro:'Micro & Finanças',intl:'Política Internacional',inovacao:'Inovação & Empresas','pt-economia':'Economia PT','pt-politica':'Política PT'};
 
-// Proxy CORS gratuito para ler RSS de outros domínios
-const CORS_PROXY = 'https://api.allorigins.win/get?url=';
-
-// ══════════════════════════════════════════════
-// ESTADO
-// ══════════════════════════════════════════════
-let allArticles = [];
+let allData = {};
 let currentTheme = 'all';
+let searchQuery = '';
 
-// ══════════════════════════════════════════════
-// UTILITÁRIOS
-// ══════════════════════════════════════════════
-function formatDate(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  if (isNaN(d)) return '';
-  return d.toLocaleString('pt-PT', {
-    day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
-  });
+function timeAgo(d) {
+  if (!d) return '';
+  const diff = (Date.now() - new Date(d)) / 1000;
+  if (diff < 60) return 'agora';
+  if (diff < 3600) return `${Math.floor(diff/60)}min`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}h`;
+  return `${Math.floor(diff/86400)}d`;
 }
 
-function timeAgo(dateStr) {
-  if (!dateStr) return '';
-  const d = new Date(dateStr);
-  if (isNaN(d)) return '';
-  const diff = (Date.now() - d) / 1000;
-  if (diff < 3600) return `há ${Math.floor(diff / 60)}min`;
-  if (diff < 86400) return `há ${Math.floor(diff / 3600)}h`;
-  return `há ${Math.floor(diff / 86400)}d`;
+function truncate(str, n) {
+  if (!str) return '';
+  const clean = str.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
+  return clean.length > n ? clean.slice(0,n) + '…' : clean;
 }
 
-function extractSummary(item) {
-  const raw = item.querySelector('description')?.textContent || '';
-  const div = document.createElement('div');
-  div.innerHTML = raw;
-  const text = div.textContent.replace(/\s+/g, ' ').trim();
-  return text.length > 180 ? text.slice(0, 180) + '…' : text;
-}
-
-// ══════════════════════════════════════════════
-// FETCH RSS
-// ══════════════════════════════════════════════
-async function fetchFeed(source) {
+async function fetchTheme(theme) {
   try {
-    const url = CORS_PROXY + encodeURIComponent(source.rss);
-    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const json = await res.json();
-    const xml = new DOMParser().parseFromString(json.contents, 'text/xml');
-    const items = Array.from(xml.querySelectorAll('item')).slice(0, 8);
+    const url = `${BASE}everything?q=${encodeURIComponent(theme.q)}&domains=${theme.domains}&language=en&sortBy=publishedAt&pageSize=20&apiKey=${API_KEY}`;
+    const r = await fetch(url);
+    const d = await r.json();
+    if (d.status !== 'ok') throw new Error(d.message || 'API error');
+    return { id: theme.id, label: theme.label, articles: d.articles || [] };
+  } catch(e) {
+    return { id: theme.id, label: theme.label, articles: [], error: e.message };
+  }
+}
 
-    return items.map(item => ({
-      title: item.querySelector('title')?.textContent?.trim() || '(sem título)',
-      link: item.querySelector('link')?.textContent?.trim() || '#',
-      summary: extractSummary(item),
-      date: item.querySelector('pubDate')?.textContent || item.querySelector('dc\\:date, date')?.textContent || '',
-      source: source.name,
-      themes: source.themes,
-    }));
-  } catch (e) {
-    console.warn(`[${source.name}] Erro ao carregar feed:`, e.message);
+async function fetchPortuguese() {
+  try {
+    const url = `${BASE}top-headlines?country=pt&pageSize=20&apiKey=${API_KEY}`;
+    const r = await fetch(url);
+    const d = await r.json();
+    if (d.status !== 'ok') throw new Error(d.message);
+    return d.articles || [];
+  } catch(e) {
     return [];
   }
 }
 
-async function loadAllFeeds() {
+async function loadAll() {
   setStatus('A carregar notícias…', true);
-  const results = await Promise.allSettled(SOURCES.map(fetchFeed));
-  allArticles = results
-    .flatMap(r => r.status === 'fulfilled' ? r.value : [])
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
+  document.getElementById('stats-bar').style.display = 'none';
+  setBtnSpinning(true);
 
-  document.getElementById('last-updated').textContent =
-    new Date().toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
+  const results = await Promise.allSettled(QUERIES.map(fetchTheme));
+  const ptArticles = await fetchPortuguese();
+
+  allData = {};
+  results.forEach(r => {
+    if (r.status === 'fulfilled') {
+      allData[r.value.id] = r.value;
+    }
+  });
+
+  if (ptArticles.length) {
+    const ptEco = allData['pt-economia'] || { id:'pt-economia', label:'Economia PT', articles:[] };
+    ptEco.articles = [...ptArticles, ...ptEco.articles].slice(0, 25);
+    allData['pt-economia'] = ptEco;
+    const ptPol = allData['pt-politica'] || { id:'pt-politica', label:'Política PT', articles:[] };
+    ptPol.articles = [...ptArticles, ...ptPol.articles].slice(0, 25);
+    allData['pt-politica'] = ptPol;
+  }
+
+  document.getElementById('stat-updated').textContent =
+    new Date().toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
 
   setStatus('', false);
+  setBtnSpinning(false);
+  document.getElementById('stats-bar').style.display = 'flex';
   render();
 }
 
-// ══════════════════════════════════════════════
-// RENDER
-// ══════════════════════════════════════════════
+function getArticles() {
+  let articles = [];
+  if (currentTheme === 'all') {
+    Object.values(allData).forEach(d => {
+      d.articles.forEach(a => articles.push({ ...a, _theme: d.id, _themeLabel: d.label }));
+    });
+  } else if (allData[currentTheme]) {
+    articles = allData[currentTheme].articles.map(a => ({
+      ...a, _theme: currentTheme, _themeLabel: THEME_LABELS[currentTheme]
+    }));
+  }
+
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    articles = articles.filter(a =>
+      (a.title||'').toLowerCase().includes(q) ||
+      (a.description||'').toLowerCase().includes(q) ||
+      (a.source?.name||'').toLowerCase().includes(q)
+    );
+  }
+
+  const seen = new Set();
+  return articles.filter(a => {
+    if (!a.title || seen.has(a.title)) return false;
+    seen.add(a.title);
+    return true;
+  }).sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+}
+
 function render() {
   const grid = document.getElementById('news-grid');
-  const empty = document.getElementById('empty-state');
   grid.innerHTML = '';
+  const articles = getArticles();
 
-  const filtered = currentTheme === 'all'
-    ? allArticles
-    : allArticles.filter(a => a.themes.includes(currentTheme));
+  document.getElementById('stat-articles').textContent = articles.length;
 
-  if (filtered.length === 0) {
-    empty.classList.remove('hidden');
+  const bySrc = {};
+  articles.forEach(a => {
+    const src = a.source?.name || 'Desconhecido';
+    if (!bySrc[src]) bySrc[src] = [];
+    bySrc[src].push(a);
+  });
+
+  const sources = Object.entries(bySrc);
+  document.getElementById('stat-sources').textContent = sources.length;
+
+  if (sources.length === 0) {
+    grid.innerHTML = '<div class="empty">Sem notícias para este filtro.</div>';
     return;
   }
-  empty.classList.add('hidden');
 
-  // Agrupar por fonte
-  const bySource = {};
-  filtered.forEach(a => {
-    if (!bySource[a.source]) bySource[a.source] = [];
-    bySource[a.source].push(a);
-  });
-
-  Object.entries(bySource).forEach(([sourceName, articles]) => {
-    const block = document.createElement('div');
-    block.className = 'section-block';
+  sources.forEach(([srcName, arts], i) => {
+    const card = document.createElement('div');
+    card.className = 'source-card' + (i === 0 ? ' featured' : '');
 
     const header = document.createElement('div');
-    header.className = 'section-header';
-    header.innerHTML = `
-      <span class="section-name">${sourceName}</span>
-      <span class="section-count">${articles.length} artigos</span>
-    `;
-    block.appendChild(header);
+    header.className = 'card-header';
+    header.innerHTML = `<span class="source-name">${srcName}</span><span class="source-badge">${arts.length} artigos</span>`;
+    card.appendChild(header);
 
-    articles.slice(0, 5).forEach(a => {
-      const card = document.createElement('div');
-      card.className = 'article-card';
-      card.innerHTML = `
-        <div class="article-source">${a.source}</div>
-        <div class="article-title"><a href="${a.link}" target="_blank" rel="noopener">${a.title}</a></div>
-        ${a.summary ? `<div class="article-summary">${a.summary}</div>` : ''}
-        <div class="article-date">${timeAgo(a.date)}</div>
+    const body = document.createElement('div');
+    body.className = 'card-articles';
+
+    const limit = i === 0 ? 5 : 4;
+    arts.slice(0, limit).forEach(a => {
+      const item = document.createElement('div');
+      item.className = 'article-item';
+      const desc = truncate(a.description, 120);
+      item.innerHTML = `
+        <a class="article-title" href="${a.url}" target="_blank" rel="noopener">${a.title}</a>
+        ${desc ? `<div class="article-desc">${desc}</div>` : ''}
+        <div class="article-footer">
+          <span class="article-time">${timeAgo(a.publishedAt)}</span>
+          ${a._themeLabel ? `<span class="theme-pill">${a._themeLabel}</span>` : ''}
+        </div>
       `;
-      block.appendChild(card);
+      body.appendChild(item);
     });
 
-    grid.appendChild(block);
+    if (allData[currentTheme === 'all' ? arts[0]._theme : currentTheme]?.error) {
+      const err = document.createElement('div');
+      err.className = 'error-item';
+      err.textContent = '⚠ Erro ao carregar esta fonte';
+      body.appendChild(err);
+    }
+
+    card.appendChild(body);
+    grid.appendChild(card);
   });
 }
 
-// ══════════════════════════════════════════════
-// UI HELPERS
-// ══════════════════════════════════════════════
 function setStatus(msg, show) {
-  const bar = document.getElementById('status-bar');
+  const el = document.getElementById('status-msg');
   const txt = document.getElementById('status-text');
-  if (show) {
-    bar.classList.remove('hidden');
-    txt.textContent = msg;
-  } else {
-    bar.classList.add('hidden');
-  }
+  el.classList.toggle('hidden', !show);
+  if (show) txt.textContent = msg;
 }
 
-// ══════════════════════════════════════════════
-// EVENTOS
-// ══════════════════════════════════════════════
-document.getElementById('nav-tabs').addEventListener('click', e => {
-  const btn = e.target.closest('.tab-btn');
+function setBtnSpinning(s) {
+  document.getElementById('refresh-btn').classList.toggle('spinning', s);
+}
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('time-display').textContent =
+    now.toLocaleDateString('pt-PT', { weekday:'short', day:'numeric', month:'short' }) + ' · ' +
+    now.toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
+}
+
+document.getElementById('theme-nav').addEventListener('click', e => {
+  const btn = e.target.closest('.theme-btn');
   if (!btn) return;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentTheme = btn.dataset.theme;
   render();
 });
 
-document.getElementById('refresh-btn').addEventListener('click', loadAllFeeds);
+document.getElementById('refresh-btn').addEventListener('click', loadAll);
 
-// Data no masthead
-const now = new Date();
-document.getElementById('date-display').textContent =
-  now.toLocaleDateString('pt-PT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+document.getElementById('search-input').addEventListener('input', e => {
+  searchQuery = e.target.value.trim();
+  render();
+});
 
-// Auto-refresh a cada 30 minutos
-setInterval(loadAllFeeds, 30 * 60 * 1000);
-
-// Arranque
-loadAllFeeds();
+updateClock();
+setInterval(updateClock, 30000);
+setInterval(loadAll, 30 * 60 * 1000);
+loadAll();
 </script>
 </body>
 </html>
