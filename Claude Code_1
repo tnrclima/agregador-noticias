@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>O Meu Agregador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0d0d0d;
+      --ink-mid: #3a3a3a;
+      --ink-light: #767676;
+      --paper: #f7f4ef;
+      --paper-mid: #edeae3;
+      --accent: #c8102e;
+      --accent-warm: #e8a020;
+      --rule: #d0ccc4;
+      --col-width: 320px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Source Serif 4', Georgia, serif;
+      background: var(--paper);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── MASTHEAD ── */
+    .masthead {
+      border-bottom: 3px double var(--ink);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      background: var(--paper);
+      z-index: 100;
+    }
+    .masthead-top {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1rem 0 0.4rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .masthead-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .masthead-title span {
+      color: var(--accent);
+    }
+    .masthead-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--ink-light);
+      text-align: right;
+      line-height: 1.6;
+    }
+    #last-updated {
+      color: var(--accent);
+    }
+
+    /* ── NAV TABS ── */
+    .nav-tabs {
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding: 0.4rem 0;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      background: none;
+      border: none;
+      padding: 0.35rem 1rem 0.35rem 0;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── LAYOUT ── */
+    .page-wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 4rem;
+    }
+
+    /* ── LOADING / ERROR ── */
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+      background: var(--paper-mid);
+      border-left: 3px solid var(--accent-warm);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--ink-mid);
+    }
+    .spinner {
+      width: 14px; height: 14px;
+      border: 2px solid var(--rule);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status-bar.hidden { display: none; }
+
+    /* ── GRID ── */
+    .news-grid {
+      columns: var(--col-width) 4;
+      column-gap: 2rem;
+    }
+    .section-block {
+      break-inside: avoid;
+      margin-bottom: 2rem;
+    }
+    .section-header {
+      border-top: 2px solid var(--ink);
+      padding-top: 0.4rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .section-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    .section-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.62rem;
+      color: var(--ink-light);
+    }
+
+    /* ── ARTICLE CARD ── */
+    .article-card {
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--rule);
+      animation: fadeIn 0.4s ease both;
+    }
+    .article-card:last-child { border-bottom: none; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+
+    .article-source {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .article-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 0.35rem;
+    }
+    .article-title a {
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .article-title a:hover { color: var(--accent); }
+
+    .article-summary {
+      font-size: 0.8rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-mid);
+      line-height: 1.5;
+      margin-bottom: 0.35rem;
+    }
+    .article-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--ink-light);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--ink-light);
+    }
+    .empty-state p {
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    /* ── REFRESH BUTTON ── */
+    .refresh-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      padding: 0.7rem 1.2rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s;
+      z-index: 200;
+    }
+    .refresh-btn:hover { background: var(--accent); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      .masthead { padding: 0 1rem; }
+      .page-wrap { padding: 1rem 1rem 4rem; }
+      .news-grid { columns: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <div class="masthead-title">Briefing<span>.</span></div>
+    <div class="masthead-meta">
+      <div id="date-display"></div>
+      <div>Atualizado: <span id="last-updated">—</span></div>
+    </div>
+  </div>
+  <nav class="nav-tabs" id="nav-tabs">
+    <button class="tab-btn active" data-theme="all">Tudo</button>
+    <button class="tab-btn" data-theme="macro">Macro &amp; Mercados</button>
+    <button class="tab-btn" data-theme="micro">Micro &amp; Finanças</button>
+    <button class="tab-btn" data-theme="intl">Política Internacional</button>
+    <button class="tab-btn" data-theme="inovacao">Inovação &amp; Empresas</button>
+    <button class="tab-btn" data-theme="pt-economia">Economia PT</button>
+    <button class="tab-btn" data-theme="pt-politica">Política PT</button>
+  </nav>
+</header>
+
+<main class="page-wrap">
+  <div class="status-bar" id="status-bar">
+    <div class="spinner"></div>
+    <span id="status-text">A carregar notícias…</span>
+  </div>
+  <div class="news-grid" id="news-grid"></div>
+  <div class="empty-state hidden" id="empty-state">
+    <p>Nenhuma notícia encontrada para este tema.</p>
+  </div>
+</main>
+
+<button class="refresh-btn" id="refresh-btn">↻ Atualizar</button>
+
+<script>
+// ══════════════════════════════════════════════
+// CONFIGURAÇÃO DE FONTES E TEMAS
+// ══════════════════════════════════════════════
+const SOURCES = [
+  // Internacional – Macro & Mercados
+  { name: 'Bloomberg', rss: 'https://feeds.bloomberg.com/markets/news.rss', themes: ['macro'] },
+  { name: 'Reuters', rss: 'https://feeds.reuters.com/reuters/businessNews', themes: ['macro', 'intl'] },
+  { name: 'MarketWatch', rss: 'https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines', themes: ['macro'] },
+  { name: 'Financial Times', rss: 'https://www.ft.com/rss/home', themes: ['macro', 'micro'] },
+  { name: 'Wall Street Journal', rss: 'https://feeds.a.dj.com/rss/RSSMarketsMain.xml', themes: ['macro'] },
+  { name: 'The Economist', rss: 'https://www.economist.com/finance-and-economics/rss.xml', themes: ['macro', 'intl'] },
+  { name: 'Les Échos', rss: 'https://www.lesechos.fr/rss/rss_une.xml', themes: ['macro'] },
+  { name: 'Handelsblatt', rss: 'https://www.handelsblatt.com/contentexport/feed/top-themen', themes: ['macro'] },
+  { name: 'Il Sole 24 Ore', rss: 'https://www.ilsole24ore.com/rss/economia--finanza.xml', themes: ['macro'] },
+
+  // Internacional – Micro & Finanças
+  { name: 'Harvard Business Review', rss: 'https://hbr.org/feed/topic/economics', themes: ['micro'] },
+  { name: 'Project Syndicate', rss: 'https://www.project-syndicate.org/rss', themes: ['macro', 'intl'] },
+  { name: 'Bruegel', rss: 'https://www.bruegel.org/rss.xml', themes: ['macro', 'micro'] },
+
+  // Internacional – Política
+  { name: 'Foreign Affairs', rss: 'https://www.foreignaffairs.com/rss.xml', themes: ['intl'] },
+  { name: 'Euronews', rss: 'https://feeds.feedburner.com/euronews/en/news/', themes: ['intl'] },
+
+  // Internacional – Inovação
+  { name: 'TechCrunch', rss: 'https://techcrunch.com/feed/', themes: ['inovacao'] },
+  { name: 'MIT Technology Review', rss: 'https://www.technologyreview.com/feed/', themes: ['inovacao'] },
+
+  // Portugal – Economia
+  { name: 'Jornal de Negócios', rss: 'https://www.jornaldenegocios.pt/rss', themes: ['pt-economia', 'macro'] },
+  { name: 'ECO', rss: 'https://eco.pt/feed/', themes: ['pt-economia'] },
+  { name: 'O Jornal Económico', rss: 'https://jornaleconomico.sapo.pt/feed', themes: ['pt-economia'] },
+  { name: 'Banco de Portugal', rss: 'https://www.bportugal.pt/rss.xml', themes: ['pt-economia'] },
+
+  // Portugal – Geral / Política
+  { name: 'Público', rss: 'https://feeds.feedburner.com/PublicoRSS', themes: ['pt-politica', 'intl'] },
+  { name: 'Expresso', rss: 'https://expresso.pt/rss', themes: ['pt-politica', 'pt-economia'] },
+  { name: 'FFMS', rss: 'https://www.ffms.pt/feed', themes: ['pt-economia', 'pt-politica'] },
+];
+
+const THEMES = {
+  all: 'Tudo',
+  macro: 'Macro & Mercados',
+  micro: 'Micro & Finanças',
+  intl: 'Política Internacional',
+  inovacao: 'Inovação & Empresas',
+  'pt-economia': 'Economia Portuguesa',
+  'pt-politica': 'Política Portuguesa',
+};
+
+// Proxy CORS gratuito para ler RSS de outros domínios
+const CORS_PROXY = 'https://api.allorigins.win/get?url=';
+
+// ══════════════════════════════════════════════
+// ESTADO
+// ══════════════════════════════════════════════
+let allArticles = [];
+let currentTheme = 'all';
+
+// ══════════════════════════════════════════════
+// UTILITÁRIOS
+// ══════════════════════════════════════════════
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return '';
+  return d.toLocaleString('pt-PT', {
+    day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit'
+  });
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return '';
+  const diff = (Date.now() - d) / 1000;
+  if (diff < 3600) return `há ${Math.floor(diff / 60)}min`;
+  if (diff < 86400) return `há ${Math.floor(diff / 3600)}h`;
+  return `há ${Math.floor(diff / 86400)}d`;
+}
+
+function extractSummary(item) {
+  const raw = item.querySelector('description')?.textContent || '';
+  const div = document.createElement('div');
+  div.innerHTML = raw;
+  const text = div.textContent.replace(/\s+/g, ' ').trim();
+  return text.length > 180 ? text.slice(0, 180) + '…' : text;
+}
+
+// ══════════════════════════════════════════════
+// FETCH RSS
+// ══════════════════════════════════════════════
+async function fetchFeed(source) {
+  try {
+    const url = CORS_PROXY + encodeURIComponent(source.rss);
+    const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+    const xml = new DOMParser().parseFromString(json.contents, 'text/xml');
+    const items = Array.from(xml.querySelectorAll('item')).slice(0, 8);
+
+    return items.map(item => ({
+      title: item.querySelector('title')?.textContent?.trim() || '(sem título)',
+      link: item.querySelector('link')?.textContent?.trim() || '#',
+      summary: extractSummary(item),
+      date: item.querySelector('pubDate')?.textContent || item.querySelector('dc\\:date, date')?.textContent || '',
+      source: source.name,
+      themes: source.themes,
+    }));
+  } catch (e) {
+    console.warn(`[${source.name}] Erro ao carregar feed:`, e.message);
+    return [];
+  }
+}
+
+async function loadAllFeeds() {
+  setStatus('A carregar notícias…', true);
+  const results = await Promise.allSettled(SOURCES.map(fetchFeed));
+  allArticles = results
+    .flatMap(r => r.status === 'fulfilled' ? r.value : [])
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  document.getElementById('last-updated').textContent =
+    new Date().toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
+
+  setStatus('', false);
+  render();
+}
+
+// ══════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════
+function render() {
+  const grid = document.getElementById('news-grid');
+  const empty = document.getElementById('empty-state');
+  grid.innerHTML = '';
+
+  const filtered = currentTheme === 'all'
+    ? allArticles
+    : allArticles.filter(a => a.themes.includes(currentTheme));
+
+  if (filtered.length === 0) {
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+
+  // Agrupar por fonte
+  const bySource = {};
+  filtered.forEach(a => {
+    if (!bySource[a.source]) bySource[a.source] = [];
+    bySource[a.source].push(a);
+  });
+
+  Object.entries(bySource).forEach(([sourceName, articles]) => {
+    const block = document.createElement('div');
+    block.className = 'section-block';
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = `
+      <span class="section-name">${sourceName}</span>
+      <span class="section-count">${articles.length} artigos</span>
+    `;
+    block.appendChild(header);
+
+    articles.slice(0, 5).forEach(a => {
+      const card = document.createElement('div');
+      card.className = 'article-card';
+      card.innerHTML = `
+        <div class="article-source">${a.source}</div>
+        <div class="article-title"><a href="${a.link}" target="_blank" rel="noopener">${a.title}</a></div>
+        ${a.summary ? `<div class="article-summary">${a.summary}</div>` : ''}
+        <div class="article-date">${timeAgo(a.date)}</div>
+      `;
+      block.appendChild(card);
+    });
+
+    grid.appendChild(block);
+  });
+}
+
+// ══════════════════════════════════════════════
+// UI HELPERS
+// ══════════════════════════════════════════════
+function setStatus(msg, show) {
+  const bar = document.getElementById('status-bar');
+  const txt = document.getElementById('status-text');
+  if (show) {
+    bar.classList.remove('hidden');
+    txt.textContent = msg;
+  } else {
+    bar.classList.add('hidden');
+  }
+}
+
+// ══════════════════════════════════════════════
+// EVENTOS
+// ══════════════════════════════════════════════
+document.getElementById('nav-tabs').addEventListener('click', e => {
+  const btn = e.target.closest('.tab-btn');
+  if (!btn) return;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTheme = btn.dataset.theme;
+  render();
+});
+
+document.getElementById('refresh-btn').addEventListener('click', loadAllFeeds);
+
+// Data no masthead
+const now = new Date();
+document.getElementById('date-display').textContent =
+  now.toLocaleDateString('pt-PT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+// Auto-refresh a cada 30 minutos
+setInterval(loadAllFeeds, 30 * 60 * 1000);
+
+// Arranque
+loadAllFeeds();
+</script>
+</body>
+</html>
