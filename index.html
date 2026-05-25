@@ -8,73 +8,53 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0c0d0f;
-  --surface: #141519;
-  --surface2: #1c1e24;
-  --surface3: #22252d;
-  --border: rgba(255,255,255,0.06);
-  --border2: rgba(255,255,255,0.11);
-  --text: #ededeb;
-  --muted: #7a7a80;
-  --muted2: #55555c;
-  --accent: #e6b84a;
-  --accent2: #5b9cf6;
-  --green: #4ade80;
-  --red: #f87171;
-  --serif: 'DM Serif Display', Georgia, serif;
-  --sans: 'DM Sans', system-ui, sans-serif;
-  --mono: 'DM Mono', monospace;
+  --bg:#0c0d0f;--surface:#141519;--surface2:#1c1e24;--surface3:#22252d;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.11);
+  --text:#ededeb;--muted:#7a7a80;--muted2:#55555c;
+  --accent:#e6b84a;--green:#4ade80;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:14px}
-
-/* ── HEADER ── */
 header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.header-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex;align-items:center;gap:1.5rem;height:52px}
+.header-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex;align-items:center;gap:1.25rem;height:52px}
 .logo{font-family:var(--serif);font-size:1.45rem;color:var(--text);white-space:nowrap;letter-spacing:-0.01em}
 .logo span{color:var(--accent)}
-.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:0.6rem;color:var(--green);letter-spacing:0.08em}
+.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:0.6rem;color:var(--green);letter-spacing:0.08em;white-space:nowrap}
 .dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 .header-date{font-family:var(--mono);font-size:0.62rem;color:var(--muted);white-space:nowrap}
-.search-box{flex:1;max-width:320px;position:relative;margin-left:auto}
+.search-box{flex:1;max-width:300px;margin-left:auto;position:relative}
 .search-box input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.42rem 0.75rem 0.42rem 2rem;font-family:var(--sans);font-size:0.8rem;color:var(--text);outline:none;transition:border-color 0.2s}
-.search-box input:focus{border-color:var(--border2);background:var(--surface3)}
+.search-box input:focus{border-color:var(--border2)}
 .search-box input::placeholder{color:var(--muted2)}
-.search-ico{position:absolute;left:0.55rem;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round}
+.search-ico{position:absolute;left:0.55rem;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none}
 .refresh-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:0.38rem 0.85rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.05em;color:var(--muted);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .refresh-btn:hover{border-color:var(--accent);color:var(--accent)}
-.refresh-btn svg{transition:transform 0.6s}
 .refresh-btn.loading svg{animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* ── THEME NAV ── */
 .theme-nav{background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
 .theme-nav::-webkit-scrollbar{display:none}
 .theme-nav-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex}
 .tbtn{flex-shrink:0;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:0.8rem 1rem;cursor:pointer;transition:all 0.18s;white-space:nowrap}
 .tbtn:hover{color:var(--text)}
 .tbtn.active{color:var(--accent);border-bottom-color:var(--accent)}
-
-/* ── STATS ── */
 .statsbar{max-width:1480px;margin:0 auto;padding:1.1rem 1.75rem 0;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;opacity:0;transition:opacity 0.4s}
 .statsbar.visible{opacity:1}
 .stat{display:flex;align-items:baseline;gap:5px;font-family:var(--mono);font-size:0.62rem}
 .stat-n{font-size:1.05rem;font-weight:500;color:var(--accent)}
 .stat-l{color:var(--muted)}
-.divider{width:1px;height:16px;background:var(--border2)}
-
-/* ── LOADER ── */
+.sdivider{width:1px;height:16px;background:var(--border2)}
 .loader{max-width:1480px;margin:1rem 1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--muted)}
 .loader.hidden{display:none}
 .spin-sm{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
-
-/* ── GRID ── */
+.progress{font-family:var(--mono);font-size:0.62rem;color:var(--accent);margin-left:auto}
 .grid-wrap{max-width:1480px;margin:0 auto;padding:1.25rem 1.75rem 5rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem}
-
-/* ── CARD ── */
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s,transform 0.2s}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s,transform 0.2s;animation:fadeUp 0.35s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .card:hover{border-color:var(--border2);transform:translateY(-1px)}
 .card.wide{grid-column:span 2}
 @media(max-width:680px){.card.wide{grid-column:span 1}}
@@ -82,9 +62,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop
 .src-label{font-family:var(--mono);font-size:0.6rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
 .src-count{font-family:var(--mono);font-size:0.58rem;color:var(--muted2);background:var(--surface2);padding:0.18rem 0.45rem;border-radius:4px}
 .card-body{padding:0.15rem 0}
-
-/* ── ARTICLE ── */
-.art{padding:0.7rem 1.1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s}
+.art{padding:0.7rem 1.1rem;border-bottom:1px solid var(--border);transition:background 0.15s}
 .art:last-child{border-bottom:none}
 .art:hover{background:var(--surface2)}
 .art-title{font-family:var(--serif);font-size:0.9rem;line-height:1.38;color:var(--text);text-decoration:none;display:block;margin-bottom:0.28rem}
@@ -93,21 +71,16 @@ header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop
 .art-meta{display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap}
 .art-time{font-family:var(--mono);font-size:0.58rem;color:var(--muted2)}
 .art-tag{font-family:var(--mono);font-size:0.56rem;padding:0.12rem 0.4rem;border-radius:3px;background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
-
-/* ── EMPTY ── */
 .empty{grid-column:1/-1;padding:5rem 2rem;text-align:center;font-family:var(--mono);font-size:0.75rem;color:var(--muted)}
-
-/* ── MOBILE ── */
 @media(max-width:580px){
   .header-inner{padding:0 1rem;gap:0.75rem}
   .search-box,.header-date{display:none}
-  .grid-wrap{padding:1rem 1rem 5rem}
-  .statsbar{padding:0.85rem 1rem 0}
+  .grid-wrap,.statsbar{padding-left:1rem;padding-right:1rem}
+  .loader{margin-left:1rem;margin-right:1rem}
 }
 </style>
 </head>
 <body>
-
 <header>
   <div class="header-inner">
     <div class="logo">Briefing<span>.</span></div>
@@ -123,7 +96,6 @@ header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop
     </button>
   </div>
 </header>
-
 <nav class="theme-nav">
   <div class="theme-nav-inner" id="tnav">
     <button class="tbtn active" data-t="all">Tudo</button>
@@ -135,73 +107,113 @@ header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop
     <button class="tbtn" data-t="ptpol">Política PT</button>
   </div>
 </nav>
-
 <div class="statsbar" id="stats">
   <div class="stat"><span class="stat-n" id="sart">0</span><span class="stat-l">artigos</span></div>
-  <div class="divider"></div>
+  <div class="sdivider"></div>
   <div class="stat"><span class="stat-n" id="ssrc">0</span><span class="stat-l">fontes</span></div>
-  <div class="divider"></div>
+  <div class="sdivider"></div>
   <div class="stat"><span class="stat-l">actualizado</span>&nbsp;<span class="stat-n" style="font-size:0.78rem" id="supd">—</span></div>
 </div>
-
-<div class="loader" id="loader"><div class="spin-sm"></div><span id="ltxt">A carregar notícias…</span></div>
-
+<div class="loader" id="loader">
+  <div class="spin-sm"></div>
+  <span id="ltxt">A carregar notícias…</span>
+  <span class="progress" id="lprog"></span>
+</div>
 <div class="grid-wrap"><div class="grid" id="grid"></div></div>
 
 <script>
-const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+// ── PROXIES em cascata: tenta cada um até encontrar um que funcione ──
+const PROXIES = [
+  url => `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+  url => `https://corsproxy.io/?url=${encodeURIComponent(url)}`,
+  url => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+];
 
-// Google News RSS — funciona sem bloqueios CORS via rss2json
-// Formato: https://news.google.com/rss/search?q=QUERY&hl=en&gl=US&ceid=US:en
-// Para PT: hl=pt-PT&gl=PT&ceid=PT:pt
-
-function gnews(query, lang='en', country='US') {
-  const base = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=${lang}&gl=${country}&ceid=${country}:${lang}`;
-  return PROXY + encodeURIComponent(base) + '&count=12';
+async function fetchRaw(url) {
+  for (const makeUrl of PROXIES) {
+    try {
+      const res = await fetch(makeUrl(url), { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) continue;
+      const data = await res.json().catch(() => null);
+      // allorigins devolve { contents: "..." }
+      if (data && data.contents) return data.contents;
+      // codetabs e corsproxy devolvem texto directo
+      const text = await res.text().catch(() => null);
+      if (text && text.trim().startsWith('<')) return text;
+    } catch(e) { continue; }
+  }
+  // fallback: tenta fetch directo (funciona se o feed tiver CORS aberto)
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(6000) });
+    if (res.ok) return await res.text();
+  } catch(e) {}
+  return null;
 }
 
-function gnewsSrc(site, lang='en', country='US') {
-  return gnews(`site:${site}`, lang, country);
+function parseRSS(xmlStr, sourceLabel, themes) {
+  try {
+    const doc = new DOMParser().parseFromString(xmlStr, 'text/xml');
+    const items = Array.from(doc.querySelectorAll('item')).slice(0, 10);
+    return items.map(item => {
+      const get = tag => item.querySelector(tag)?.textContent?.trim() || '';
+      const link = get('link') || item.querySelector('guid')?.textContent?.trim() || '#';
+      const rawDesc = get('description');
+      const div = document.createElement('div');
+      div.innerHTML = rawDesc;
+      const desc = div.textContent.replace(/\s+/g,' ').trim().slice(0, 150);
+      return {
+        title: get('title').replace(/\s+/g,' '),
+        link,
+        desc,
+        date: get('pubDate') || get('dc\\:date') || '',
+        source: sourceLabel,
+        themes,
+      };
+    }).filter(a => a.title && a.link !== '#');
+  } catch(e) { return []; }
 }
 
+// ── FEEDS — URLs RSS que realmente existem e são públicos ──
 const FEEDS = [
-  // ── MACRO & MERCADOS ──
-  { id:'reuters-mkts',  label:'Reuters Markets',      url:gnews('markets economy inflation GDP "interest rates" site:reuters.com'), themes:['macro'] },
-  { id:'ft-econ',       label:'Financial Times',       url:gnews('economy markets finance site:ft.com'), themes:['macro','micro'] },
-  { id:'economist',     label:'The Economist',         url:gnews('economy finance site:economist.com'), themes:['macro','intl'] },
-  { id:'bloomberg',     label:'Bloomberg',             url:gnews('markets economy finance site:bloomberg.com'), themes:['macro'] },
-  { id:'wsj',           label:'Wall Street Journal',   url:gnews('markets economy site:wsj.com'), themes:['macro'] },
-  { id:'marketwatch',   label:'MarketWatch',           url:gnewsSrc('marketwatch.com'), themes:['macro'] },
-  { id:'project-synd',  label:'Project Syndicate',     url:gnewsSrc('project-syndicate.org'), themes:['macro','intl'] },
-  { id:'bruegel',       label:'Bruegel',               url:gnewsSrc('bruegel.org'), themes:['macro','micro'] },
-  { id:'lesechos',      label:'Les Échos',             url:gnews('économie finance marchés site:lesechos.fr','fr','FR'), themes:['macro'] },
-  { id:'handelsblatt',  label:'Handelsblatt',          url:gnews('Wirtschaft Märkte site:handelsblatt.com','de','DE'), themes:['macro'] },
-  { id:'ilsole',        label:'Il Sole 24 Ore',        url:gnews('economia mercati site:ilsole24ore.com','it','IT'), themes:['macro'] },
+  // MACRO & MERCADOS
+  { label:'Euronews Business',   url:'https://www.euronews.com/rss?level=theme&name=business',                themes:['macro','intl'] },
+  { label:'Euronews',            url:'https://feeds.feedburner.com/euronews/en/news/',                        themes:['macro','intl'] },
+  { label:'Reuters (Yahoo)',     url:'https://finance.yahoo.com/news/rssindex',                               themes:['macro','micro'] },
+  { label:'Yahoo Finance',       url:'https://finance.yahoo.com/rss/topstories',                              themes:['macro'] },
+  { label:'MarketWatch',         url:'https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines',     themes:['macro'] },
+  { label:'Seeking Alpha',       url:'https://seekingalpha.com/market_currents.xml',                         themes:['macro'] },
+  { label:'Project Syndicate',   url:'https://www.project-syndicate.org/rss',                                 themes:['macro','intl'] },
+  { label:'VoxEU',               url:'https://cepr.org/rss.xml',                                             themes:['macro','micro'] },
+  { label:'IMF Blog',            url:'https://www.imf.org/en/Blogs/rss',                                     themes:['macro'] },
+  { label:'World Bank',          url:'https://blogs.worldbank.org/en/rss.xml',                               themes:['macro','intl'] },
 
-  // ── MICRO & FINANÇAS ──
-  { id:'hbr',           label:'Harvard Business Review', url:gnewsSrc('hbr.org'), themes:['micro'] },
-  { id:'reuters-biz',   label:'Reuters Business',     url:gnews('corporate mergers banking fintech site:reuters.com'), themes:['micro'] },
+  // MICRO & FINANÇAS
+  { label:'HBR Management',      url:'https://hbr.org/feed',                                                  themes:['micro'] },
+  { label:'Bruegel',             url:'https://www.bruegel.org/rss.xml',                                      themes:['micro','macro'] },
+  { label:'NBER',                url:'https://www.nber.org/rss/new_working_papers.rss',                      themes:['micro','macro'] },
 
-  // ── POLÍTICA INTERNACIONAL ──
-  { id:'foreign-aff',   label:'Foreign Affairs',       url:gnewsSrc('foreignaffairs.com'), themes:['intl'] },
-  { id:'euronews',      label:'Euronews',              url:gnews('geopolitics diplomacy Europe site:euronews.com'), themes:['intl'] },
-  { id:'reuters-intl',  label:'Reuters World',         url:gnews('geopolitics diplomacy sanctions NATO site:reuters.com'), themes:['intl'] },
+  // POLÍTICA INTERNACIONAL
+  { label:'Foreign Affairs',     url:'https://www.foreignaffairs.com/rss.xml',                               themes:['intl'] },
+  { label:'Council on Foreign Relations', url:'https://www.cfr.org/rss/all',                                themes:['intl'] },
+  { label:'AP World',            url:'https://rss.ap.org/topnews',                                           themes:['intl','macro'] },
 
-  // ── INOVAÇÃO & EMPRESAS ──
-  { id:'techcrunch',    label:'TechCrunch',            url:gnewsSrc('techcrunch.com'), themes:['inov'] },
-  { id:'mittr',         label:'MIT Tech Review',       url:gnewsSrc('technologyreview.com'), themes:['inov'] },
-  { id:'ft-tech',       label:'FT Technology',         url:gnews('technology AI startups site:ft.com'), themes:['inov'] },
+  // INOVAÇÃO & EMPRESAS
+  { label:'TechCrunch',          url:'https://techcrunch.com/feed/',                                         themes:['inov'] },
+  { label:'MIT Tech Review',     url:'https://www.technologyreview.com/feed/',                               themes:['inov'] },
+  { label:'Ars Technica',        url:'https://feeds.arstechnica.com/arstechnica/index',                      themes:['inov'] },
+  { label:'Wired',               url:'https://www.wired.com/feed/rss',                                       themes:['inov'] },
 
-  // ── ECONOMIA PT ──
-  { id:'jn',            label:'Jornal de Negócios',    url:gnewsSrc('jornaldenegocios.pt','pt','PT'), themes:['pteco'] },
-  { id:'eco',           label:'ECO',                   url:gnewsSrc('eco.pt','pt','PT'), themes:['pteco'] },
-  { id:'expresso-eco',  label:'Expresso Economia',     url:gnews('economia finanças site:expresso.pt','pt','PT'), themes:['pteco','ptpol'] },
-  { id:'publico-eco',   label:'Público Economia',      url:gnews('economia Portugal site:publico.pt','pt','PT'), themes:['pteco'] },
-  { id:'je',            label:'Jornal Económico',      url:gnewsSrc('jornaleconomico.pt','pt','PT'), themes:['pteco'] },
+  // ECONOMIA PT
+  { label:'Jornal de Negócios',  url:'https://www.jornaldenegocios.pt/rss',                                  themes:['pteco'] },
+  { label:'ECO',                 url:'https://eco.pt/feed/',                                                 themes:['pteco'] },
+  { label:'Jornal Económico',    url:'https://jornaleconomico.pt/feed/',                                     themes:['pteco'] },
+  { label:'Banco de Portugal',   url:'https://www.bportugal.pt/rss.xml',                                    themes:['pteco'] },
 
-  // ── POLÍTICA PT ──
-  { id:'publico-pol',   label:'Público',               url:gnews('política governo Portugal site:publico.pt','pt','PT'), themes:['ptpol'] },
-  { id:'expresso-pol',  label:'Expresso',              url:gnews('política governo site:expresso.pt','pt','PT'), themes:['ptpol'] },
+  // POLÍTICA PT
+  { label:'Público',             url:'https://feeds.feedburner.com/PublicoRSS',                             themes:['ptpol','pteco'] },
+  { label:'Expresso',            url:'https://expresso.pt/rss',                                             themes:['ptpol','pteco'] },
+  { label:'Observador',          url:'https://observador.pt/feed/',                                         themes:['ptpol','pteco'] },
+  { label:'SIC Notícias',        url:'https://sicnoticias.pt/rss',                                          themes:['ptpol'] },
 ];
 
 const THEME_LABELS = {
@@ -213,30 +225,40 @@ const THEME_LABELS = {
 let cache = {};
 let activeTheme = 'all';
 let searchQ = '';
+let loaded = 0;
 
 async function loadFeed(feed) {
-  try {
-    const res = await fetch(feed.url, { signal: AbortSignal.timeout(9000) });
-    const d = await res.json();
-    if (d.status !== 'ok') throw new Error(d.message);
-    return { ...feed, items: (d.items || []).slice(0, 10) };
-  } catch(e) {
-    return { ...feed, items: [], error: true };
-  }
+  const xml = await fetchRaw(feed.url);
+  loaded++;
+  document.getElementById('lprog').textContent = `${loaded}/${FEEDS.length}`;
+  if (!xml) return null;
+  const articles = parseRSS(xml, feed.label, feed.themes);
+  if (!articles.length) return null;
+  return { label: feed.label, themes: feed.themes, articles };
 }
 
 async function loadAll() {
+  loaded = 0;
+  cache = {};
+  document.getElementById('lprog').textContent = `0/${FEEDS.length}`;
   setLoader(true, 'A carregar notícias…');
   document.getElementById('rbtn').classList.add('loading');
   document.getElementById('stats').classList.remove('visible');
 
-  const results = await Promise.allSettled(FEEDS.map(loadFeed));
-  cache = {};
-  results.forEach(r => {
-    if (r.status === 'fulfilled' && r.value.items.length > 0) {
-      cache[r.value.id] = r.value;
-    }
-  });
+  // Carrega em lotes de 5 para não sobrecarregar os proxies
+  const results = [];
+  for (let i = 0; i < FEEDS.length; i += 5) {
+    const batch = FEEDS.slice(i, i + 5);
+    const batchResults = await Promise.allSettled(batch.map(loadFeed));
+    results.push(...batchResults);
+    // Render parcial à medida que chegam resultados
+    batchResults.forEach(r => {
+      if (r.status === 'fulfilled' && r.value) {
+        cache[r.value.label] = r.value;
+      }
+    });
+    render();
+  }
 
   document.getElementById('supd').textContent =
     new Date().toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
@@ -255,16 +277,16 @@ function getVisible() {
     const q = searchQ.toLowerCase();
     feeds = feeds.map(f => ({
       ...f,
-      items: f.items.filter(i =>
-        (i.title||'').toLowerCase().includes(q) ||
-        (i.description||'').toLowerCase().includes(q)
+      articles: f.articles.filter(a =>
+        (a.title||'').toLowerCase().includes(q) ||
+        (a.desc||'').toLowerCase().includes(q)
       )
-    })).filter(f => f.items.length > 0);
+    })).filter(f => f.articles.length > 0);
   }
 
   return feeds.sort((a,b) => {
-    const ta = new Date(a.items[0]?.pubDate || 0);
-    const tb = new Date(b.items[0]?.pubDate || 0);
+    const ta = new Date(a.articles[0]?.date || 0);
+    const tb = new Date(b.articles[0]?.date || 0);
     return tb - ta;
   });
 }
@@ -272,29 +294,25 @@ function getVisible() {
 function timeAgo(d) {
   if (!d) return '';
   const s = (Date.now() - new Date(d)) / 1000;
+  if (isNaN(s) || s < 0) return '';
   if (s < 60) return 'agora';
   if (s < 3600) return Math.floor(s/60) + 'min';
   if (s < 86400) return Math.floor(s/3600) + 'h';
   return Math.floor(s/86400) + 'd';
 }
 
-function stripHtml(s) {
-  const d = document.createElement('div');
-  d.innerHTML = s || '';
-  return d.textContent.replace(/\s+/g,' ').trim();
-}
-
 function render() {
   const grid = document.getElementById('grid');
-  grid.innerHTML = '';
   const feeds = getVisible();
+  grid.innerHTML = '';
 
   let totalArts = 0;
-  feeds.forEach(f => totalArts += f.items.length);
+  feeds.forEach(f => totalArts += f.articles.length);
   document.getElementById('sart').textContent = totalArts;
   document.getElementById('ssrc').textContent = feeds.length;
 
   if (feeds.length === 0) {
+    if (!document.getElementById('loader').classList.contains('hidden')) return;
     grid.innerHTML = '<div class="empty">Sem resultados para este filtro.</div>';
     return;
   }
@@ -302,29 +320,29 @@ function render() {
   feeds.forEach((feed, i) => {
     const card = document.createElement('div');
     card.className = 'card' + (i === 0 ? ' wide' : '');
+    card.style.animationDelay = (i * 0.04) + 's';
 
     const head = document.createElement('div');
     head.className = 'card-head';
-    head.innerHTML = `<span class="src-label">${feed.label}</span><span class="src-count">${feed.items.length}</span>`;
+    head.innerHTML = `<span class="src-label">${feed.label}</span><span class="src-count">${feed.articles.length}</span>`;
     card.appendChild(head);
 
     const body = document.createElement('div');
     body.className = 'card-body';
 
     const limit = i === 0 ? 6 : 4;
-    feed.items.slice(0, limit).forEach(item => {
-      const a = document.createElement('div');
-      a.className = 'art';
-      const desc = stripHtml(item.description).slice(0, 130);
-      const tag = THEME_LABELS[feed.themes[0]] || '';
-      a.innerHTML = `
-        <a class="art-title" href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
-        ${desc ? `<div class="art-desc">${desc}…</div>` : ''}
+    feed.articles.slice(0, limit).forEach(a => {
+      const el = document.createElement('div');
+      el.className = 'art';
+      const tag = THEME_LABELS[a.themes[0]] || '';
+      el.innerHTML = `
+        <a class="art-title" href="${a.link}" target="_blank" rel="noopener">${a.title}</a>
+        ${a.desc ? `<div class="art-desc">${a.desc}</div>` : ''}
         <div class="art-meta">
-          <span class="art-time">${timeAgo(item.pubDate)}</span>
+          <span class="art-time">${timeAgo(a.date)}</span>
           ${tag ? `<span class="art-tag">${tag}</span>` : ''}
         </div>`;
-      body.appendChild(a);
+      body.appendChild(el);
     });
 
     card.appendChild(body);
@@ -333,12 +351,10 @@ function render() {
 }
 
 function setLoader(show, msg) {
-  const el = document.getElementById('loader');
-  el.classList.toggle('hidden', !show);
+  document.getElementById('loader').classList.toggle('hidden', !show);
   if (msg) document.getElementById('ltxt').textContent = msg;
 }
 
-// Clock
 function tick() {
   document.getElementById('hdate').textContent =
     new Date().toLocaleDateString('pt-PT', { weekday:'short', day:'numeric', month:'short' }) + ' · ' +
@@ -347,7 +363,6 @@ function tick() {
 tick();
 setInterval(tick, 30000);
 
-// Events
 document.getElementById('tnav').addEventListener('click', e => {
   const btn = e.target.closest('.tbtn');
   if (!btn) return;
@@ -364,9 +379,7 @@ document.getElementById('search').addEventListener('input', e => {
   render();
 });
 
-// Auto-refresh 30min
 setInterval(loadAll, 30 * 60 * 1000);
-
 loadAll();
 </script>
 </body>
