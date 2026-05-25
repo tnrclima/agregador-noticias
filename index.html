@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Briefing</title>
+<title>Notícias À La Carte</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -119,7 +119,7 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 
 <header>
   <div class="header-inner">
-    <div class="logo">Briefing<span>.</span></div>
+    <div class="logo">notícias <span>À La Carte</span></div>
     <div class="live-badge"><span class="dot"></span>LIVE</div>
     <div class="header-date" id="hdate">—</div>
     <div class="search-box">
@@ -200,19 +200,65 @@ async function fetchRaw(url) {
         if (j?.contents) return j.contents;
         continue;
       }
-      const t = await r.text();
-      if (t && (t.includes('<rss') || t.includes('<feed') || t.includes('<channel'))) return t;
+      // Lê como ArrayBuffer para preservar encoding original
+      const buf = await r.arrayBuffer();
+      const raw = new TextDecoder('utf-8', { fatal: false }).decode(buf);
+      // Detecta encoding declarado no XML
+      const encMatch = raw.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
+      const enc = encMatch ? encMatch[1] : 'utf-8';
+      const text = enc.toLowerCase() === 'utf-8'
+        ? raw
+        : new TextDecoder(enc, { fatal: false }).decode(buf);
+      if (text && (text.includes('<rss') || text.includes('<feed') || text.includes('<channel'))) return text;
     } catch { continue; }
   }
   try {
     const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
-    if (r.ok) return await r.text();
+    if (r.ok) {
+      const buf = await r.arrayBuffer();
+      const raw = new TextDecoder('utf-8', { fatal: false }).decode(buf);
+      const encMatch = raw.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
+      const enc = encMatch ? encMatch[1] : 'utf-8';
+      return enc.toLowerCase() === 'utf-8'
+        ? raw
+        : new TextDecoder(enc, { fatal: false }).decode(buf);
+    }
   } catch {}
   return null;
 }
 
+function fixEncoding(xml) {
+  // Detecta declaração de encoding no XML
+  const match = xml.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
+  const enc = match ? match[1].toLowerCase() : 'utf-8';
+  // Se já é UTF-8 ou ASCII, devolve tal qual
+  if (enc === 'utf-8' || enc === 'us-ascii') return xml;
+  // Para ISO-8859-1 / Latin-1 (comum em feeds PT), converte entidades HTML
+  try {
+    const bytes = new Uint8Array(xml.split('').map(c => c.charCodeAt(0)));
+    return new TextDecoder(enc).decode(bytes);
+  } catch {
+    // Fallback: substitui entidades HTML numéricas e named entities comuns
+    return xml
+      .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n)))
+      .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
+      .replace(/&atilde;/g,'ã').replace(/&otilde;/g,'õ')
+      .replace(/&aacute;/g,'á').replace(/&eacute;/g,'é')
+      .replace(/&iacute;/g,'í').replace(/&oacute;/g,'ó')
+      .replace(/&uacute;/g,'ú').replace(/&agrave;/g,'à')
+      .replace(/&acirc;/g,'â').replace(/&ecirc;/g,'ê')
+      .replace(/&ocirc;/g,'ô').replace(/&ccedil;/g,'ç')
+      .replace(/&Atilde;/g,'Ã').replace(/&Otilde;/g,'Õ')
+      .replace(/&Aacute;/g,'Á').replace(/&Eacute;/g,'É')
+      .replace(/&Ccedil;/g,'Ç').replace(/&ntilde;/g,'ñ')
+      .replace(/&nbsp;/g,' ').replace(/&amp;/g,'&')
+      .replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
+  }
+}
+
 function parseRSS(xml, label, themes) {
   try {
+    xml = fixEncoding(xml);
     const doc = new DOMParser().parseFromString(xml, 'text/xml');
     const items = Array.from(doc.querySelectorAll('item')).slice(0, 8);
     return items.map(el => {
