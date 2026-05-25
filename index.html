@@ -5,104 +5,104 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Briefing</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0e0f11;
-  --surface: #16181c;
-  --surface2: #1e2026;
-  --border: rgba(255,255,255,0.07);
-  --border2: rgba(255,255,255,0.12);
-  --text: #f0ede8;
-  --muted: #8a8a8e;
-  --accent: #e8b84b;
-  --accent2: #4b9ce8;
-  --red: #e85a4b;
-  --green: #4be8a0;
+  --bg: #0c0d0f;
+  --surface: #141519;
+  --surface2: #1c1e24;
+  --surface3: #22252d;
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.11);
+  --text: #ededeb;
+  --muted: #7a7a80;
+  --muted2: #55555c;
+  --accent: #e6b84a;
+  --accent2: #5b9cf6;
+  --green: #4ade80;
+  --red: #f87171;
   --serif: 'DM Serif Display', Georgia, serif;
   --sans: 'DM Sans', system-ui, sans-serif;
   --mono: 'DM Mono', monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;font-size:14px}
 
-/* HEADER */
-header{position:sticky;top:0;z-index:200;background:rgba(14,15,17,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.header-inner{max-width:1440px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;gap:2rem;height:56px}
-.logo{font-family:var(--serif);font-size:1.5rem;letter-spacing:-0.01em;color:var(--text);white-space:nowrap}
-.logo em{color:var(--accent);font-style:normal}
-.header-meta{font-family:var(--mono);font-size:0.62rem;color:var(--muted);white-space:nowrap}
-.live-dot{display:inline-block;width:6px;height:6px;background:var(--green);border-radius:50%;margin-right:6px;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-.search-wrap{flex:1;max-width:360px;position:relative}
-.search-wrap input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.45rem 0.75rem 0.45rem 2.2rem;font-family:var(--sans);font-size:0.8rem;color:var(--text);outline:none;transition:border-color 0.2s}
-.search-wrap input::placeholder{color:var(--muted)}
-.search-wrap input:focus{border-color:var(--border2)}
-.search-icon{position:absolute;left:0.6rem;top:50%;transform:translateY(-50%);color:var(--muted);font-size:0.85rem;pointer-events:none}
-.refresh-btn{margin-left:auto;background:none;border:1px solid var(--border);border-radius:8px;padding:0.4rem 0.9rem;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;color:var(--muted);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:200;background:rgba(12,13,15,0.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.header-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex;align-items:center;gap:1.5rem;height:52px}
+.logo{font-family:var(--serif);font-size:1.45rem;color:var(--text);white-space:nowrap;letter-spacing:-0.01em}
+.logo span{color:var(--accent)}
+.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:0.6rem;color:var(--green);letter-spacing:0.08em}
+.dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+.header-date{font-family:var(--mono);font-size:0.62rem;color:var(--muted);white-space:nowrap}
+.search-box{flex:1;max-width:320px;position:relative;margin-left:auto}
+.search-box input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.42rem 0.75rem 0.42rem 2rem;font-family:var(--sans);font-size:0.8rem;color:var(--text);outline:none;transition:border-color 0.2s}
+.search-box input:focus{border-color:var(--border2);background:var(--surface3)}
+.search-box input::placeholder{color:var(--muted2)}
+.search-ico{position:absolute;left:0.55rem;top:50%;transform:translateY(-50%);width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:2;stroke-linecap:round}
+.refresh-btn{background:none;border:1px solid var(--border);border-radius:8px;padding:0.38rem 0.85rem;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.05em;color:var(--muted);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
 .refresh-btn:hover{border-color:var(--accent);color:var(--accent)}
-.refresh-btn.spinning svg{animation:spin 1s linear infinite}
+.refresh-btn svg{transition:transform 0.6s}
+.refresh-btn.loading svg{animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-/* THEME NAV */
-.theme-nav{background:var(--surface);border-bottom:1px solid var(--border)}
-.theme-nav-inner{max-width:1440px;margin:0 auto;padding:0 2rem;display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
-.theme-nav-inner::-webkit-scrollbar{display:none}
-.theme-btn{flex-shrink:0;font-family:var(--mono);font-size:0.65rem;font-weight:500;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:0.85rem 1.1rem;cursor:pointer;transition:all 0.2s;white-space:nowrap}
-.theme-btn:hover{color:var(--text)}
-.theme-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+/* ── THEME NAV ── */
+.theme-nav{background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.theme-nav::-webkit-scrollbar{display:none}
+.theme-nav-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex}
+.tbtn{flex-shrink:0;font-family:var(--mono);font-size:0.62rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;padding:0.8rem 1rem;cursor:pointer;transition:all 0.18s;white-space:nowrap}
+.tbtn:hover{color:var(--text)}
+.tbtn.active{color:var(--accent);border-bottom-color:var(--accent)}
 
-/* STATS BAR */
-.stats-bar{max-width:1440px;margin:0 auto;padding:1.25rem 2rem 0;display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
-.stat-chip{display:flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.65rem}
-.stat-num{font-size:1.1rem;font-weight:500;color:var(--accent)}
-.stat-label{color:var(--muted)}
-.stat-divider{width:1px;height:20px;background:var(--border)}
+/* ── STATS ── */
+.statsbar{max-width:1480px;margin:0 auto;padding:1.1rem 1.75rem 0;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;opacity:0;transition:opacity 0.4s}
+.statsbar.visible{opacity:1}
+.stat{display:flex;align-items:baseline;gap:5px;font-family:var(--mono);font-size:0.62rem}
+.stat-n{font-size:1.05rem;font-weight:500;color:var(--accent)}
+.stat-l{color:var(--muted)}
+.divider{width:1px;height:16px;background:var(--border2)}
 
-/* STATUS */
-.status-msg{max-width:1440px;margin:1rem 2rem;display:flex;align-items:center;gap:0.75rem;padding:0.75rem 1rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;font-family:var(--mono);font-size:0.7rem;color:var(--muted)}
-.status-msg.hidden{display:none}
-.spinner-sm{width:14px;height:14px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
+/* ── LOADER ── */
+.loader{max-width:1480px;margin:1rem 1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.7rem 1rem;display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.68rem;color:var(--muted)}
+.loader.hidden{display:none}
+.spin-sm{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
 
-/* GRID */
-.main{max-width:1440px;margin:0 auto;padding:1.5rem 2rem 6rem}
-.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+/* ── GRID ── */
+.grid-wrap{max-width:1480px;margin:0 auto;padding:1.25rem 1.75rem 5rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem}
 
-/* SOURCE CARD */
-.source-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s}
-.source-card:hover{border-color:var(--border2)}
-.card-header{padding:1rem 1.25rem 0.75rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.source-name{font-family:var(--mono);font-size:0.65rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
-.source-badge{font-family:var(--mono);font-size:0.6rem;color:var(--muted);background:var(--surface2);padding:0.2rem 0.5rem;border-radius:4px}
-.card-articles{padding:0.25rem 0}
-.article-item{padding:0.75rem 1.25rem;border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer}
-.article-item:last-child{border-bottom:none}
-.article-item:hover{background:var(--surface2)}
-.article-title{font-family:var(--serif);font-size:0.92rem;line-height:1.4;color:var(--text);text-decoration:none;display:block;margin-bottom:0.3rem}
-.article-title:hover{color:var(--accent)}
-.article-desc{font-size:0.74rem;color:var(--muted);line-height:1.5;margin-bottom:0.4rem;font-weight:300}
-.article-footer{display:flex;align-items:center;gap:0.5rem}
-.article-time{font-family:var(--mono);font-size:0.6rem;color:var(--muted)}
-.theme-pill{font-family:var(--mono);font-size:0.58rem;padding:0.15rem 0.45rem;border-radius:4px;background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+/* ── CARD ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s,transform 0.2s}
+.card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.card.wide{grid-column:span 2}
+@media(max-width:680px){.card.wide{grid-column:span 1}}
+.card-head{padding:0.85rem 1.1rem 0.7rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.5rem}
+.src-label{font-family:var(--mono);font-size:0.6rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
+.src-count{font-family:var(--mono);font-size:0.58rem;color:var(--muted2);background:var(--surface2);padding:0.18rem 0.45rem;border-radius:4px}
+.card-body{padding:0.15rem 0}
 
-/* FEATURED (first card) */
-.source-card.featured{grid-column:span 2}
-@media(max-width:700px){.source-card.featured{grid-column:span 1}}
-.featured .article-title{font-size:1.1rem}
+/* ── ARTICLE ── */
+.art{padding:0.7rem 1.1rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s}
+.art:last-child{border-bottom:none}
+.art:hover{background:var(--surface2)}
+.art-title{font-family:var(--serif);font-size:0.9rem;line-height:1.38;color:var(--text);text-decoration:none;display:block;margin-bottom:0.28rem}
+.art-title:hover{color:var(--accent)}
+.art-desc{font-size:0.73rem;color:var(--muted);line-height:1.5;margin-bottom:0.3rem;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.art-meta{display:flex;align-items:center;gap:0.45rem;flex-wrap:wrap}
+.art-time{font-family:var(--mono);font-size:0.58rem;color:var(--muted2)}
+.art-tag{font-family:var(--mono);font-size:0.56rem;padding:0.12rem 0.4rem;border-radius:3px;background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
 
-/* EMPTY */
-.empty{grid-column:1/-1;text-align:center;padding:5rem 2rem;color:var(--muted);font-family:var(--mono);font-size:0.8rem}
+/* ── EMPTY ── */
+.empty{grid-column:1/-1;padding:5rem 2rem;text-align:center;font-family:var(--mono);font-size:0.75rem;color:var(--muted)}
 
-/* ERROR CARD */
-.error-item{padding:0.75rem 1.25rem;font-family:var(--mono);font-size:0.68rem;color:var(--red)}
-
-/* MOBILE */
-@media(max-width:600px){
-  .header-inner{padding:0 1rem;gap:1rem}
-  .search-wrap{display:none}
-  .main{padding:1rem 1rem 5rem}
-  .stats-bar{padding:1rem 1rem 0}
+/* ── MOBILE ── */
+@media(max-width:580px){
+  .header-inner{padding:0 1rem;gap:0.75rem}
+  .search-box,.header-date{display:none}
+  .grid-wrap{padding:1rem 1rem 5rem}
+  .statsbar{padding:0.85rem 1rem 0}
 }
 </style>
 </head>
@@ -110,270 +110,263 @@ header{position:sticky;top:0;z-index:200;background:rgba(14,15,17,0.92);backdrop
 
 <header>
   <div class="header-inner">
-    <div class="logo">Briefing<em>.</em></div>
-    <div class="header-meta">
-      <span class="live-dot"></span>
-      <span id="time-display">—</span>
+    <div class="logo">Briefing<span>.</span></div>
+    <div class="live-badge"><span class="dot"></span>LIVE</div>
+    <div class="header-date" id="hdate">—</div>
+    <div class="search-box">
+      <svg class="search-ico" viewBox="0 0 16 16"><circle cx="6.5" cy="6.5" r="4"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
+      <input type="text" id="search" placeholder="Pesquisar…">
     </div>
-    <div class="search-wrap">
-      <span class="search-icon">🔍</span>
-      <input type="text" id="search-input" placeholder="Pesquisar notícias…">
-    </div>
-    <button class="refresh-btn" id="refresh-btn">
-      <svg width="10" height="10" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-1px;margin-right:4px"><path d="M1 8a7 7 0 1 0 7-7"/><path d="M1 3v5h5"/></svg>
+    <button class="refresh-btn" id="rbtn">
+      <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M1.5 8A6.5 6.5 0 1 0 8 1.5"/><polyline points="1.5,1.5 1.5,8 8,8"/></svg>
       Atualizar
     </button>
   </div>
 </header>
 
 <nav class="theme-nav">
-  <div class="theme-nav-inner" id="theme-nav">
-    <button class="theme-btn active" data-theme="all">Tudo</button>
-    <button class="theme-btn" data-theme="macro">Macro &amp; Mercados</button>
-    <button class="theme-btn" data-theme="micro">Micro &amp; Finanças</button>
-    <button class="theme-btn" data-theme="intl">Política Internacional</button>
-    <button class="theme-btn" data-theme="inovacao">Inovação &amp; Empresas</button>
-    <button class="theme-btn" data-theme="pt-economia">Economia PT</button>
-    <button class="theme-btn" data-theme="pt-politica">Política PT</button>
+  <div class="theme-nav-inner" id="tnav">
+    <button class="tbtn active" data-t="all">Tudo</button>
+    <button class="tbtn" data-t="macro">Macro &amp; Mercados</button>
+    <button class="tbtn" data-t="micro">Micro &amp; Finanças</button>
+    <button class="tbtn" data-t="intl">Política Internacional</button>
+    <button class="tbtn" data-t="inov">Inovação &amp; Empresas</button>
+    <button class="tbtn" data-t="pteco">Economia PT</button>
+    <button class="tbtn" data-t="ptpol">Política PT</button>
   </div>
 </nav>
 
-<div class="stats-bar" id="stats-bar" style="display:none">
-  <div class="stat-chip"><span class="stat-num" id="stat-articles">0</span><span class="stat-label">artigos</span></div>
-  <div class="stat-divider"></div>
-  <div class="stat-chip"><span class="stat-num" id="stat-sources">0</span><span class="stat-label">fontes activas</span></div>
-  <div class="stat-divider"></div>
-  <div class="stat-chip"><span class="stat-label">Actualizado</span><span class="stat-num" style="font-size:0.8rem;margin-left:4px" id="stat-updated">—</span></div>
+<div class="statsbar" id="stats">
+  <div class="stat"><span class="stat-n" id="sart">0</span><span class="stat-l">artigos</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-n" id="ssrc">0</span><span class="stat-l">fontes</span></div>
+  <div class="divider"></div>
+  <div class="stat"><span class="stat-l">actualizado</span>&nbsp;<span class="stat-n" style="font-size:0.78rem" id="supd">—</span></div>
 </div>
 
-<div class="status-msg" id="status-msg">
-  <div class="spinner-sm"></div>
-  <span id="status-text">A carregar notícias…</span>
-</div>
+<div class="loader" id="loader"><div class="spin-sm"></div><span id="ltxt">A carregar notícias…</span></div>
 
-<main class="main">
-  <div class="news-grid" id="news-grid"></div>
-</main>
+<div class="grid-wrap"><div class="grid" id="grid"></div></div>
 
 <script>
-const API_KEY = 'afac210204fc405e8107dc5c4d620523';
-const BASE = 'https://newsapi.org/v2/';
+const PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
 
-const QUERIES = [
-  { id:'macro',     label:'Macro & Mercados',        q:'economy OR markets OR inflation OR GDP OR "interest rates" OR "central bank"',                         domains:'reuters.com,bloomberg.com,ft.com,wsj.com,economist.com,marketwatch.com,lesechos.fr,handelsblatt.com,ilsole24ore.com,project-syndicate.org' },
-  { id:'micro',     label:'Micro & Finanças',         q:'corporate earnings OR mergers OR IPO OR "private equity" OR banking OR fintech',                       domains:'reuters.com,ft.com,bloomberg.com,hbr.org,bruegel.org,wsj.com,marketwatch.com' },
-  { id:'intl',      label:'Política Internacional',   q:'geopolitics OR diplomacy OR "foreign policy" OR NATO OR sanctions OR "international relations"',       domains:'reuters.com,foreignaffairs.com,euronews.com,economist.com,ft.com,project-syndicate.org' },
-  { id:'inovacao',  label:'Inovação & Empresas',      q:'artificial intelligence OR technology OR startup OR innovation OR semiconductor OR "machine learning"', domains:'techcrunch.com,technologyreview.com,reuters.com,ft.com' },
-  { id:'pt-economia',label:'Economia Portuguesa',    q:'Portugal economy OR "economia portuguesa" OR "banco de portugal" OR "orçamento portugal"',              domains:'jornaldenegocios.pt,eco.pt,expresso.pt,publico.pt' },
-  { id:'pt-politica',label:'Política Portuguesa',    q:'Portugal politics OR "política portuguesa" OR "governo portugal" OR "assembleia da república"',         domains:'publico.pt,expresso.pt,jornaldenegocios.pt' },
+// Google News RSS — funciona sem bloqueios CORS via rss2json
+// Formato: https://news.google.com/rss/search?q=QUERY&hl=en&gl=US&ceid=US:en
+// Para PT: hl=pt-PT&gl=PT&ceid=PT:pt
+
+function gnews(query, lang='en', country='US') {
+  const base = `https://news.google.com/rss/search?q=${encodeURIComponent(query)}&hl=${lang}&gl=${country}&ceid=${country}:${lang}`;
+  return PROXY + encodeURIComponent(base) + '&count=12';
+}
+
+function gnewsSrc(site, lang='en', country='US') {
+  return gnews(`site:${site}`, lang, country);
+}
+
+const FEEDS = [
+  // ── MACRO & MERCADOS ──
+  { id:'reuters-mkts',  label:'Reuters Markets',      url:gnews('markets economy inflation GDP "interest rates" site:reuters.com'), themes:['macro'] },
+  { id:'ft-econ',       label:'Financial Times',       url:gnews('economy markets finance site:ft.com'), themes:['macro','micro'] },
+  { id:'economist',     label:'The Economist',         url:gnews('economy finance site:economist.com'), themes:['macro','intl'] },
+  { id:'bloomberg',     label:'Bloomberg',             url:gnews('markets economy finance site:bloomberg.com'), themes:['macro'] },
+  { id:'wsj',           label:'Wall Street Journal',   url:gnews('markets economy site:wsj.com'), themes:['macro'] },
+  { id:'marketwatch',   label:'MarketWatch',           url:gnewsSrc('marketwatch.com'), themes:['macro'] },
+  { id:'project-synd',  label:'Project Syndicate',     url:gnewsSrc('project-syndicate.org'), themes:['macro','intl'] },
+  { id:'bruegel',       label:'Bruegel',               url:gnewsSrc('bruegel.org'), themes:['macro','micro'] },
+  { id:'lesechos',      label:'Les Échos',             url:gnews('économie finance marchés site:lesechos.fr','fr','FR'), themes:['macro'] },
+  { id:'handelsblatt',  label:'Handelsblatt',          url:gnews('Wirtschaft Märkte site:handelsblatt.com','de','DE'), themes:['macro'] },
+  { id:'ilsole',        label:'Il Sole 24 Ore',        url:gnews('economia mercati site:ilsole24ore.com','it','IT'), themes:['macro'] },
+
+  // ── MICRO & FINANÇAS ──
+  { id:'hbr',           label:'Harvard Business Review', url:gnewsSrc('hbr.org'), themes:['micro'] },
+  { id:'reuters-biz',   label:'Reuters Business',     url:gnews('corporate mergers banking fintech site:reuters.com'), themes:['micro'] },
+
+  // ── POLÍTICA INTERNACIONAL ──
+  { id:'foreign-aff',   label:'Foreign Affairs',       url:gnewsSrc('foreignaffairs.com'), themes:['intl'] },
+  { id:'euronews',      label:'Euronews',              url:gnews('geopolitics diplomacy Europe site:euronews.com'), themes:['intl'] },
+  { id:'reuters-intl',  label:'Reuters World',         url:gnews('geopolitics diplomacy sanctions NATO site:reuters.com'), themes:['intl'] },
+
+  // ── INOVAÇÃO & EMPRESAS ──
+  { id:'techcrunch',    label:'TechCrunch',            url:gnewsSrc('techcrunch.com'), themes:['inov'] },
+  { id:'mittr',         label:'MIT Tech Review',       url:gnewsSrc('technologyreview.com'), themes:['inov'] },
+  { id:'ft-tech',       label:'FT Technology',         url:gnews('technology AI startups site:ft.com'), themes:['inov'] },
+
+  // ── ECONOMIA PT ──
+  { id:'jn',            label:'Jornal de Negócios',    url:gnewsSrc('jornaldenegocios.pt','pt','PT'), themes:['pteco'] },
+  { id:'eco',           label:'ECO',                   url:gnewsSrc('eco.pt','pt','PT'), themes:['pteco'] },
+  { id:'expresso-eco',  label:'Expresso Economia',     url:gnews('economia finanças site:expresso.pt','pt','PT'), themes:['pteco','ptpol'] },
+  { id:'publico-eco',   label:'Público Economia',      url:gnews('economia Portugal site:publico.pt','pt','PT'), themes:['pteco'] },
+  { id:'je',            label:'Jornal Económico',      url:gnewsSrc('jornaleconomico.pt','pt','PT'), themes:['pteco'] },
+
+  // ── POLÍTICA PT ──
+  { id:'publico-pol',   label:'Público',               url:gnews('política governo Portugal site:publico.pt','pt','PT'), themes:['ptpol'] },
+  { id:'expresso-pol',  label:'Expresso',              url:gnews('política governo site:expresso.pt','pt','PT'), themes:['ptpol'] },
 ];
 
-const THEME_LABELS = {all:'Tudo',macro:'Macro & Mercados',micro:'Micro & Finanças',intl:'Política Internacional',inovacao:'Inovação & Empresas','pt-economia':'Economia PT','pt-politica':'Política PT'};
+const THEME_LABELS = {
+  all:'Tudo', macro:'Macro & Mercados', micro:'Micro & Finanças',
+  intl:'Política Internacional', inov:'Inovação & Empresas',
+  pteco:'Economia PT', ptpol:'Política PT'
+};
 
-let allData = {};
-let currentTheme = 'all';
-let searchQuery = '';
+let cache = {};
+let activeTheme = 'all';
+let searchQ = '';
 
-function timeAgo(d) {
-  if (!d) return '';
-  const diff = (Date.now() - new Date(d)) / 1000;
-  if (diff < 60) return 'agora';
-  if (diff < 3600) return `${Math.floor(diff/60)}min`;
-  if (diff < 86400) return `${Math.floor(diff/3600)}h`;
-  return `${Math.floor(diff/86400)}d`;
-}
-
-function truncate(str, n) {
-  if (!str) return '';
-  const clean = str.replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim();
-  return clean.length > n ? clean.slice(0,n) + '…' : clean;
-}
-
-async function fetchTheme(theme) {
+async function loadFeed(feed) {
   try {
-    const url = `${BASE}everything?q=${encodeURIComponent(theme.q)}&domains=${theme.domains}&language=en&sortBy=publishedAt&pageSize=20&apiKey=${API_KEY}`;
-    const r = await fetch(url);
-    const d = await r.json();
-    if (d.status !== 'ok') throw new Error(d.message || 'API error');
-    return { id: theme.id, label: theme.label, articles: d.articles || [] };
-  } catch(e) {
-    return { id: theme.id, label: theme.label, articles: [], error: e.message };
-  }
-}
-
-async function fetchPortuguese() {
-  try {
-    const url = `${BASE}top-headlines?country=pt&pageSize=20&apiKey=${API_KEY}`;
-    const r = await fetch(url);
-    const d = await r.json();
+    const res = await fetch(feed.url, { signal: AbortSignal.timeout(9000) });
+    const d = await res.json();
     if (d.status !== 'ok') throw new Error(d.message);
-    return d.articles || [];
+    return { ...feed, items: (d.items || []).slice(0, 10) };
   } catch(e) {
-    return [];
+    return { ...feed, items: [], error: true };
   }
 }
 
 async function loadAll() {
-  setStatus('A carregar notícias…', true);
-  document.getElementById('stats-bar').style.display = 'none';
-  setBtnSpinning(true);
+  setLoader(true, 'A carregar notícias…');
+  document.getElementById('rbtn').classList.add('loading');
+  document.getElementById('stats').classList.remove('visible');
 
-  const results = await Promise.allSettled(QUERIES.map(fetchTheme));
-  const ptArticles = await fetchPortuguese();
-
-  allData = {};
+  const results = await Promise.allSettled(FEEDS.map(loadFeed));
+  cache = {};
   results.forEach(r => {
-    if (r.status === 'fulfilled') {
-      allData[r.value.id] = r.value;
+    if (r.status === 'fulfilled' && r.value.items.length > 0) {
+      cache[r.value.id] = r.value;
     }
   });
 
-  if (ptArticles.length) {
-    const ptEco = allData['pt-economia'] || { id:'pt-economia', label:'Economia PT', articles:[] };
-    ptEco.articles = [...ptArticles, ...ptEco.articles].slice(0, 25);
-    allData['pt-economia'] = ptEco;
-    const ptPol = allData['pt-politica'] || { id:'pt-politica', label:'Política PT', articles:[] };
-    ptPol.articles = [...ptArticles, ...ptPol.articles].slice(0, 25);
-    allData['pt-politica'] = ptPol;
-  }
-
-  document.getElementById('stat-updated').textContent =
+  document.getElementById('supd').textContent =
     new Date().toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
 
-  setStatus('', false);
-  setBtnSpinning(false);
-  document.getElementById('stats-bar').style.display = 'flex';
+  setLoader(false);
+  document.getElementById('rbtn').classList.remove('loading');
+  document.getElementById('stats').classList.add('visible');
   render();
 }
 
-function getArticles() {
-  let articles = [];
-  if (currentTheme === 'all') {
-    Object.values(allData).forEach(d => {
-      d.articles.forEach(a => articles.push({ ...a, _theme: d.id, _themeLabel: d.label }));
-    });
-  } else if (allData[currentTheme]) {
-    articles = allData[currentTheme].articles.map(a => ({
-      ...a, _theme: currentTheme, _themeLabel: THEME_LABELS[currentTheme]
-    }));
+function getVisible() {
+  let feeds = Object.values(cache);
+  if (activeTheme !== 'all') feeds = feeds.filter(f => f.themes.includes(activeTheme));
+
+  if (searchQ) {
+    const q = searchQ.toLowerCase();
+    feeds = feeds.map(f => ({
+      ...f,
+      items: f.items.filter(i =>
+        (i.title||'').toLowerCase().includes(q) ||
+        (i.description||'').toLowerCase().includes(q)
+      )
+    })).filter(f => f.items.length > 0);
   }
 
-  if (searchQuery) {
-    const q = searchQuery.toLowerCase();
-    articles = articles.filter(a =>
-      (a.title||'').toLowerCase().includes(q) ||
-      (a.description||'').toLowerCase().includes(q) ||
-      (a.source?.name||'').toLowerCase().includes(q)
-    );
-  }
+  return feeds.sort((a,b) => {
+    const ta = new Date(a.items[0]?.pubDate || 0);
+    const tb = new Date(b.items[0]?.pubDate || 0);
+    return tb - ta;
+  });
+}
 
-  const seen = new Set();
-  return articles.filter(a => {
-    if (!a.title || seen.has(a.title)) return false;
-    seen.add(a.title);
-    return true;
-  }).sort((a,b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+function timeAgo(d) {
+  if (!d) return '';
+  const s = (Date.now() - new Date(d)) / 1000;
+  if (s < 60) return 'agora';
+  if (s < 3600) return Math.floor(s/60) + 'min';
+  if (s < 86400) return Math.floor(s/3600) + 'h';
+  return Math.floor(s/86400) + 'd';
+}
+
+function stripHtml(s) {
+  const d = document.createElement('div');
+  d.innerHTML = s || '';
+  return d.textContent.replace(/\s+/g,' ').trim();
 }
 
 function render() {
-  const grid = document.getElementById('news-grid');
+  const grid = document.getElementById('grid');
   grid.innerHTML = '';
-  const articles = getArticles();
+  const feeds = getVisible();
 
-  document.getElementById('stat-articles').textContent = articles.length;
+  let totalArts = 0;
+  feeds.forEach(f => totalArts += f.items.length);
+  document.getElementById('sart').textContent = totalArts;
+  document.getElementById('ssrc').textContent = feeds.length;
 
-  const bySrc = {};
-  articles.forEach(a => {
-    const src = a.source?.name || 'Desconhecido';
-    if (!bySrc[src]) bySrc[src] = [];
-    bySrc[src].push(a);
-  });
-
-  const sources = Object.entries(bySrc);
-  document.getElementById('stat-sources').textContent = sources.length;
-
-  if (sources.length === 0) {
-    grid.innerHTML = '<div class="empty">Sem notícias para este filtro.</div>';
+  if (feeds.length === 0) {
+    grid.innerHTML = '<div class="empty">Sem resultados para este filtro.</div>';
     return;
   }
 
-  sources.forEach(([srcName, arts], i) => {
+  feeds.forEach((feed, i) => {
     const card = document.createElement('div');
-    card.className = 'source-card' + (i === 0 ? ' featured' : '');
+    card.className = 'card' + (i === 0 ? ' wide' : '');
 
-    const header = document.createElement('div');
-    header.className = 'card-header';
-    header.innerHTML = `<span class="source-name">${srcName}</span><span class="source-badge">${arts.length} artigos</span>`;
-    card.appendChild(header);
+    const head = document.createElement('div');
+    head.className = 'card-head';
+    head.innerHTML = `<span class="src-label">${feed.label}</span><span class="src-count">${feed.items.length}</span>`;
+    card.appendChild(head);
 
     const body = document.createElement('div');
-    body.className = 'card-articles';
+    body.className = 'card-body';
 
-    const limit = i === 0 ? 5 : 4;
-    arts.slice(0, limit).forEach(a => {
-      const item = document.createElement('div');
-      item.className = 'article-item';
-      const desc = truncate(a.description, 120);
-      item.innerHTML = `
-        <a class="article-title" href="${a.url}" target="_blank" rel="noopener">${a.title}</a>
-        ${desc ? `<div class="article-desc">${desc}</div>` : ''}
-        <div class="article-footer">
-          <span class="article-time">${timeAgo(a.publishedAt)}</span>
-          ${a._themeLabel ? `<span class="theme-pill">${a._themeLabel}</span>` : ''}
-        </div>
-      `;
-      body.appendChild(item);
+    const limit = i === 0 ? 6 : 4;
+    feed.items.slice(0, limit).forEach(item => {
+      const a = document.createElement('div');
+      a.className = 'art';
+      const desc = stripHtml(item.description).slice(0, 130);
+      const tag = THEME_LABELS[feed.themes[0]] || '';
+      a.innerHTML = `
+        <a class="art-title" href="${item.link}" target="_blank" rel="noopener">${item.title}</a>
+        ${desc ? `<div class="art-desc">${desc}…</div>` : ''}
+        <div class="art-meta">
+          <span class="art-time">${timeAgo(item.pubDate)}</span>
+          ${tag ? `<span class="art-tag">${tag}</span>` : ''}
+        </div>`;
+      body.appendChild(a);
     });
-
-    if (allData[currentTheme === 'all' ? arts[0]._theme : currentTheme]?.error) {
-      const err = document.createElement('div');
-      err.className = 'error-item';
-      err.textContent = '⚠ Erro ao carregar esta fonte';
-      body.appendChild(err);
-    }
 
     card.appendChild(body);
     grid.appendChild(card);
   });
 }
 
-function setStatus(msg, show) {
-  const el = document.getElementById('status-msg');
-  const txt = document.getElementById('status-text');
+function setLoader(show, msg) {
+  const el = document.getElementById('loader');
   el.classList.toggle('hidden', !show);
-  if (show) txt.textContent = msg;
+  if (msg) document.getElementById('ltxt').textContent = msg;
 }
 
-function setBtnSpinning(s) {
-  document.getElementById('refresh-btn').classList.toggle('spinning', s);
+// Clock
+function tick() {
+  document.getElementById('hdate').textContent =
+    new Date().toLocaleDateString('pt-PT', { weekday:'short', day:'numeric', month:'short' }) + ' · ' +
+    new Date().toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
 }
+tick();
+setInterval(tick, 30000);
 
-function updateClock() {
-  const now = new Date();
-  document.getElementById('time-display').textContent =
-    now.toLocaleDateString('pt-PT', { weekday:'short', day:'numeric', month:'short' }) + ' · ' +
-    now.toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
-}
-
-document.getElementById('theme-nav').addEventListener('click', e => {
-  const btn = e.target.closest('.theme-btn');
+// Events
+document.getElementById('tnav').addEventListener('click', e => {
+  const btn = e.target.closest('.tbtn');
   if (!btn) return;
-  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  currentTheme = btn.dataset.theme;
+  activeTheme = btn.dataset.t;
   render();
 });
 
-document.getElementById('refresh-btn').addEventListener('click', loadAll);
+document.getElementById('rbtn').addEventListener('click', loadAll);
 
-document.getElementById('search-input').addEventListener('input', e => {
-  searchQuery = e.target.value.trim();
+document.getElementById('search').addEventListener('input', e => {
+  searchQ = e.target.value.trim();
   render();
 });
 
-updateClock();
-setInterval(updateClock, 30000);
+// Auto-refresh 30min
 setInterval(loadAll, 30 * 60 * 1000);
+
 loadAll();
 </script>
 </body>
