@@ -12,6 +12,7 @@
   --border:#d8d0c4;--border2:#c8bfb0;
   --ink:#1a1714;--ink2:#4a4540;--ink3:#8a8078;
   --accent:#b5440c;--gold:#c8902a;--green:#2d7a4a;
+  --sidebar-w:220px;
   --serif:'Playfair Display',Georgia,serif;
   --sans:'Inter',system-ui,sans-serif;
   --mono:'JetBrains Mono',monospace;
@@ -20,69 +21,77 @@
 html,body{height:100%}
 body{font-family:var(--sans);background:var(--bg);color:var(--ink);overflow-x:hidden;font-size:14px}
 
+/* ── HEADER ── */
 header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.header-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex;align-items:center;gap:1.25rem;height:52px}
-.logo{font-family:var(--serif);font-size:1.5rem;color:var(--ink);white-space:nowrap;letter-spacing:-0.01em;font-weight:600}
+.header-inner{max-width:100%;padding:0 1.5rem;display:flex;align-items:center;gap:1.25rem;height:52px}
+.logo{font-family:var(--serif);font-size:1.4rem;color:var(--ink);white-space:nowrap;letter-spacing:-0.01em;font-weight:600;flex-shrink:0}
 .logo span{color:var(--accent)}
-.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:0.58rem;color:var(--green);letter-spacing:0.1em;white-space:nowrap}
+.live-badge{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:0.58rem;color:var(--green);letter-spacing:0.1em;white-space:nowrap;flex-shrink:0}
 .dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:blink 2s ease-in-out infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.25}}
 .header-date{font-family:var(--mono);font-size:0.62rem;color:var(--ink3);white-space:nowrap}
-.search-box{flex:1;max-width:300px;margin-left:auto;position:relative}
+.search-box{flex:1;max-width:280px;margin-left:auto;position:relative}
 .search-box input{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:7px;padding:0.4rem 0.75rem 0.4rem 2rem;font-family:var(--sans);font-size:0.8rem;color:var(--ink);outline:none;transition:border-color 0.2s}
 .search-box input:focus{border-color:var(--border2);background:var(--surface)}
 .search-box input::placeholder{color:var(--ink3)}
 .search-ico{position:absolute;left:0.55rem;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--ink3);fill:none;stroke-width:2;stroke-linecap:round;pointer-events:none}
-.refresh-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:0.36rem 0.85rem;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.05em;color:var(--ink3);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap}
+.refresh-btn{background:none;border:1px solid var(--border);border-radius:7px;padding:0.36rem 0.85rem;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.05em;color:var(--ink3);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:6px;white-space:nowrap;flex-shrink:0}
 .refresh-btn:hover{border-color:var(--accent);color:var(--accent)}
 .refresh-btn.loading svg{animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 
-.theme-nav{background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
-.theme-nav::-webkit-scrollbar{display:none}
-.theme-nav-inner{max-width:1480px;margin:0 auto;padding:0 1.75rem;display:flex}
-.tbtn{flex-shrink:0;font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink3);background:none;border:none;border-bottom:2px solid transparent;padding:0.8rem 1rem;cursor:pointer;transition:all 0.18s;white-space:nowrap}
-.tbtn:hover{color:var(--ink)}
-.tbtn.active{color:var(--accent);border-bottom-color:var(--accent)}
+/* ── BODY LAYOUT: sidebar + main ── */
+.body-layout{display:flex;align-items:flex-start;min-height:calc(100vh - 52px)}
 
-.statsbar{max-width:1480px;margin:0 auto;padding:1.1rem 1.75rem 0;display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;opacity:0;transition:opacity 0.5s}
+/* ── SIDEBAR (temas) ── */
+.sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;border-right:1px solid var(--border);background:var(--surface);padding:1.25rem 0;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.sidebar-title{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);padding:0 1.1rem 0.6rem;border-bottom:1px solid var(--border);margin-bottom:0.5rem}
+.tbtn{display:flex;align-items:center;justify-content:space-between;width:100%;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.04em;color:var(--ink3);background:none;border:none;border-left:2px solid transparent;padding:0.6rem 1.1rem;cursor:pointer;transition:all 0.15s;text-align:left;gap:0.5rem}
+.tbtn:hover{color:var(--ink);background:var(--surface2)}
+.tbtn.active{color:var(--accent);border-left-color:var(--accent);background:var(--surface2);font-weight:500}
+.tbtn-count{font-size:0.56rem;color:var(--ink3);background:var(--surface3);padding:0.1rem 0.35rem;border-radius:3px;flex-shrink:0}
+.tbtn.active .tbtn-count{background:rgba(181,68,12,0.12);color:var(--accent)}
+.sidebar-divider{height:1px;background:var(--border);margin:0.5rem 0}
+
+/* ── MAIN ── */
+.main-area{flex:1;min-width:0;padding:1.25rem 1.5rem 5rem}
+
+/* ── STATS ── */
+.statsbar{display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap;margin-bottom:1.1rem;opacity:0;transition:opacity 0.5s}
 .statsbar.visible{opacity:1}
 .stat{display:flex;align-items:baseline;gap:5px;font-family:var(--mono);font-size:0.6rem}
 .stat-n{font-size:1rem;font-weight:500;color:var(--accent)}
 .stat-l{color:var(--ink3)}
 .sdivider{width:1px;height:14px;background:var(--border)}
 
-.loader{max-width:1480px;margin:1rem 1.75rem;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1rem;display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.66rem;color:var(--ink3)}
+/* ── LOADER ── */
+.loader{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:0.65rem 1rem;display:flex;align-items:center;gap:0.6rem;font-family:var(--mono);font-size:0.66rem;color:var(--ink3);margin-bottom:1rem}
 .loader.hidden{display:none}
 .spin-sm{width:13px;height:13px;border:2px solid var(--border2);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
 .progress-bar-wrap{flex:1;height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;margin-left:0.5rem}
 .progress-bar{height:100%;background:var(--accent);border-radius:2px;transition:width 0.3s ease;width:0%}
 
-.grid-wrap{max-width:1480px;margin:0 auto;padding:1.25rem 1.75rem 5rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:1rem}
-
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;animation:fadeUp 0.3s ease both}
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color 0.2s,box-shadow 0.2s,transform 0.2s;animation:fadeUp 0.28s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .card:hover{border-color:var(--border2);box-shadow:0 2px 12px rgba(0,0,0,0.07);transform:translateY(-1px)}
 .card.wide{grid-column:span 2}
-@media(max-width:680px){.card.wide{grid-column:span 1}}
-.card-head{padding:0.8rem 1.1rem 0.65rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:var(--surface2)}
+.card-head{padding:0.75rem 1rem 0.6rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:0.5rem;background:var(--surface2)}
 .src-label{font-family:var(--mono);font-size:0.58rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent)}
-.src-count{font-family:var(--mono);font-size:0.56rem;color:var(--ink3);background:var(--surface3);padding:0.15rem 0.4rem;border-radius:3px}
+.src-count{font-family:var(--mono);font-size:0.55rem;color:var(--ink3);background:var(--surface3);padding:0.13rem 0.38rem;border-radius:3px}
 .card-body{padding:0.1rem 0}
-
-.art{padding:0.7rem 1.1rem 0.6rem;border-bottom:1px solid var(--border);transition:background 0.15s;cursor:pointer}
+.art{padding:0.65rem 1rem 0.55rem;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s}
 .art:last-child{border-bottom:none}
 .art:hover{background:var(--surface2)}
-.art-title{font-family:var(--serif);font-size:0.9rem;line-height:1.38;color:var(--ink);display:block;margin-bottom:0.3rem}
-.art-desc{font-size:0.72rem;color:var(--ink2);line-height:1.5;margin-bottom:0.35rem;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.art-footer{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}
-.art-time{font-family:var(--mono);font-size:0.57rem;color:var(--ink3)}
-.art-tag{font-family:var(--mono);font-size:0.54rem;padding:0.1rem 0.38rem;border-radius:3px;background:#e8e0d4;color:var(--ink3);border:1px solid var(--border)}
-.art-read-btn{margin-left:auto;font-family:var(--mono);font-size:0.62rem;font-weight:500;padding:0.25rem 0.65rem;border-radius:5px;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:background 0.15s;letter-spacing:0.02em;white-space:nowrap}
+.art-title{font-family:var(--serif);font-size:0.88rem;line-height:1.38;color:var(--ink);display:block;margin-bottom:0.28rem}
+.art-desc{font-size:0.71rem;color:var(--ink2);line-height:1.5;margin-bottom:0.32rem;font-weight:300;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.art-footer{display:flex;align-items:center;gap:0.45rem}
+.art-time{font-family:var(--mono);font-size:0.56rem;color:var(--ink3)}
+.art-read-btn{margin-left:auto;font-family:var(--mono);font-size:0.6rem;font-weight:500;padding:0.22rem 0.6rem;border-radius:5px;background:var(--accent);color:#fff;border:none;cursor:pointer;transition:background 0.15s;white-space:nowrap}
 .art-read-btn:hover{background:#8a3008}
 
-/* DRAWER */
+/* ── ARTICLE DRAWER ── */
 .drawer-overlay{position:fixed;inset:0;background:rgba(26,23,20,0.4);z-index:400;opacity:0;pointer-events:none;transition:opacity 0.25s;backdrop-filter:blur(3px)}
 .drawer-overlay.open{opacity:1;pointer-events:all}
 .drawer{position:fixed;top:0;right:-520px;width:min(520px,100vw);height:100%;background:var(--surface);border-left:1px solid var(--border);z-index:500;display:flex;flex-direction:column;transition:right 0.3s cubic-bezier(0.4,0,0.2,1)}
@@ -90,28 +99,32 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 .drawer-head{padding:1.1rem 1.25rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:0.75rem;background:var(--surface2);flex-shrink:0}
 .drawer-source{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:0.35rem}
 .drawer-title{font-family:var(--serif);font-size:1.1rem;line-height:1.4;color:var(--ink);font-weight:600}
-.drawer-close{background:none;border:1px solid var(--border);border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--ink3);font-size:1rem;transition:all 0.15s;margin-top:2px}
+.drawer-close{background:none;border:1px solid var(--border);border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;color:var(--ink3);transition:all 0.15s;margin-top:2px;font-size:1rem}
 .drawer-close:hover{border-color:var(--border2);color:var(--ink);background:var(--surface3)}
-.drawer-body{flex:1;overflow-y:auto;padding:1.35rem 1.25rem}
+.drawer-body{flex:1;overflow-y:auto;padding:1.25rem}
 .drawer-meta{font-family:var(--mono);font-size:0.6rem;color:var(--ink3);margin-bottom:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap}
-.drawer-meta-item{display:flex;align-items:center;gap:4px}
-.drawer-content{font-size:0.9rem;color:var(--ink2);line-height:1.75;font-weight:300}
+.drawer-label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.6rem}
+.drawer-content{font-size:0.88rem;color:var(--ink2);line-height:1.75;font-weight:300}
 .drawer-content p{margin-bottom:0.85rem}
 .drawer-content p:last-child{margin-bottom:0}
 .drawer-divider{border:none;border-top:1px solid var(--border);margin:1.25rem 0}
-.drawer-label{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:0.6rem}
 .drawer-footer{padding:1rem 1.25rem;border-top:1px solid var(--border);display:flex;gap:0.75rem;flex-shrink:0;background:var(--surface2)}
 .btn-primary{flex:1;display:block;text-align:center;background:var(--accent);color:#fff;text-decoration:none;padding:0.7rem 1rem;border-radius:7px;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;transition:background 0.15s;border:none;cursor:pointer}
 .btn-primary:hover{background:#8a3008}
 .btn-secondary{display:block;text-align:center;background:none;color:var(--ink3);text-decoration:none;padding:0.7rem 1rem;border-radius:7px;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;transition:all 0.15s;border:1px solid var(--border);white-space:nowrap}
 .btn-secondary:hover{border-color:var(--border2);color:var(--ink)}
-
 .empty{grid-column:1/-1;padding:5rem 2rem;text-align:center;font-family:var(--mono);font-size:0.75rem;color:var(--ink3)}
-@media(max-width:600px){
-  .header-inner{padding:0 1rem;gap:0.75rem}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .sidebar{display:none}
+  .header-inner{padding:0 1rem}
   .search-box,.header-date{display:none}
-  .grid-wrap,.statsbar{padding-left:1rem;padding-right:1rem}
-  .loader{margin-left:1rem;margin-right:1rem}
+  .main-area{padding:1rem 1rem 5rem}
+  .card.wide{grid-column:span 1}
+}
+@media(max-width:900px){
+  .card.wide{grid-column:span 1}
 }
 </style>
 </head>
@@ -133,35 +146,41 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
   </div>
 </header>
 
-<nav class="theme-nav">
-  <div class="theme-nav-inner" id="tnav">
-    <button class="tbtn active" data-t="all">Tudo</button>
-    <button class="tbtn" data-t="macro">Macro &amp; Mercados</button>
-    <button class="tbtn" data-t="micro">Micro &amp; Finanças</button>
-    <button class="tbtn" data-t="intl">Política Internacional</button>
-    <button class="tbtn" data-t="inov">Inovação &amp; Empresas</button>
-    <button class="tbtn" data-t="pteco">Economia PT</button>
-    <button class="tbtn" data-t="ptpol">Política PT</button>
+<div class="body-layout">
+
+  <!-- SIDEBAR TEMAS -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-title">Temas</div>
+    <button class="tbtn active" data-t="all"><span>Tudo</span><span class="tbtn-count" id="cnt-all">—</span></button>
+    <div class="sidebar-divider"></div>
+    <button class="tbtn" data-t="macro"><span>Macroeconomia</span><span class="tbtn-count" id="cnt-macro">—</span></button>
+    <button class="tbtn" data-t="micro"><span>Micro &amp; Finanças</span><span class="tbtn-count" id="cnt-micro">—</span></button>
+    <button class="tbtn" data-t="intl"><span>Política Internacional</span><span class="tbtn-count" id="cnt-intl">—</span></button>
+    <button class="tbtn" data-t="ptpol"><span>Política Portugal</span><span class="tbtn-count" id="cnt-ptpol">—</span></button>
+    <button class="tbtn" data-t="pteco"><span>Economia Portugal</span><span class="tbtn-count" id="cnt-pteco">—</span></button>
+    <button class="tbtn" data-t="inov"><span>Inovação</span><span class="tbtn-count" id="cnt-inov">—</span></button>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main-area">
+    <div class="statsbar" id="stats">
+      <div class="stat"><span class="stat-n" id="sart">0</span><span class="stat-l">artigos</span></div>
+      <div class="sdivider"></div>
+      <div class="stat"><span class="stat-n" id="ssrc">0</span><span class="stat-l">fontes activas</span></div>
+      <div class="sdivider"></div>
+      <div class="stat"><span class="stat-l">actualizado</span>&nbsp;<span class="stat-n" style="font-size:0.76rem" id="supd">—</span></div>
+    </div>
+    <div class="loader" id="loader">
+      <div class="spin-sm"></div>
+      <span id="ltxt">A carregar notícias…</span>
+      <div class="progress-bar-wrap"><div class="progress-bar" id="pbar"></div></div>
+    </div>
+    <div class="grid" id="grid"></div>
   </div>
-</nav>
 
-<div class="statsbar" id="stats">
-  <div class="stat"><span class="stat-n" id="sart">0</span><span class="stat-l">artigos</span></div>
-  <div class="sdivider"></div>
-  <div class="stat"><span class="stat-n" id="ssrc">0</span><span class="stat-l">fontes activas</span></div>
-  <div class="sdivider"></div>
-  <div class="stat"><span class="stat-l">actualizado</span>&nbsp;<span class="stat-n" style="font-size:0.76rem" id="supd">—</span></div>
 </div>
 
-<div class="loader" id="loader">
-  <div class="spin-sm"></div>
-  <span id="ltxt">A carregar notícias…</span>
-  <div class="progress-bar-wrap"><div class="progress-bar" id="pbar"></div></div>
-</div>
-
-<div class="grid-wrap"><div class="grid" id="grid"></div></div>
-
-<!-- DRAWER -->
+<!-- ARTICLE DRAWER -->
 <div class="drawer-overlay" id="overlay"></div>
 <aside class="drawer" id="drawer">
   <div class="drawer-head">
@@ -200,60 +219,35 @@ async function fetchRaw(url) {
         if (j?.contents) return j.contents;
         continue;
       }
-      // Lê como ArrayBuffer para preservar encoding original
       const buf = await r.arrayBuffer();
-      const raw = new TextDecoder('utf-8', { fatal: false }).decode(buf);
-      // Detecta encoding declarado no XML
-      const encMatch = raw.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
-      const enc = encMatch ? encMatch[1] : 'utf-8';
-      const text = enc.toLowerCase() === 'utf-8'
-        ? raw
-        : new TextDecoder(enc, { fatal: false }).decode(buf);
+      const raw = new TextDecoder('utf-8', { fatal:false }).decode(buf);
+      const encM = raw.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
+      const enc = encM ? encM[1] : 'utf-8';
+      const text = enc.toLowerCase() === 'utf-8' ? raw : new TextDecoder(enc, { fatal:false }).decode(buf);
       if (text && (text.includes('<rss') || text.includes('<feed') || text.includes('<channel'))) return text;
     } catch { continue; }
   }
   try {
     const r = await fetch(url, { signal: AbortSignal.timeout(5000) });
-    if (r.ok) {
-      const buf = await r.arrayBuffer();
-      const raw = new TextDecoder('utf-8', { fatal: false }).decode(buf);
-      const encMatch = raw.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
-      const enc = encMatch ? encMatch[1] : 'utf-8';
-      return enc.toLowerCase() === 'utf-8'
-        ? raw
-        : new TextDecoder(enc, { fatal: false }).decode(buf);
-    }
+    if (r.ok) { const buf = await r.arrayBuffer(); return new TextDecoder('utf-8',{fatal:false}).decode(buf); }
   } catch {}
   return null;
 }
 
 function fixEncoding(xml) {
-  // Detecta declaração de encoding no XML
-  const match = xml.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
-  const enc = match ? match[1].toLowerCase() : 'utf-8';
-  // Se já é UTF-8 ou ASCII, devolve tal qual
+  const m = xml.match(/<\?xml[^>]+encoding=["']([^"']+)["']/i);
+  const enc = m ? m[1].toLowerCase() : 'utf-8';
   if (enc === 'utf-8' || enc === 'us-ascii') return xml;
-  // Para ISO-8859-1 / Latin-1 (comum em feeds PT), converte entidades HTML
-  try {
-    const bytes = new Uint8Array(xml.split('').map(c => c.charCodeAt(0)));
-    return new TextDecoder(enc).decode(bytes);
-  } catch {
-    // Fallback: substitui entidades HTML numéricas e named entities comuns
-    return xml
-      .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(parseInt(n)))
-      .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCharCode(parseInt(h, 16)))
-      .replace(/&atilde;/g,'ã').replace(/&otilde;/g,'õ')
-      .replace(/&aacute;/g,'á').replace(/&eacute;/g,'é')
-      .replace(/&iacute;/g,'í').replace(/&oacute;/g,'ó')
-      .replace(/&uacute;/g,'ú').replace(/&agrave;/g,'à')
-      .replace(/&acirc;/g,'â').replace(/&ecirc;/g,'ê')
-      .replace(/&ocirc;/g,'ô').replace(/&ccedil;/g,'ç')
-      .replace(/&Atilde;/g,'Ã').replace(/&Otilde;/g,'Õ')
-      .replace(/&Aacute;/g,'Á').replace(/&Eacute;/g,'É')
-      .replace(/&Ccedil;/g,'Ç').replace(/&ntilde;/g,'ñ')
-      .replace(/&nbsp;/g,' ').replace(/&amp;/g,'&')
-      .replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
-  }
+  return xml
+    .replace(/&#(\d+);/g, (_,n) => String.fromCharCode(parseInt(n)))
+    .replace(/&#x([0-9a-f]+);/gi, (_,h) => String.fromCharCode(parseInt(h,16)))
+    .replace(/&atilde;/g,'ã').replace(/&otilde;/g,'õ').replace(/&aacute;/g,'á')
+    .replace(/&eacute;/g,'é').replace(/&iacute;/g,'í').replace(/&oacute;/g,'ó')
+    .replace(/&uacute;/g,'ú').replace(/&agrave;/g,'à').replace(/&acirc;/g,'â')
+    .replace(/&ecirc;/g,'ê').replace(/&ocirc;/g,'ô').replace(/&ccedil;/g,'ç')
+    .replace(/&Atilde;/g,'Ã').replace(/&Otilde;/g,'Õ').replace(/&Aacute;/g,'Á')
+    .replace(/&Eacute;/g,'É').replace(/&Ccedil;/g,'Ç').replace(/&nbsp;/g,' ')
+    .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
 }
 
 function parseRSS(xml, label, themes) {
@@ -264,84 +258,77 @@ function parseRSS(xml, label, themes) {
     return items.map(el => {
       const g = t => el.querySelector(t)?.textContent?.trim() || '';
       const link = g('link') || el.querySelector('guid')?.textContent?.trim() || '#';
-      // Extrai conteúdo completo disponível
       const rawContent = g('content\\:encoded') || g('description') || '';
       const div = document.createElement('div');
       div.innerHTML = rawContent;
-      // Parágrafos completos para o drawer
-      const paragraphs = Array.from(div.querySelectorAll('p'))
-        .map(p => p.textContent.trim()).filter(Boolean).slice(0, 5);
-      const fullText = paragraphs.length
-        ? paragraphs
-        : [div.textContent.replace(/\s+/g,' ').trim()].filter(Boolean);
-      const shortDesc = (fullText[0] || '').slice(0, 180);
+      const paragraphs = Array.from(div.querySelectorAll('p')).map(p => p.textContent.trim()).filter(Boolean).slice(0,5);
+      const fullText = paragraphs.length ? paragraphs : [div.textContent.replace(/\s+/g,' ').trim()].filter(Boolean);
       return {
         title: g('title').replace(/\s+/g,' '),
-        link,
-        shortDesc,
+        link, shortDesc: (fullText[0]||'').slice(0,180),
         fullContent: fullText,
-        date: g('pubDate') || g('dc\\:date') || '',
-        author: g('author') || g('dc\\:creator') || '',
-        source: label,
-        themes,
+        date: g('pubDate')||g('dc\\:date')||'',
+        author: g('author')||g('dc\\:creator')||'',
+        source: label, themes,
       };
     }).filter(a => a.title && a.link !== '#');
   } catch { return []; }
 }
 
-// ── FEEDS — apenas os mais fiáveis, todos paralelos ──
+// ── FEEDS ──
+// Macro & Mercados fundidos — fontes cobrindo macro E mercados
 const FEEDS = [
-  // MACRO & MERCADOS
-  { label:'BBC Business',          url:'https://feeds.bbci.co.uk/news/business/rss.xml',              themes:['macro','micro'] },
-  { label:'The Guardian Business', url:'https://www.theguardian.com/uk/business/rss',                 themes:['macro'] },
-  { label:'CNBC Economy',          url:'https://www.cnbc.com/id/20910258/device/rss/rss.html',        themes:['macro'] },
-  { label:'CNBC Finance',          url:'https://www.cnbc.com/id/10000664/device/rss/rss.html',        themes:['macro','micro'] },
-  { label:'DW Economy',            url:'https://rss.dw.com/rdf/rss-en-eco',                           themes:['macro'] },
-  { label:'VOA Business',          url:'https://www.voanews.com/rss?section=/economy-business',       themes:['macro'] },
-  { label:'Al Jazeera',            url:'https://www.aljazeera.com/xml/rss/all.xml',                   themes:['macro','intl'] },
-  { label:'The Economist Finance', url:'https://www.economist.com/finance-and-economics/rss.xml',     themes:['macro','micro'] },
+  // MACROECONOMIA & MERCADOS (fundidos)
+  { label:'The Economist (Macro)',  url:'https://www.economist.com/finance-and-economics/rss.xml',   themes:['macro'] },
+  { label:'BBC Business',          url:'https://feeds.bbci.co.uk/news/business/rss.xml',            themes:['macro'] },
+  { label:'The Guardian Business', url:'https://www.theguardian.com/uk/business/rss',               themes:['macro'] },
+  { label:'CNBC Economy',          url:'https://www.cnbc.com/id/20910258/device/rss/rss.html',      themes:['macro'] },
+  { label:'CNBC Finance',          url:'https://www.cnbc.com/id/10000664/device/rss/rss.html',      themes:['macro'] },
+  { label:'DW Economy',            url:'https://rss.dw.com/rdf/rss-en-eco',                         themes:['macro'] },
+  { label:'Forbes Investing',      url:'https://www.forbes.com/investing/feed2/',                   themes:['macro'] },
+  { label:'Investopedia',          url:'https://www.investopedia.com/feedbuilder/feed/getfeed?feedName=rss_headline', themes:['macro'] },
 
   // MICRO & FINANÇAS
-  { label:'HBR Economics',         url:'https://hbr.org/feed/topic/economics',                        themes:['micro'] },
-  { label:'HBR Strategy',          url:'https://hbr.org/feed/topic/strategy',                         themes:['micro'] },
-  { label:'Forbes Finance',        url:'https://www.forbes.com/investing/feed2/',                     themes:['micro','macro'] },
-  { label:'Investopedia',          url:'https://www.investopedia.com/feedbuilder/feed/getfeed?feedName=rss_headline', themes:['micro','macro'] },
-  { label:'The Economist Business',url:'https://www.economist.com/business/rss.xml',                  themes:['micro'] },
+  { label:'HBR Economics',         url:'https://hbr.org/feed/topic/economics',                      themes:['micro'] },
+  { label:'HBR Strategy',          url:'https://hbr.org/feed/topic/strategy',                       themes:['micro'] },
+  { label:'The Economist Business',url:'https://www.economist.com/business/rss.xml',                themes:['micro'] },
+  { label:'VOA Business',          url:'https://www.voanews.com/rss?section=/economy-business',     themes:['micro'] },
 
   // POLÍTICA INTERNACIONAL
-  { label:'BBC World',             url:'https://feeds.bbci.co.uk/news/world/rss.xml',                 themes:['intl'] },
-  { label:'The Guardian World',    url:'https://www.theguardian.com/world/rss',                       themes:['intl'] },
-  { label:'DW World',              url:'https://rss.dw.com/rdf/rss-en-all',                           themes:['intl'] },
-  { label:'VOA World',             url:'https://www.voanews.com/rss?section=/world-news',             themes:['intl'] },
-  { label:'Foreign Policy',        url:'https://foreignpolicy.com/feed/',                             themes:['intl'] },
-  { label:'The Economist World',   url:'https://www.economist.com/international/rss.xml',             themes:['intl'] },
+  { label:'BBC World',             url:'https://feeds.bbci.co.uk/news/world/rss.xml',               themes:['intl'] },
+  { label:'The Guardian World',    url:'https://www.theguardian.com/world/rss',                     themes:['intl'] },
+  { label:'DW World',              url:'https://rss.dw.com/rdf/rss-en-all',                         themes:['intl'] },
+  { label:'VOA World',             url:'https://www.voanews.com/rss?section=/world-news',           themes:['intl'] },
+  { label:'Foreign Policy',        url:'https://foreignpolicy.com/feed/',                           themes:['intl'] },
+  { label:'The Economist World',   url:'https://www.economist.com/international/rss.xml',           themes:['intl'] },
+  { label:'Al Jazeera',            url:'https://www.aljazeera.com/xml/rss/all.xml',                 themes:['intl'] },
 
-  // INOVAÇÃO & EMPRESAS
-  { label:'TechCrunch',            url:'https://techcrunch.com/feed/',                                themes:['inov'] },
-  { label:'Ars Technica',          url:'https://feeds.arstechnica.com/arstechnica/index',             themes:['inov'] },
-  { label:'Wired',                 url:'https://www.wired.com/feed/rss',                              themes:['inov'] },
-  { label:'MIT Tech Review',       url:'https://www.technologyreview.com/feed/',                      themes:['inov'] },
-  { label:'The Verge',             url:'https://www.theverge.com/rss/index.xml',                      themes:['inov'] },
+  // POLÍTICA PORTUGAL
+  { label:'Público',               url:'https://feeds.feedburner.com/PublicoRSS',                  themes:['ptpol'] },
+  { label:'Expresso',              url:'https://expresso.pt/rss',                                  themes:['ptpol'] },
+  { label:'Observador',            url:'https://observador.pt/feed/',                              themes:['ptpol'] },
+  { label:'RTP Notícias',          url:'https://www.rtp.pt/noticias/rss',                          themes:['ptpol'] },
+  { label:'Notícias ao Minuto',    url:'https://www.noticiasaominuto.com/rss/ultima-hora',         themes:['ptpol'] },
 
-  // ECONOMIA PT
-  { label:'Jornal de Negócios',    url:'https://www.jornaldenegocios.pt/rss',                        themes:['pteco'] },
-  { label:'ECO',                   url:'https://eco.pt/feed/',                                        themes:['pteco'] },
-  { label:'Jornal Económico',      url:'https://jornaleconomico.pt/feed/',                            themes:['pteco'] },
-  { label:'Dinheiro Vivo',         url:'https://www.dinheirovivo.pt/feed/',                           themes:['pteco'] },
-  { label:'Banco de Portugal',     url:'https://www.bportugal.pt/rss.xml',                           themes:['pteco'] },
+  // ECONOMIA PORTUGAL
+  { label:'Jornal de Negócios',    url:'https://www.jornaldenegocios.pt/rss',                      themes:['pteco'] },
+  { label:'ECO',                   url:'https://eco.pt/feed/',                                     themes:['pteco'] },
+  { label:'Jornal Económico',      url:'https://jornaleconomico.pt/feed/',                         themes:['pteco'] },
+  { label:'Dinheiro Vivo',         url:'https://www.dinheirovivo.pt/feed/',                        themes:['pteco'] },
+  { label:'Banco de Portugal',     url:'https://www.bportugal.pt/rss.xml',                        themes:['pteco'] },
 
-  // POLÍTICA PT
-  { label:'Público',               url:'https://feeds.feedburner.com/PublicoRSS',                    themes:['ptpol','pteco'] },
-  { label:'Expresso',              url:'https://expresso.pt/rss',                                    themes:['ptpol','pteco'] },
-  { label:'Observador',            url:'https://observador.pt/feed/',                                themes:['ptpol'] },
-  { label:'RTP Notícias',          url:'https://www.rtp.pt/noticias/rss',                            themes:['ptpol'] },
-  { label:'Notícias ao Minuto',    url:'https://www.noticiasaominuto.com/rss/ultima-hora',           themes:['ptpol','pteco'] },
+  // INOVAÇÃO
+  { label:'TechCrunch',            url:'https://techcrunch.com/feed/',                             themes:['inov'] },
+  { label:'Ars Technica',          url:'https://feeds.arstechnica.com/arstechnica/index',          themes:['inov'] },
+  { label:'Wired',                 url:'https://www.wired.com/feed/rss',                           themes:['inov'] },
+  { label:'MIT Tech Review',       url:'https://www.technologyreview.com/feed/',                   themes:['inov'] },
+  { label:'The Verge',             url:'https://www.theverge.com/rss/index.xml',                   themes:['inov'] },
 ];
 
 const THEME_LABELS = {
-  all:'Tudo', macro:'Macro & Mercados', micro:'Micro & Finanças',
-  intl:'Política Internacional', inov:'Inovação & Empresas',
-  pteco:'Economia PT', ptpol:'Política PT'
+  all:'Tudo', macro:'Macroeconomia', micro:'Micro & Finanças',
+  intl:'Política Internacional', ptpol:'Política Portugal',
+  pteco:'Economia Portugal', inov:'Inovação'
 };
 
 let cache = {};
@@ -354,29 +341,19 @@ function openDrawer(a) {
   document.getElementById('d-source').textContent = a.source;
   document.getElementById('d-title').textContent = a.title;
   document.getElementById('d-link').href = a.link;
-
-  // Meta
   const meta = [];
-  if (a.date) meta.push(`<span class="drawer-meta-item">🕒 ${formatDate(a.date)}</span>`);
-  if (a.author) meta.push(`<span class="drawer-meta-item">✍ ${a.author}</span>`);
-  meta.push(`<span class="drawer-meta-item">📰 ${a.source}</span>`);
+  if (a.date) meta.push(`<span>🕒 ${formatDate(a.date)}</span>`);
+  if (a.author) meta.push(`<span>✍ ${a.author}</span>`);
+  meta.push(`<span>📰 ${a.source}</span>`);
   document.getElementById('d-meta').innerHTML = meta.join('');
-
-  // Corpo — conteúdo completo do feed
-  let bodyHtml = '';
-  if (a.fullContent && a.fullContent.length) {
-    bodyHtml += `<div class="drawer-label">Conteúdo disponível</div>`;
-    bodyHtml += `<div class="drawer-content">`;
-    a.fullContent.forEach(p => {
-      if (p.trim()) bodyHtml += `<p>${p}</p>`;
-    });
-    bodyHtml += `</div>`;
-    bodyHtml += `<hr class="drawer-divider">`;
+  let body = '';
+  if (a.fullContent?.length) {
+    body += `<div class="drawer-label">Conteúdo disponível</div><div class="drawer-content">`;
+    a.fullContent.forEach(p => { if (p.trim()) body += `<p>${p}</p>`; });
+    body += `</div><hr class="drawer-divider">`;
   }
-  bodyHtml += `<div class="drawer-label">Fonte</div>`;
-  bodyHtml += `<div style="font-family:var(--mono);font-size:0.68rem;color:var(--ink3);word-break:break-all">${a.link}</div>`;
-  document.getElementById('d-body').innerHTML = bodyHtml;
-
+  body += `<div class="drawer-label">Fonte</div><div style="font-family:var(--mono);font-size:0.66rem;color:var(--ink3);word-break:break-all">${a.link}</div>`;
+  document.getElementById('d-body').innerHTML = body;
   document.getElementById('drawer').classList.add('open');
   document.getElementById('overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -397,34 +374,45 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(
 async function loadFeed(feed) {
   const xml = await fetchRaw(feed.url);
   loadedCount++;
-  const pct = Math.round((loadedCount / FEEDS.length) * 100);
-  document.getElementById('pbar').style.width = pct + '%';
+  document.getElementById('pbar').style.width = Math.round(loadedCount/FEEDS.length*100)+'%';
   if (!xml) return null;
   const articles = parseRSS(xml, feed.label, feed.themes);
-  return articles.length ? { label: feed.label, themes: feed.themes, articles } : null;
+  return articles.length ? { label:feed.label, themes:feed.themes, articles } : null;
 }
 
 async function loadAll() {
   loadedCount = 0;
   cache = {};
   document.getElementById('pbar').style.width = '0%';
-  setLoader(true, 'A carregar notícias…');
+  setLoader(true);
   document.getElementById('rbtn').classList.add('loading');
   document.getElementById('stats').classList.remove('visible');
   document.getElementById('grid').innerHTML = '';
 
-  // Todos em paralelo — muito mais rápido
+  // Paralelo total — sem lotes
   const results = await Promise.allSettled(FEEDS.map(loadFeed));
-  results.forEach(r => {
-    if (r.status === 'fulfilled' && r.value) cache[r.value.label] = r.value;
-  });
+  results.forEach(r => { if (r.status==='fulfilled' && r.value) cache[r.value.label] = r.value; });
 
   document.getElementById('supd').textContent =
-    new Date().toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
+    new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
   setLoader(false);
   document.getElementById('rbtn').classList.remove('loading');
   document.getElementById('stats').classList.add('visible');
+  updateCounts();
   render();
+}
+
+function getArticlesByTheme(theme) {
+  let feeds = Object.values(cache);
+  if (theme !== 'all') feeds = feeds.filter(f => f.themes.includes(theme));
+  return feeds.reduce((sum, f) => sum + f.articles.length, 0);
+}
+
+function updateCounts() {
+  ['all','macro','micro','intl','ptpol','pteco','inov'].forEach(t => {
+    const el = document.getElementById('cnt-' + t);
+    if (el) el.textContent = getArticlesByTheme(t);
+  });
 }
 
 function getVisible() {
@@ -433,95 +421,78 @@ function getVisible() {
   if (searchQ) {
     const q = searchQ.toLowerCase();
     feeds = feeds.map(f => ({
-      ...f,
-      articles: f.articles.filter(a =>
-        a.title.toLowerCase().includes(q) || a.shortDesc.toLowerCase().includes(q)
-      )
+      ...f, articles: f.articles.filter(a =>
+        a.title.toLowerCase().includes(q) || a.shortDesc.toLowerCase().includes(q))
     })).filter(f => f.articles.length);
   }
-  return feeds.sort((a,b) => new Date(b.articles[0]?.date||0) - new Date(a.articles[0]?.date||0));
+  return feeds.sort((a,b) => new Date(b.articles[0]?.date||0)-new Date(a.articles[0]?.date||0));
 }
 
 function timeAgo(d) {
   if (!d) return '';
-  const s = (Date.now() - new Date(d)) / 1000;
+  const s = (Date.now()-new Date(d))/1000;
   if (isNaN(s)||s<0) return '';
-  if (s < 60) return 'agora';
-  if (s < 3600) return Math.floor(s/60) + 'min';
-  if (s < 86400) return Math.floor(s/3600) + 'h';
-  return Math.floor(s/86400) + 'd';
+  if (s<60) return 'agora';
+  if (s<3600) return Math.floor(s/60)+'min';
+  if (s<86400) return Math.floor(s/3600)+'h';
+  return Math.floor(s/86400)+'d';
 }
 
 function formatDate(d) {
   if (!d) return '';
   const dt = new Date(d);
-  if (isNaN(dt)) return d;
-  return dt.toLocaleString('pt-PT', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+  return isNaN(dt) ? d : dt.toLocaleString('pt-PT',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
 }
 
 function render() {
   const grid = document.getElementById('grid');
   const feeds = getVisible();
   grid.innerHTML = '';
-
   let total = 0;
   feeds.forEach(f => total += f.articles.length);
   document.getElementById('sart').textContent = total;
   document.getElementById('ssrc').textContent = feeds.length;
-
-  if (!feeds.length) {
-    grid.innerHTML = '<div class="empty">Sem resultados para este filtro.</div>';
-    return;
-  }
+  if (!feeds.length) { grid.innerHTML = '<div class="empty">Sem resultados para este filtro.</div>'; return; }
 
   feeds.forEach((feed, i) => {
     const card = document.createElement('div');
-    card.className = 'card' + (i === 0 ? ' wide' : '');
-    card.style.animationDelay = (i * 0.03) + 's';
+    card.className = 'card' + (i===0 ? ' wide' : '');
+    card.style.animationDelay = (i*0.025)+'s';
     card.innerHTML = `<div class="card-head"><span class="src-label">${feed.label}</span><span class="src-count">${feed.articles.length}</span></div>`;
-
     const body = document.createElement('div');
     body.className = 'card-body';
-
-    feed.articles.slice(0, i === 0 ? 5 : 4).forEach(a => {
+    feed.articles.slice(0, i===0?5:4).forEach(a => {
       const el = document.createElement('div');
       el.className = 'art';
       el.innerHTML = `
         <div class="art-title">${a.title}</div>
-        ${a.shortDesc ? `<div class="art-desc">${a.shortDesc}</div>` : ''}
+        ${a.shortDesc?`<div class="art-desc">${a.shortDesc}</div>`:''}
         <div class="art-footer">
           <span class="art-time">${timeAgo(a.date)}</span>
-          ${THEME_LABELS[a.themes[0]] ? `<span class="art-tag">${THEME_LABELS[a.themes[0]]}</span>` : ''}
           <button class="art-read-btn">Ver detalhes →</button>
         </div>`;
-
-      el.querySelector('.art-read-btn').addEventListener('click', e => {
-        e.stopPropagation();
-        openDrawer(a);
-      });
+      el.querySelector('.art-read-btn').addEventListener('click', e => { e.stopPropagation(); openDrawer(a); });
       el.addEventListener('click', () => openDrawer(a));
       body.appendChild(el);
     });
-
     card.appendChild(body);
     grid.appendChild(card);
   });
 }
 
-function setLoader(show, msg) {
+function setLoader(show) {
   document.getElementById('loader').classList.toggle('hidden', !show);
-  if (msg) document.getElementById('ltxt').textContent = msg;
 }
 
 function tick() {
   document.getElementById('hdate').textContent =
-    new Date().toLocaleDateString('pt-PT', { weekday:'short', day:'numeric', month:'short' }) + ' · ' +
-    new Date().toLocaleTimeString('pt-PT', { hour:'2-digit', minute:'2-digit' });
+    new Date().toLocaleDateString('pt-PT',{weekday:'short',day:'numeric',month:'short'})+' · '+
+    new Date().toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
 }
 tick();
 setInterval(tick, 30000);
 
-document.getElementById('tnav').addEventListener('click', e => {
+document.getElementById('sidebar').addEventListener('click', e => {
   const b = e.target.closest('.tbtn');
   if (!b) return;
   document.querySelectorAll('.tbtn').forEach(x => x.classList.remove('active'));
@@ -529,13 +500,11 @@ document.getElementById('tnav').addEventListener('click', e => {
   activeTheme = b.dataset.t;
   render();
 });
-document.getElementById('rbtn').addEventListener('click', loadAll);
-document.getElementById('search').addEventListener('input', e => {
-  searchQ = e.target.value.trim();
-  render();
-});
 
-setInterval(loadAll, 30 * 60 * 1000);
+document.getElementById('rbtn').addEventListener('click', loadAll);
+document.getElementById('search').addEventListener('input', e => { searchQ = e.target.value.trim(); render(); });
+
+setInterval(loadAll, 30*60*1000);
 loadAll();
 </script>
 </body>
