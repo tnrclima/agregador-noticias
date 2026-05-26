@@ -43,13 +43,15 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 /* ── BODY LAYOUT: sidebar + main ── */
 .body-layout{display:flex;align-items:flex-start;min-height:calc(100vh - 52px)}
 /* ── SIDEBAR (temas) ── */
-.sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px);overflow:hidden;border-right:1px solid var(--border);background:var(--surface);transition:width 0.25s cubic-bezier(0.4,0,0.2,1)}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px);overflow:visible;border-right:1px solid var(--border);background:var(--surface);transition:width 0.25s cubic-bezier(0.4,0,0.2,1)}
+.sidebar-clip{overflow:hidden;height:100%;width:100%}
 .sidebar.collapsed{width:40px}
 .sidebar-inner{width:var(--sidebar-w);height:100%;overflow-y:auto;padding:0.75rem 0;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
 .sidebar-head{display:flex;align-items:center;justify-content:space-between;padding:0 0.6rem 0.6rem 1.1rem;border-bottom:1px solid var(--border);margin-bottom:0.5rem;gap:0.5rem}
 .sidebar-title{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);white-space:nowrap;transition:opacity 0.15s}
 .sidebar.collapsed .sidebar-title{opacity:0;pointer-events:none}
-.sidebar-toggle{background:none;border:1px solid var(--border);border-radius:5px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink3);flex-shrink:0;transition:all 0.2s;font-size:0.7rem;line-height:1}
+.sidebar-toggle{position:absolute;top:0.75rem;right:0.5rem;background:var(--surface);border:1px solid var(--border);border-radius:5px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink3);flex-shrink:0;transition:all 0.2s,right 0.25s;font-size:0.7rem;line-height:1;z-index:10}
+.sidebar.collapsed .sidebar-toggle{right:-12px;background:var(--surface);border-color:var(--border2);box-shadow:2px 0 6px rgba(0,0,0,0.08)}
 .sidebar-toggle:hover{border-color:var(--border2);color:var(--accent)}
 .tbtn{display:flex;align-items:center;justify-content:space-between;width:100%;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.04em;color:var(--ink3);background:none;border:none;border-left:2px solid transparent;padding:0.6rem 1.1rem;cursor:pointer;transition:all 0.15s;text-align:left;gap:0.5rem;white-space:nowrap;overflow:hidden}
 .tbtn:hover{color:var(--ink);background:var(--surface2)}
@@ -160,10 +162,11 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 
   <!-- SIDEBAR TEMAS -->
   <aside class="sidebar" id="sidebar">
+    <button class="sidebar-toggle" id="sidebar-toggle" title="Recolher">‹</button>
+    <div class="sidebar-clip">
     <div class="sidebar-inner">
       <div class="sidebar-head">
         <div class="sidebar-title">Temas</div>
-        <button class="sidebar-toggle" id="sidebar-toggle" title="Recolher">‹</button>
       </div>
       <button class="tbtn active" data-t="all"><span class="tbtn-label">Tudo</span><span class="tbtn-count" id="cnt-all">—</span></button>
       <div class="sidebar-divider"></div>
@@ -173,6 +176,7 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
       <button class="tbtn" data-t="ptpol"><span class="tbtn-label">Política Portugal</span><span class="tbtn-count" id="cnt-ptpol">—</span></button>
       <button class="tbtn" data-t="pteco"><span class="tbtn-label">Economia Portugal</span><span class="tbtn-count" id="cnt-pteco">—</span></button>
       <button class="tbtn" data-t="inov"><span class="tbtn-label">Inovação</span><span class="tbtn-count" id="cnt-inov">—</span></button>
+    </div>
     </div>
   </aside>
 
