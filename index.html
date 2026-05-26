@@ -42,16 +42,26 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 
 /* ── BODY LAYOUT: sidebar + main ── */
 .body-layout{display:flex;align-items:flex-start;min-height:calc(100vh - 52px)}
-
 /* ── SIDEBAR (temas) ── */
-.sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px);overflow-y:auto;border-right:1px solid var(--border);background:var(--surface);padding:1.25rem 0;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
-.sidebar-title{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);padding:0 1.1rem 0.6rem;border-bottom:1px solid var(--border);margin-bottom:0.5rem}
-.tbtn{display:flex;align-items:center;justify-content:space-between;width:100%;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.04em;color:var(--ink3);background:none;border:none;border-left:2px solid transparent;padding:0.6rem 1.1rem;cursor:pointer;transition:all 0.15s;text-align:left;gap:0.5rem}
+.sidebar{width:var(--sidebar-w);flex-shrink:0;position:sticky;top:52px;height:calc(100vh - 52px);overflow:hidden;border-right:1px solid var(--border);background:var(--surface);transition:width 0.25s cubic-bezier(0.4,0,0.2,1)}
+.sidebar.collapsed{width:40px}
+.sidebar-inner{width:var(--sidebar-w);height:100%;overflow-y:auto;padding:0.75rem 0;scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.sidebar-head{display:flex;align-items:center;justify-content:space-between;padding:0 0.6rem 0.6rem 1.1rem;border-bottom:1px solid var(--border);margin-bottom:0.5rem;gap:0.5rem}
+.sidebar-title{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink3);white-space:nowrap;transition:opacity 0.15s}
+.sidebar.collapsed .sidebar-title{opacity:0;pointer-events:none}
+.sidebar-toggle{background:none;border:1px solid var(--border);border-radius:5px;width:24px;height:24px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink3);flex-shrink:0;transition:all 0.2s;font-size:0.7rem;line-height:1}
+.sidebar-toggle:hover{border-color:var(--border2);color:var(--accent)}
+.tbtn{display:flex;align-items:center;justify-content:space-between;width:100%;font-family:var(--mono);font-size:0.65rem;letter-spacing:0.04em;color:var(--ink3);background:none;border:none;border-left:2px solid transparent;padding:0.6rem 1.1rem;cursor:pointer;transition:all 0.15s;text-align:left;gap:0.5rem;white-space:nowrap;overflow:hidden}
 .tbtn:hover{color:var(--ink);background:var(--surface2)}
 .tbtn.active{color:var(--accent);border-left-color:var(--accent);background:var(--surface2);font-weight:500}
-.tbtn-count{font-size:0.56rem;color:var(--ink3);background:var(--surface3);padding:0.1rem 0.35rem;border-radius:3px;flex-shrink:0}
+.tbtn-label{transition:opacity 0.15s;flex:1;overflow:hidden;text-overflow:ellipsis}
+.sidebar.collapsed .tbtn-label{opacity:0}
+.tbtn-count{font-size:0.56rem;color:var(--ink3);background:var(--surface3);padding:0.1rem 0.35rem;border-radius:3px;flex-shrink:0;transition:opacity 0.15s}
+.sidebar.collapsed .tbtn-count{opacity:0}
 .tbtn.active .tbtn-count{background:rgba(181,68,12,0.12);color:var(--accent)}
 .sidebar-divider{height:1px;background:var(--border);margin:0.5rem 0}
+.sidebar.collapsed .tbtn{padding:0.6rem 0;justify-content:center;border-left-width:3px}
+.sidebar.collapsed .sidebar-head{justify-content:center;padding:0 0 0.6rem}
 
 /* ── MAIN ── */
 .main-area{flex:1;min-width:0;padding:1.25rem 1.5rem 5rem}
@@ -150,15 +160,20 @@ header{position:sticky;top:0;z-index:300;background:rgba(245,240,232,0.96);backd
 
   <!-- SIDEBAR TEMAS -->
   <aside class="sidebar" id="sidebar">
-    <div class="sidebar-title">Temas</div>
-    <button class="tbtn active" data-t="all"><span>Tudo</span><span class="tbtn-count" id="cnt-all">—</span></button>
-    <div class="sidebar-divider"></div>
-    <button class="tbtn" data-t="macro"><span>Macroeconomia</span><span class="tbtn-count" id="cnt-macro">—</span></button>
-    <button class="tbtn" data-t="micro"><span>Micro &amp; Finanças</span><span class="tbtn-count" id="cnt-micro">—</span></button>
-    <button class="tbtn" data-t="intl"><span>Política Internacional</span><span class="tbtn-count" id="cnt-intl">—</span></button>
-    <button class="tbtn" data-t="ptpol"><span>Política Portugal</span><span class="tbtn-count" id="cnt-ptpol">—</span></button>
-    <button class="tbtn" data-t="pteco"><span>Economia Portugal</span><span class="tbtn-count" id="cnt-pteco">—</span></button>
-    <button class="tbtn" data-t="inov"><span>Inovação</span><span class="tbtn-count" id="cnt-inov">—</span></button>
+    <div class="sidebar-inner">
+      <div class="sidebar-head">
+        <div class="sidebar-title">Temas</div>
+        <button class="sidebar-toggle" id="sidebar-toggle" title="Recolher">‹</button>
+      </div>
+      <button class="tbtn active" data-t="all"><span class="tbtn-label">Tudo</span><span class="tbtn-count" id="cnt-all">—</span></button>
+      <div class="sidebar-divider"></div>
+      <button class="tbtn" data-t="macro"><span class="tbtn-label">Macroeconomia</span><span class="tbtn-count" id="cnt-macro">—</span></button>
+      <button class="tbtn" data-t="micro"><span class="tbtn-label">Micro &amp; Finanças</span><span class="tbtn-count" id="cnt-micro">—</span></button>
+      <button class="tbtn" data-t="intl"><span class="tbtn-label">Política Internacional</span><span class="tbtn-count" id="cnt-intl">—</span></button>
+      <button class="tbtn" data-t="ptpol"><span class="tbtn-label">Política Portugal</span><span class="tbtn-count" id="cnt-ptpol">—</span></button>
+      <button class="tbtn" data-t="pteco"><span class="tbtn-label">Economia Portugal</span><span class="tbtn-count" id="cnt-pteco">—</span></button>
+      <button class="tbtn" data-t="inov"><span class="tbtn-label">Inovação</span><span class="tbtn-count" id="cnt-inov">—</span></button>
+    </div>
   </aside>
 
   <!-- MAIN -->
@@ -499,6 +514,15 @@ document.getElementById('sidebar').addEventListener('click', e => {
   b.classList.add('active');
   activeTheme = b.dataset.t;
   render();
+});
+
+// Toggle sidebar
+const sidebarEl = document.getElementById('sidebar');
+const toggleBtn = document.getElementById('sidebar-toggle');
+toggleBtn.addEventListener('click', () => {
+  const collapsed = sidebarEl.classList.toggle('collapsed');
+  toggleBtn.textContent = collapsed ? '›' : '‹';
+  toggleBtn.title = collapsed ? 'Expandir' : 'Recolher';
 });
 
 document.getElementById('rbtn').addEventListener('click', loadAll);
